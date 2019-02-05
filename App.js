@@ -1,59 +1,31 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
-import { LoginButton, AccessToken } from 'react-native-fbsdk';
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import { Text } from 'react-native';
 
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './store';
 
-
+import Loading from './src/sections/components/loading';
+//import AppLayout from './src/app';
+import AppNavigatorWithState from './src/app-navigator-with-state';
 type Props = {};
 export default class App extends Component<Props> {
   render() {
+    console.disableYellowBox = true;
     return (
-      <View style={{marginTop:100}}>
-        <LoginButton
-          onLoginFinished={
-            (error, result) => {
-              if (error) {
-                console.log("login has error: " + JSON.stringify(result));
-                console.log("login has error2: " + error);
-              } else if (result.isCancelled) {
-                console.log("login is cancelled.");
-              } else {
-                AccessToken.getCurrentAccessToken().then(
-                  (data) => {
-                    console.log(data.accessToken.toString())
-                  }
-                )
-              }
-            }
-          }
-          onLogoutFinished={() => console.log("logout.")}/>
-      </View>
+      <Provider
+        store={store}
+      >
+        <PersistGate
+          loading={<Loading />}
+          persistor={persistor}
+        >
+        
+        <AppNavigatorWithState />
+        </PersistGate>
+      </Provider>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
+
