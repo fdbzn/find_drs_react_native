@@ -23,6 +23,7 @@ class Welcome extends Component {
   handleGoLogin = () => {
     this.props.navigation.navigate ('Login');
   };
+
   handleGoStart = () => {
     this.props.dispatch (
       NavigationActions.navigate ({
@@ -38,7 +39,7 @@ class Welcome extends Component {
     return (
       <SafeAreaView style={styles.container}>
         <ImageBackground
-          source={require ('../../../assets/welcome_bg_2.png')}
+          source={require ('../../../assets//welcome/login_background.png')}
           style={styles.container}
         >
           <View style={styles.boxTop}>
@@ -100,6 +101,9 @@ const styles = StyleSheet.create ({
   },
   boxBottom: {
     flex: 1,
+    paddingTop:"10%",
+    width:"100%",
+    paddingHorizontal:20,
   },
   logo: {
     //borderWidth: 0.5,
@@ -116,9 +120,13 @@ const styles = StyleSheet.create ({
     color: 'black',
   },
   button: {
-    width: 300,
-    borderRadius: 5,
+    width: "100%",
+    height:48,
+    borderRadius: 3,
     marginBottom: 20,
+    flexDirection:"column",
+    justifyContent:"center",
+
 
     // ios
     backgroundColor: 'white',
@@ -131,10 +139,10 @@ const styles = StyleSheet.create ({
     elevation: 3,
   },
   buttonLabel: {
+    fontFamily: 'Montserrat-Medium',
     color: '#d9bb17',
     padding: 10,
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 14,
     textAlign: 'center',
   },
 });

@@ -8,8 +8,11 @@ import {
   StatusBar,
   KeyboardAvoidingView,
   ScrollView,
+  Image,
+  Button,
 } from 'react-native';
 import {connect} from 'react-redux';
+import { LoginManager } from 'react-native-fbsdk';
 import API from '../../../utils/api';
 
 class Login extends Component {
@@ -17,7 +20,7 @@ class Login extends Component {
     email: '',
     password: '',
   };  
-
+  
   componentDidMount () {
     this.focus = this.props.navigation.addListener ('didFocus', () => {
       StatusBar.setBarStyle ('light-content');
@@ -31,10 +34,6 @@ class Login extends Component {
 
   handleGoCreateUser = ()=>{
     this.props.navigation.navigate ('Register');
-  };
-
-  handleLoginFB = () =>{
-
   };
 
   handleLogin = async () => {
@@ -56,7 +55,35 @@ class Login extends Component {
       alert(login.error_desc)
     }
         
-  
+  };
+
+  handleFacebookLogin = ()=> {
+    var self = this;
+
+    LoginManager.logInWithReadPermissions(['email']).then(
+      function (result) {
+        if (result.isCancelled) {
+          console.log('Login cancelado')
+        } else {
+          console.log('Login success with permissions: ' + result.grantedPermissions.toString())
+          self.props.dispatch ({
+            type: 'SET_USER',
+            payload: {
+              token: "MY_SERVER_TOKEN",
+              username: 'userconFBlogin',
+            },
+          });
+          self.props.navigation.navigate ('Loading');
+
+          // --- verificar si existe en la base de datos 
+          // --- si esta en la base, inicia sesion e ingresa a home
+          // --- si no esta en la base, registra e inicia session
+        }
+      },
+      function (error) {
+        alert('Login fail with error: ' + error)
+      }
+    )
   };
 
   render () {
@@ -67,7 +94,9 @@ class Login extends Component {
           enabled
         >
           <View style={styles.brand_impact}>
-            <Text style={styles.txtBrand}>yiunic</Text>
+            <Image
+              source={require ('../../../assets/welcome/brand_impact.png')}  
+            />
           </View>
 
           <ScrollView style={styles.container_login}>
@@ -118,17 +147,24 @@ class Login extends Component {
               <Text style={styles.buttonLabel}>CREAR CUENTA</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={this.handleLoginFB}
+              onPress={this.handleFacebookLogin}
               style={styles.buttonFB}
             >
-              <Text style={styles.buttonLabelFB}>ACCEDE CON FACEBOOK</Text>
+              <Image
+                source={require ('../../../assets/welcome/fb_login.png')}  
+              />
             </TouchableOpacity>
+
+            
           </ScrollView>
         </KeyboardAvoidingView>
       
     );
   }
 }
+
+const montserrat_m = 'Montserrat-Medium';
+const montserrat_r = 'Montserrat-Regular';
 
 const styles = StyleSheet.create ({
   container: {
@@ -175,6 +211,8 @@ const styles = StyleSheet.create ({
     marginTop: 20,
     paddingHorizontal: 15,
     color: '#b1b1b1',
+    fontSize:12,
+    fontFamily:montserrat_r,
   },
 
   input: {
@@ -186,7 +224,7 @@ const styles = StyleSheet.create ({
     borderBottomWidth: 2,
     borderBottomColor: '#666',
     color: 'black',
-    fontSize: 17,
+    fontSize: 16,
   },
 
   btnForget:{
@@ -202,15 +240,17 @@ const styles = StyleSheet.create ({
     color: '#cfb562',
     borderBottomWidth: 1,
     borderBottomColor: '#cfb562',
+    fontSize:12,
+    fontFamily:montserrat_r,
   },
   button: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    height: 40,
+    height: 48,
     marginBottom: 20,
-    borderRadius: 5,
+    borderRadius: 3,
     // ios
     shadowOffset: {width: 0, height: 13},
     shadowOpacity: 0.3,
@@ -228,14 +268,16 @@ const styles = StyleSheet.create ({
     flex: 0.5,
     color: 'black',
     padding: 10,
-    fontSize: 13,
+    fontSize: 14,
     textAlign: 'center',
+    fontFamily:montserrat_m,
   },
   buttonLabelFB: {
     padding: 10,
-    fontSize: 13,
+    fontSize: 14,
     textAlign: 'center',
     color: 'white',
+    fontFamily:montserrat_m,
   },
 
   buttonFB: {
@@ -244,11 +286,12 @@ const styles = StyleSheet.create ({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#445f95',
+    //width: '70%',
     width: '70%',
-    height: 40,
+    height: 36,
     marginTop: 50,
     marginBottom: 50,
-    borderRadius: 5,
+    borderRadius: 3,
     // ios
     shadowOffset: {width: 0, height: 13},
     shadowOpacity: 0.3,
