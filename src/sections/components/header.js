@@ -8,46 +8,44 @@ import {
 
 function Header(props) {
   return (
-    <View>
-      <SafeAreaView style={styles.statusBar}>
-        <View style={styles.container}>
-          
-          <View style={styles.leftBtn}>{props.children}</View>
-          <Image
-            source={require('../../../assets/yiunic_logo.png')}
-            style={styles.logo}
-          />
-        </View>
-      </SafeAreaView>
-    </View>
+    
+    <SafeAreaView style={styles.statusBar}>
+      <View style={styles.container}>
+        
+        <View style={styles.leftBtn}>{props.children}</View>
+        <Image
+          source={require('../../../assets/sections/logo_yiunic.png')}
+          style={styles.logo}
+        />
+      </View>
+    </SafeAreaView>
+    
   )
 }
 
 const styles = StyleSheet.create({
   statusBar: {
-    //backgroundColor: 'red',
-    paddingBottom:30,
-    height:72,
-  },
-  container: {
-    height:65,
-    backgroundColor: '#fee082',
+    backgroundColor: '#FFE082',
     // ios
-    shadowOffset: {width: 0, height: 13},
+    shadowOffset: {width: 0, height: 3},
     shadowOpacity: 0.3,
-    shadowRadius: 8,
+    shadowRadius: 2,
     // android (Android +5.0)
     elevation: 8,
-    
-    paddingVertical: 10,
+  },
+  container: {
+    height:64,
+    backgroundColor: '#FFE082',
+    //paddingVertical: 10,
     paddingHorizontal: 10,
     flexDirection: 'row',
     justifyContent:"center",
+    alignItems: 'center',
   },
   logo: {
-    width: 80,
-    height: 35,
-    resizeMode: 'contain',
+    width: 38,
+    height: 49,
+    //resizeMode: 'contain',
   },
   leftBtn: {
     top:10,

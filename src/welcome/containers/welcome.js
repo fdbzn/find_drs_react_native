@@ -44,10 +44,9 @@ class Welcome extends Component {
         >
           <View style={styles.boxTop}>
             <Image
-              source={require ('../../../assets/yiunic_logo.png')}
+              source={require ('../../../assets/welcome/yiunic_logo_home.png')}
               style={styles.logo}
             />
-            <Text style={styles.txtLogo}>yiunic</Text>
           </View>
 
           <View style={styles.boxBottom}>
@@ -108,11 +107,11 @@ const styles = StyleSheet.create ({
   logo: {
     //borderWidth: 0.5,
     // borderColor: '#d9bb17',
-    width: 300,
-    height: 80,
-    resizeMode: 'contain',
+    width: 83,
+    height: 107,
+    //resizeMode: 'contain',
 
-    marginTop: '30%',
+    marginTop: '35%',
   },
   txtLogo: {
     fontSize: 33,

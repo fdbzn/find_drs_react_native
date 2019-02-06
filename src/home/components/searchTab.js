@@ -13,13 +13,48 @@ class SearchTab extends Component {
     index: 0,
     color: 'blue',
     routes: [
-      {key: 'first', title: 'Especialidad'},
-      {key: 'second', title: 'Nombre de Médico'},
+      {key: 'first', title: 'ESPECIALIDAD'},
+      {key: 'second', title: 'NOMBRE DEL DOCTOR'},
     ],
   };
 
   _handleIndexChange = index => this.setState ({index});
+  
 
+  renderLabel (props) {
+    let index = 0;
+    return ({route}) => {
+      const focused = index === props.navigationState.index;
+      index += 1;
+      return (
+        <View>
+          <Text
+            style={[
+              styles.labelTabTiew,
+              styles.labelStyle,
+              focused ? styles.labelSelectedStyle : null,
+            ]}
+          >
+            {route.title}
+          </Text>
+        </View>
+      );
+    };
+  }
+
+  renderIndicator = props => {
+    const {width, position} = props;
+    const translateX = Animated.multiply (position, width);
+
+    return (
+      <Animated.Image
+        source={require ('../../../assets/backgronund.png')}
+        style={[styles.indicator, {width, transform: [{translateX}]}]}
+      />
+    );
+  }
+
+  // --- aqui pestañas superiores
   _renderTabBar = props => (
     <TabBar
       {...props}
@@ -28,18 +63,9 @@ class SearchTab extends Component {
       }}
       style={styles.header}
       //indicatorStyle={{backgroundColor: '#17bfa5'}}
-      labelStyle={{color: '#17bfa5'}}
-      renderIndicator={props => {
-        const {width, position} = props;
-        const translateX = Animated.multiply (position, width);
-
-        return (
-          <Animated.Image
-            source={require ('../../../assets/backgronund.png')}
-            style={[styles.indicator, {width, transform: [{translateX}]}]}
-          />
-        );
-      }}
+      //labelStyle={styles.labeTabTop}
+      renderLabel={this.renderLabel (props)}
+      renderIndicator={this.renderIndicator}
     />
   );
 
@@ -49,6 +75,7 @@ class SearchTab extends Component {
   });
 
   render () {
+    // --- aqui el view completo de la pagina
     return (
       <TabView
         navigationState={this.state}
@@ -64,17 +91,32 @@ class SearchTab extends Component {
   }
 }
 
+const montserrat_m = 'Montserrat-Medium';
 const styles = StyleSheet.create ({
+  
+  labelTabTiew: {
+    fontFamily: montserrat_m,
+    fontSize: 13,
+  },
+  labelStyle: {
+    color: '#707070',
+  },
+  labelSelectedStyle: {
+    color: '#00BFA5',
+  },
+
   indicator: {
-    color: 'red',
     backgroundColor: '#17bfa5',
     width: 1,
-    height: 1,
-    position:"absolute",
-    bottom:0,
+    height: 2,
+    position: 'absolute',
+    bottom: 0,
   },
   header: {
     backgroundColor: 'white',
+    height:45,
+    justifyContent:"center",
+
     // ios
     shadowOffset: {width: 0, height: 0},
     shadowOpacity: 0,

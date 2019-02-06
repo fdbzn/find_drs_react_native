@@ -11,7 +11,7 @@ function Loading(props) {
   return (
     <View style={styles.container}>
       <Image
-        source={require ('../../../assets/yiunic_logo.png')}
+        source={require ('../../../assets/welcome/yiunic_logo_home.png')}
         style={styles.logo}
       />
       <ActivityIndicator color="#d6b500"/>

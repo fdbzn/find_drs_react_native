@@ -9,7 +9,6 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Image,
-  Button,
 } from 'react-native';
 import {connect} from 'react-redux';
 import { LoginManager } from 'react-native-fbsdk';
@@ -100,10 +99,7 @@ class Login extends Component {
           </View>
 
           <ScrollView style={styles.container_login}>
-            <Text 
-              style={styles.label}
-            >
-              Correo</Text>
+            <Text style={styles.label}>Correo</Text>
             <TextInput
               style={styles.input}
               //placeholder="Nombre de usuario"
@@ -182,9 +178,9 @@ const styles = StyleSheet.create ({
     backgroundColor: '#fee082',
 
     // ios
-    shadowOffset: {width: 0, height: 13},
+    shadowOffset: {width: 0, height: 3},
     shadowOpacity: 0.3,
-    shadowRadius: 8,
+    shadowRadius: 2,
     // android (Android +5.0)
     elevation: 8,
   },
@@ -251,10 +247,11 @@ const styles = StyleSheet.create ({
     height: 48,
     marginBottom: 20,
     borderRadius: 3,
+
     // ios
-    shadowOffset: {width: 0, height: 13},
+    shadowOffset: {width: 0, height: 3},
     shadowOpacity: 0.3,
-    shadowRadius: 8,
+    shadowRadius: 2,
     // android (Android +5.0)
     elevation: 3,
   },
@@ -292,10 +289,11 @@ const styles = StyleSheet.create ({
     marginTop: 50,
     marginBottom: 50,
     borderRadius: 3,
+    
     // ios
-    shadowOffset: {width: 0, height: 13},
+    shadowOffset: {width: 0, height: 3},
     shadowOpacity: 0.3,
-    shadowRadius: 8,
+    shadowRadius: 2,
     // android (Android +5.0)
     elevation: 3,
   },
