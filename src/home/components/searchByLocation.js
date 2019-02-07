@@ -2,13 +2,14 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {NavigationActions} from 'react-navigation';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 class SearchByLocation extends Component {
   constructor (props) {
     super (props);
     this.state = {
-      txtBtnSpecialty: 'Medico Gral.',
-      txtBtnAddress: 'Ingresa una dirección',
+      txtBtnSpecialty: 'Medico General.',
+      txtBtnAddress: 'Selecciona tu ubicación',
     };
   }
 
@@ -70,35 +71,37 @@ class SearchByLocation extends Component {
         </Text>
 
         <Text style={styles.label}>Especialidad</Text>
-        <View style={styles.inputBlock}>
-          <TouchableOpacity
-            style={styles.buttonInputAddress}
-            onPress={this.handleGoSelectSpecialty}
-          >
-            <Text style={styles.buttonLabel}>
-              {this.state.txtBtnSpecialty}
-            </Text>
-          </TouchableOpacity>
-        </View>
-
+        <TouchableOpacity
+          style={styles.buttonInputAddress}
+          onPress={this.handleGoSelectSpecialty}
+        >
+          <View style={styles.inputBlock}>
+              <Text style={styles.buttonLabel}>
+                {this.state.txtBtnSpecialty}
+              </Text>
+              <Icon style={styles.iconSearch} name="caret-down" />
+          </View>
+        </TouchableOpacity>
         <Text style={styles.label}>Ubicación</Text>
-        <View style={styles.inputBlock}>
-          <TouchableOpacity
-            style={styles.buttonInputAddress}
-            onPress={this.handleGoSearchAddress}
-          >
-            <Text style={styles.buttonLabel} numberOfLines={1}>
-              {this.state.txtBtnAddress}
-            </Text>
-          </TouchableOpacity>
-        </View>
+
+        <TouchableOpacity
+          style={styles.buttonInputAddress}
+          onPress={this.handleGoSearchAddress}
+        >
+          <View style={styles.inputBlock}>
+              <Text style={styles.buttonLabel} numberOfLines={1}>
+                {this.state.txtBtnAddress}
+              </Text>
+              <Icon style={styles.iconSearch} name="search" />
+          </View>
+        </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.btnSearch}
           onPress={this.handleGoResultDoctors}
         >
           <Text style={styles.labelSearch}>
-            Buscar
+            BUSCAR
           </Text>
         </TouchableOpacity>
       </View>
@@ -116,18 +119,15 @@ const styles = StyleSheet.create ({
     backgroundColor: '#fff',
     //alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 16,
+    paddingHorizontal: 20,
     paddingTop: '5%',
   },
   txtBusca: {
     fontSize: 23,
     color: 'black',
-    marginBottom: 20,
+    marginBottom: 33,
+    paddingLeft:16,
     fontFamily: montserrat_b,
-  },
-  buttonInputAddress: {
-    
-    width: '100%',
   },
   btnSearch: {
     flexDirection: 'row',
@@ -146,27 +146,39 @@ const styles = StyleSheet.create ({
     elevation: 3,
     backgroundColor: '#fee082',
   },
-  buttonLabel: {
-    textAlign: 'left',
-    fontSize: 20,
-    color: '#7c7c7c',
-  },
   label: {
     //marginTop: 20,
     paddingHorizontal: 15,
     color: '#b1b1b1',
     fontSize:12,
     fontFamily:montserrat_r,
+  },  
+  buttonInputAddress: {
+    width: '100%',
+    marginBottom:45,
   },
   inputBlock:{
-    marginBottom:40,
+    height:35, 
     borderBottomWidth: 2,
-    paddingLeft: 15,
     borderBottomColor: '#707070',
-    flexDirection:"column",
-    justifyContent:"flex-end",
+    flexDirection:"row",
+    alignItems:"center",
   },
-
+  buttonLabel: {
+    textAlign: 'left',
+    fontSize: 16,
+    fontFamily: montserrat_r,
+    color: 'black',
+    paddingLeft: 15,
+    flex:1,
+  },
+  iconSearch:{
+    alignSelf:"flex-end",
+    color:"black",
+    fontSize:22,
+    marginBottom:10,
+    paddingRight:10,
+  },
   labelSearch: {
     flex: 0.5,
     color: 'black',

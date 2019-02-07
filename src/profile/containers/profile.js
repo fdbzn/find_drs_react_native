@@ -22,8 +22,6 @@ class Profile extends Component {
       StatusBar.setBarStyle('dark-content');
       StatusBar.setBackgroundColor('white');
     });
-
-    console.log("enprofile",this.props)
   }
   componentWillUnmount() {
     this.focus.remove();

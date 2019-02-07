@@ -5,6 +5,7 @@ import {
   createMaterialBottomTabNavigator,
 } from 'react-navigation-material-bottom-tabs';
 import React from 'react';
+import {Text, Image} from 'react-native';
 import getSlideFromRightTransition from 'react-navigation-slide-from-right-transition';
 
 import Home from './home/containers/home';
@@ -16,9 +17,9 @@ import Login from './welcome/containers/login';
 import Welcome from './welcome/containers/welcome';
 import ForgotPass from './welcome/containers/forgotPass';
 import Register from './welcome/containers/register';
-import Profile from './welcome/containers/profile';
+import Profile from './profile/containers/profile';
+import Notifications from './notifications/containers/notifications';
 import Conditions from './welcome/containers/conditions';
-import Icon from './sections/components/icon';
 
 const Main = createStackNavigator (
   {
@@ -68,13 +69,31 @@ const Initial = createStackNavigator (
   }
 );
 
+const styleFontTab = { fontSize: 12, fontFamily:'Montserrat-Regular' };
 const TabNavigator = createMaterialBottomTabNavigator (
   {
     Home: {
       screen: Main,
       navigationOptions: {
-        title: 'Inicio',
-        tabBarIcon: <Icon icon="🏠" />,
+        tabBarLabel: <Text style={styleFontTab}> Citas </Text>,
+        tabBarIcon: <Image
+          source={require ('../assets/sections/citas_icon.png')}
+        />,
+        // tabBarIcon: (obj) => {
+        //   const image = obj.focused ? "hola" : "adios";
+        //   return <Icon icon = {image}/>
+
+        // },
+      },
+    },
+
+    Notifications: {
+      screen: Notifications,
+      navigationOptions: {
+        tabBarLabel: <Text style={styleFontTab}> Notificaciones </Text>,
+        tabBarIcon: <Image
+          source={require ('../assets/sections/notificaciones_icon.png')}
+        />,
         // tabBarIcon: (obj) => {
         //   const image = obj.focused ? "hola" : "adios";
         //   return <Icon icon = {image}/>
@@ -85,13 +104,24 @@ const TabNavigator = createMaterialBottomTabNavigator (
 
     Profile: {
       screen: Profile,
+      navigationOptions: {
+        tabBarLabel: <Text style={styleFontTab}> Perfil </Text>,
+        tabBarIcon: <Image
+          source={require ('../assets/sections/perfil_icon.png')}
+        />,
+        // tabBarIcon: (obj) => {
+        //   const image = obj.focused ? "hola" : "adios";
+        //   return <Icon icon = {image}/>
+
+        // },
+      },
     },
+
+    
   },
   {
-    tabBarOptions: {
-      activeTintColor: 'black',
-      activeBackgroundColor: '#ccc',
-    },
+    activeTintColor: '#3D3F42',
+    //activeBackgroundColor: '#808080',
   }
 );
 

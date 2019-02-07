@@ -4,11 +4,10 @@ import { connect } from 'react-redux';
 
 class Login extends Component {
   componentDidMount() {
-    console.log("loading.js",this.props.user)
     if(this.props.user) {
       this.props.navigation.navigate('App');
     } else {
-      this.props.navigation.navigate('Welcome');
+      this.props.navigation.navigate('Initial');
     }
   }
   render() {
