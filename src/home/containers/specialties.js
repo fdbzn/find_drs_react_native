@@ -26,7 +26,7 @@ class Specialties extends Component {
             onPress={() => {
               navigation.goBack ();
             }}
-            icon="x"
+            //icon="x"
           />
         </Header>
       ),

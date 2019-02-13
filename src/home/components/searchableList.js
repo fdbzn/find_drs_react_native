@@ -76,23 +76,36 @@ class searchableList extends Component {
 
   renderHeader = () => {
     return (
-      <SearchBar
-        placeholder="Busca tu especialidad"
-        //noIcon
-        //searchIcon={{size:60}}
-        lightTheme
-        //round
-        onChangeText={text => this.searchFilterFunction (text)}
-        autoCorrect={false}
-        containerStyle={{
-          borderTopWidth: 0,
-          backgroundColor: 'white',
-        }}
-        inputStyle={{
-          backgroundColor: 'white',
-          borderWidth: 1,
-        }}
-      />
+      <View>
+        
+        <SearchBar
+          placeholder="Busca tu especialidad"
+          //noIcon
+          icon={{ name: 'search', color:'black', style:{marginTop:3, fontSize:22} }}
+          
+          lightTheme
+          //round
+          onChangeText={text => this.searchFilterFunction (text)}
+          autoCorrect={false}
+          containerStyle={{
+            borderTopWidth: 0,
+            borderBottomWidth: 0,
+            backgroundColor: 'white',
+            //marginTop:-10,
+          }}
+          inputStyle={{
+            backgroundColor: '#EDEDED',
+            borderWidth: 0,
+            height:45,
+            fontSize:12,
+            paddingLeft:50,
+            
+            //---sin sombra xq borra icon
+          }}
+        />
+        <Text style={styles.titleList}>Todas</Text>
+      </View>
+      
     );
   };
 
@@ -109,18 +122,17 @@ class searchableList extends Component {
         <View style={styles.boxTitle}>
           <Text style={styles.txtTitle}>Especialidades</Text>
         </View>
-
-        <List containerStyle={{borderTopWidth: 0, borderBottomWidth: 0}}>
+        <List containerStyle={{borderTopWidth: 0, borderBottomWidth: 0, marginTop:-10}}>
           <FlatList
             data={this.state.data}
-            renderItem={({item}) => (
+            renderItem={({item}) => (  
               <ListItem
                 //avatar={{uri: item.picture.thumbnail}}
                 //roundAvatar
                 title={item.name}
                 //subtitle={item.email}
-                containerStyle={{borderBottomWidth: 0}}
-                leftIcon={<Icon icon="🏠" />}
+                containerStyle={{borderBottomWidth: 0, borderTopWidth: 0}}
+                //leftIcon={<Icon icon="🏠" />}
                 hideChevron
                 onPress={() => {
                   this._handlePress (item);
@@ -132,37 +144,34 @@ class searchableList extends Component {
             ListHeaderComponent={this.renderHeader}
           />
         </List>
-
       </Fragment>
     );
   }
 }
 
+const montserrat_b = 'Montserrat-Bold';
 const styles = StyleSheet.create ({
   boxTitle: {
-    flexDirection: 'row',
-    height: 70,
+    flexDirection: 'column',
+    justifyContent:'center',
+    height: 62,
     width: '100%',
-
-    // ios
-    backgroundColor: 'white',
-    alignItems: 'center',
-    shadowOffset: {width: 0, height: 13},
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-
-    // android (Android +5.0)
-    elevation: 3,
+    borderBottomWidth: 2,
+    borderBottomColor: '#E4E4E4ed',
   },
   txtTitle: {
-    fontSize: 18,
+    fontSize: 20,
+    fontFamily:montserrat_b,
+    marginLeft:20,
+    color:'black',
   },
-
-  containerList: {
-    borderTopWidth: 0,
-    borderBottomWidth: 0,
-    width: '100%',
-    flexDirection: 'row',
+  titleList: {
+    fontSize: 18,
+    fontFamily:montserrat_b,
+    marginLeft:10,
+    marginTop:5,
+    marginBottom:5,
+    color:'black',
   },
 });
 
