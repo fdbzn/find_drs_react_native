@@ -21,11 +21,15 @@ class Api {
     return this.post(`${BASE_API}login`, data);
   }
 
-  getSpecialties(sort, limit) {
+  getSpecialties() {
+    return this.get(`${BASE_API}specialities`);
+  }
+  
+  getPopularSpecialties(sort, limit){
     const params = this.toParams( {sort, limit} )
     return this.get(`${BASE_API}specialities?${params}`);
   }
-  
+
   getDoctorsByLocation(speciality, lat, lng) {
     const params = this.toParams( {speciality, lat, lng} )
     return this.get(`${BASE_API}doctors?${params}`);
@@ -60,7 +64,8 @@ class Api {
       response.success = false;
       response.error_desc = errorMessage[response.code];
     }
-    console.log(response)
+    console.log("apilog:",query)
+    console.log("apilog:",response)
     return response;
   }
 

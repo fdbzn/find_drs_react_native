@@ -1,5 +1,10 @@
 import React, { PureComponent } from 'react';
-import { View, Alert, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { 
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import {connect} from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 
@@ -31,26 +36,39 @@ class LocationItem extends PureComponent {
   render() {
     return (
       <TouchableOpacity style={styles.root} onPress={this._handlePress}>
+        
+        <Image
+          style={styles.placeIcon}
+          source={require ('../../../assets/home/place.png')}  
+        />
         <Text numberOfLines={1} style={styles.txtDesc} >{this.props.description}</Text>
       </TouchableOpacity>
     );
   }
 }
 
+const montserrat_m = 'Montserrat-Medium';
 const styles = StyleSheet.create({
   root: {
-    height: 65,
-    width:'100%',
+    height: 48,
+    maxWidth:'100%',
+    flexDirection:'row',
+    alignItems:"center",
     borderBottomWidth: StyleSheet.hairlineWidth,
-    justifyContent: 'center',
     paddingTop:10,
     paddingBottom:10,
-    paddingHorizontal:20,
+    //paddingHorizontal:20,
   },
   txtDesc:{
-    fontSize:16,
-    color:"#777",
-    fontWeight:'bold',
+    fontSize:13,
+    color:"#3D3F42",
+    fontFamily:montserrat_m,
+    maxWidth:"85%",
+  },
+  placeIcon:{
+    height:24,
+    width:24,
+    marginRight:25,
   },
 })
 

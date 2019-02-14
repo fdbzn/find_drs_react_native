@@ -180,7 +180,9 @@ const styles = StyleSheet.create ({
     // android (Android +5.0)
     elevation: 3,
   },
-  containerResults: {},
+  containerResults: {
+    paddingHorizontal:10,
+  },
 });
 
 export default connect (null) (InputAutoComplete);

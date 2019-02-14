@@ -8,12 +8,14 @@ import API from '../../../utils/api';
 
 class Specialties extends Component {
   async componentDidMount () {
-    const specialties = await API.getSpecialties("popular", 3);
-    
+    const specialties = await API.getSpecialties();
+    const popular_specialties = await API.getPopularSpecialties("popular", 5);
+
     this.props.dispatch ({
       type: 'SET_LIST_SPECIALTIES',
       payload: {
         list_specialties : specialties.data,
+        popular_specialties : popular_specialties.data,
       },
     });
   }

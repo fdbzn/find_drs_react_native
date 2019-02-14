@@ -12,7 +12,6 @@ class SearchAddress extends Component {
         <Header>
           <Close
             onPress={()=> { navigation.goBack() }}
-            icon="x"
           />
         </Header>
       )
