@@ -30,8 +30,8 @@ class Api {
     return this.get(`${BASE_API}specialities?${params}`);
   }
 
-  getDoctorsByLocation(speciality, lat, lng) {
-    const params = this.toParams( {speciality, lat, lng} )
+  getDoctorsByLocation(speciality, lat, lng, sort) {
+    const params = this.toParams( {speciality, lat, lng, sort} )
     return this.get(`${BASE_API}doctors?${params}`);
   }
 

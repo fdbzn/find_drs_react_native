@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 
 import SearchTab from '../../home/components/searchTab';
 import Header from '../../sections/components/header';
-import SearchByLocation from '../components/searchByLocation';
-
 
 class Home extends Component {
   static navigationOptions = () => {
@@ -20,8 +18,6 @@ class Home extends Component {
     );
   }
 }
-
-
 
 function mapStateToProps(state) {
   return {

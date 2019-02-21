@@ -58,9 +58,7 @@ class SearchTab extends Component {
   _renderTabBar = props => (
     <TabBar
       {...props}
-      onTabPress={tab => {
-        console.log (tab);
-      }}
+      //onTabPress={tab => {console.log (tab);}}
       style={styles.header}
       //indicatorStyle={{backgroundColor: '#17bfa5'}}
       //labelStyle={styles.labeTabTop}
