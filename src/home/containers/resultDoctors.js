@@ -10,32 +10,44 @@ import Close from '../../sections/components/close';
 import API from '../../../utils/api';
 
 class ResultDoctors extends Component {
-  async componentDidMount () {
+  async componentDidMount() {
     // --- config busqueda con parametros
     const data_search = {
       lng: this.props.selected_address.location.lng,
       lat: this.props.selected_address.location.lat,
       speciality_id: this.props.selected_specialty._id,
     };
-    
+
     // --- haciendo la busqueda
-    const sortBy = "near";
+    /*
+    const sortBy = 'near';
     const json_doctors = await API.getDoctorsByLocation (
       data_search.speciality_id,
       data_search.lat,
       data_search.lng,
       sortBy
     );
-     
-    console.log("docs:::",json_doctors);
+    */
+    const json_doctors = {
+      data: [
+        {
+          _id: '5bff8c716669127b3424fa80',
+          name: 'Jessica Marlen Hernandez Hernandez',
+        },
+        {
+          _id: '5bff8c716669127b3424fa81',
+          name: 'David Juarez Lopez',
+        },
+      ],
+    };
+
     // --- guardando para su uso en otro componente
-    this.props.dispatch ({
+    this.props.dispatch({
       type: 'SET_DOCTOR_LIST',
       payload: {
-        doctors_list: json_doctors,
+        doctors_list: json_doctors.data,
       },
     });
-    
   }
 
   static navigationOptions = ({navigation}) => {
@@ -44,7 +56,7 @@ class ResultDoctors extends Component {
         <Header>
           <Close
             onPress={() => {
-              navigation.goBack ();
+              navigation.goBack();
             }}
             icon="<"
           />
@@ -53,30 +65,31 @@ class ResultDoctors extends Component {
     };
   };
 
-  render () {
+  render() {
     return (
       <View style={styles.container}>
         <Dropdown />
+        <DoctorsList />
       </View>
     );
-    //esto ca en view ->  <DoctorsList />
+    
   }
 }
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#fff',
     justifyContent: 'flex-start',
     alignItems: 'center',
-
+    //paddingHorizontal:20,
     paddingTop: '5%',
   },
 });
 
-function mapStateToProps (state) {
-  console.log (state);
+function mapStateToProps(state) {
+  console.log(state);
   return {
     navigation: state.navigation,
     selected_address: state.homeSearch.selected_address,
@@ -84,4 +97,4 @@ function mapStateToProps (state) {
   };
 }
 
-export default connect (mapStateToProps) (ResultDoctors);
+export default connect(mapStateToProps)(ResultDoctors);

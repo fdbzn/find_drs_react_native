@@ -11,8 +11,9 @@ import Separator from '../../sections/components/horizontal-separator';
 class doctorsList extends Component {
   renderEmtpy = () => <Empty text="No se encontraron resultados" />;
   itemSeparator = () => <Separator />;
+  keyExtractor = item => item._id.toString ();
   goToDoctor = item => {
-    alert ();
+    alert("go to doctor");
   };
 
   renderItem = ({item}) => {
@@ -25,6 +26,7 @@ class doctorsList extends Component {
   };
 
   render () {
+
     return (
       <View style={styles.container}>
         <FlatList
@@ -47,7 +49,7 @@ const styles = StyleSheet.create ({
   container: {
     flex: 1,
     width: '100%',
-    
+    paddingHorizontal:20,
   },
   containerList:{
     marginTop: 20,
