@@ -49,11 +49,11 @@ const styles = StyleSheet.create ({
   container: {
     flex: 1,
     width: '100%',
-    paddingHorizontal:20,
   },
   containerList:{
     marginTop: 20,
     width:"100%",
+    paddingHorizontal:20,
   },
   listBox: {
     //flexGrow: 1,

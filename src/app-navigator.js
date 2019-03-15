@@ -11,6 +11,7 @@ import getSlideFromRightTransition from 'react-navigation-slide-from-right-trans
 import Home from './home/containers/home';
 import SearchAddress from './home/containers/searchAddress';
 import ResultDoctors from './home/containers/resultDoctors';
+import ResultDoctorsName from './home/containers/resultDoctorsName';
 import Specialties from './home/containers/specialties';
 import Loading from './welcome/containers/loading';
 import Login from './welcome/containers/login';
@@ -26,6 +27,7 @@ const Main = createStackNavigator (
     Home: Home,
     SearchAddress: SearchAddress,
     ResultDoctors: ResultDoctors,
+    ResultDoctorsName: ResultDoctorsName,
     Specialties,
   },
   {

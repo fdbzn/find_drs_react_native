@@ -1,5 +1,8 @@
 function homeSearch(state = {}, action) {
   switch(action.type) {
+    case 'SET_NAME_DOCTOR': {
+      return {...state, ...action.payload}
+    }
     case 'SET_SELECTED_ADDRESS': {
       return {...state, ...action.payload}
     }

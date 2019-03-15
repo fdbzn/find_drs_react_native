@@ -14,16 +14,19 @@ class Dropdown extends Component {
     this.setState ({
       txt_selected_dropdown: val,
     });
+    
   };
 
   render () {
     return (
       <View style={styles.container}>
+        
         <ModalDropdown
           options={['Cercania', 'Precio', 'Ranking']}
           onSelect={this.handlerSortby}
           style={styles.dropdownBtn}
           dropdownStyle={styles.dropdown}
+          dropdownTextStyle={styles.item}
         >
           <View style={styles.boxdeDefault}>
             <Text style={styles.defaultText}>
@@ -37,6 +40,8 @@ class Dropdown extends Component {
   }
 }
 
+const montserrat_r = 'Montserrat-Regular';
+const montserrat_m = 'Montserrat-Medium';
 const styles = StyleSheet.create ({
   container: {
     flexDirection: 'row',
@@ -58,16 +63,23 @@ const styles = StyleSheet.create ({
     width: '100%',
   },
   defaultText: {
-    fontSize: 15,
-    color: '#777',
+    color: '#b1b1b1',
+    fontSize:12,
+    fontFamily:montserrat_r,
   },
   iconDefault: {
     fontSize: 18,
   },
   dropdown: {
-    width: '89%',
+    width: '85%',
     flexDirection: 'column',
-    flex: 1,
+    //flex: 1,
+  },
+  item:{
+    color:'#b1b1b1',
+    fontFamily:montserrat_m,
+    fontSize:15,
+
   },
 });
 

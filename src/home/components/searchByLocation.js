@@ -123,7 +123,7 @@ const styles = StyleSheet.create ({
     paddingTop: '5%',
   },
   txtBusca: {
-    fontSize: 23,
+    fontSize: 18,
     color: 'black',
     marginBottom: 33,
     paddingLeft:16,

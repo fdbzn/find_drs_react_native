@@ -13,20 +13,18 @@ class ResultDoctors extends Component {
   async componentDidMount() {
     // --- config busqueda con parametros
     const data_search = {
-      lng: this.props.selected_address.location.lng,
-      lat: this.props.selected_address.location.lat,
       speciality_id: this.props.selected_specialty._id,
+      name: this.props.doctor_name,
     };
 
     // --- haciendo la busqueda
-    const sortBy = 'near';
-    const json_doctors = await API.getDoctorsByLocation (
+    const sortBy = 'rank';
+    const json_doctors = await API.getDoctorsByName (
       data_search.speciality_id,
-      data_search.lat,
-      data_search.lng,
+      data_search.name,
       sortBy
     );
-    
+
     // --- guardando para su uso en otro componente
     this.props.dispatch({
       type: 'SET_DOCTOR_LIST',
@@ -74,10 +72,10 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  console.log(state);
+  console.log("ennamedocres",state);
   return {
     navigation: state.navigation,
-    selected_address: state.homeSearch.selected_address,
+    doctor_name: state.homeSearch.doctor_name,
     selected_specialty: state.homeSearch.selected_specialty,
   };
 }

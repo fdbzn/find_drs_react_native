@@ -35,6 +35,11 @@ class Api {
     return this.get(`${BASE_API}doctors?${params}`);
   }
 
+  getDoctorsByName( speciality, name, sort ){
+    const params = this.toParams( {speciality, name, sort} );
+    return this.get(`${BASE_API}doctors?${params}`);
+  }
+
   async get(url){
       const query = await fetch( url,  {method: 'GET'} );
       return this.handleResponse(query);

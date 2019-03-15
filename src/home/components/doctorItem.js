@@ -1,33 +1,51 @@
 import React from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
+import {Rating} from 'react-native-elements';
 
 function doctorsItem(props) {
   return (
     <TouchableOpacity onPress={props.onPress}>
       <View style={styles.doctorItem}>
         <View style={styles.imgDocBox}>
-          <Icon style={styles.imgDoc} name="rocket" />
+          <Image
+            style={styles.imgDoc}
+            source={{
+              uri: props.img,
+            }}
+          />
         </View>
 
         <View style={styles.doctorDetail}>
-          <Text>Dr. {props.name}</Text>
-          <View>
-            <Text>estrellas</Text>
-            <Text>precio</Text>
+          <Text style={styles.docName}>Dr. {props.name}</Text>
+          <Text style={styles.docSpecialty}>Médico General</Text>
+          <View style={styles.starsPriceBlock}>
+            <Rating
+              type='custom'
+              imageSize={15}
+              readonly
+              startingValue={3}
+              ratingColor='#EFB04B'
+              style={ styles.rating }
+            />
+            
+            <Text style={styles.docPrice}>$800</Text>
           </View>
-          <Text>Direccion</Text>
-          <Text>Disponibilidad</Text>
+          <Text style={styles.docAddress}>Torres Bordet 234,Cuahutémoc, Sta María la Ribera </Text>
+          <Text style={styles.docSchedule}>Disponibilidad:</Text>
+          <Text style={styles.docHours}>13hrs - 17hrs,  19hrs-23hrs</Text>
         </View>
       </View>
     </TouchableOpacity>
   );
 }
 
+const montserrat_b = 'Montserrat-Bold';
+const montserrat_m = 'Montserrat-Medium';
+const montserrat_sm = 'Montserrat-SemiBold';
 const styles = StyleSheet.create({
   doctorItem: {
     flexDirection: 'row',
-    paddingTop: 20,
+    paddingTop: 35,
     paddingBottom: 10,
     paddingHorizontal: 20,
     alignSelf: 'center',
@@ -37,27 +55,74 @@ const styles = StyleSheet.create({
     borderColor: '#e9e9e9',
     marginBottom: 10,
     borderRadius: 4,
+    backgroundColor: 'white',
+
     // ios
     shadowRadius: 4,
-    backgroundColor: 'white',
-    shadowOffset: {width: 0, height: 13},
+    shadowOffset: {width: 0, height: 3},
     shadowOpacity: 0.3,
-    shadowRadius: 9,
+
     // android (Android +5.0)
-    elevation: 7,
+    elevation: 3,
   },
   imgDocBox: {
-    width: 70,
-    backgroundColor: 'red',
+    width: 65,
+    //backgroundColor: 'red',
     flexDirection: 'row',
-    justifyContent: 'center',
+    //justifyContent: 'center',
   },
   imgDoc: {
-    fontSize: 46,
+    width: 46,
+    height: 46,
+    borderRadius: 23,
   },
   doctorDetail: {
     flex: 1,
-    marginLeft: 15,
+  },
+
+  docName: {
+    fontFamily: montserrat_b,
+    fontSize: 18,
+    marginBottom:8,
+  },
+
+  docSpecialty: {
+    fontFamily: montserrat_m,
+    fontSize: 15,
+    marginBottom:5,
+  },
+
+  starsPriceBlock:{
+    flexDirection:'row',
+    marginBottom:5,
+  },
+  rating:{
+    alignSelf:'center',
+  },
+
+  docPrice:{
+    fontFamily: montserrat_sm,
+    fontSize:15,
+    color:'#00BFA5',
+    marginLeft:20
+  },
+
+  docAddress:{
+    fontFamily: montserrat_m,
+    fontSize: 12,
+    color:'#707070',
+    marginBottom:5,
+  },
+
+  docSchedule:{
+    fontFamily: montserrat_m,
+    fontSize: 15,
+    marginBottom:5,
+  },
+  docHours:{
+    fontFamily: montserrat_sm,
+    fontSize:15,
+    color:'#00BFA5',
   },
 });
 
