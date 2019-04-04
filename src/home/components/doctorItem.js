@@ -28,7 +28,7 @@ function doctorsItem(props) {
               style={ styles.rating }
             />
             
-            <Text style={styles.docPrice}>$800</Text>
+            <Text style={styles.docPrice}>${props.workplace.price}</Text>
           </View>
           <Text style={styles.docAddress}>Torres Bordet 234,Cuahutémoc, Sta María la Ribera </Text>
           <Text style={styles.docSchedule}>Disponibilidad:</Text>

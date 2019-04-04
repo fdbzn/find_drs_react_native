@@ -39,9 +39,8 @@ class doctorsList extends Component {
         <FlatList
           style={styles.containerList}
           contentContainerStyle={styles.listBox}
- 
-          //horizontal
-          data={this.state.doctors_list}
+
+          data={this.props.doctors_list}
           keyExtractor={this.keyExtractor}
           ListEmptyComponent={this.renderEmtpy}
           ItemSeparatorComponent={this.itemSeparator}
@@ -68,6 +67,7 @@ const styles = StyleSheet.create ({
 });
 
 function mapStateToProps (state) {
+  //console.log("hoalallalala",state)
   return {
     doctors_list: state.homeSearch.doctors_list,
   };
