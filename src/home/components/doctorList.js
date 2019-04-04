@@ -8,7 +8,14 @@ import DoctorItem from '../components/doctorItem';
 import Empty from '../components/empty';
 import Separator from '../../sections/components/horizontal-separator';
 
+
 class doctorsList extends Component {
+  
+  state = {
+    doctors_list:[]
+  }
+  
+
   renderEmtpy = () => <Empty text="No se encontraron resultados" />;
   itemSeparator = () => <Separator />;
   keyExtractor = item => item._id.toString ();
@@ -34,7 +41,7 @@ class doctorsList extends Component {
           contentContainerStyle={styles.listBox}
  
           //horizontal
-          data={this.props.doctors_list}
+          data={this.state.doctors_list}
           keyExtractor={this.keyExtractor}
           ListEmptyComponent={this.renderEmtpy}
           ItemSeparatorComponent={this.itemSeparator}

@@ -10,7 +10,7 @@ function doctorsItem(props) {
           <Image
             style={styles.imgDoc}
             source={{
-              uri: props.img,
+              uri: props.picture,
             }}
           />
         </View>

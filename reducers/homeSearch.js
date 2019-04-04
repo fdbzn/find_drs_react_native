@@ -1,3 +1,4 @@
+
 function homeSearch(state = {}, action) {
   switch(action.type) {
     case 'SET_NAME_DOCTOR': {
@@ -13,6 +14,12 @@ function homeSearch(state = {}, action) {
       return {...state, ...action.payload}
     }
     case 'SET_DOCTOR_LIST': {
+      return {...state, ...action.payload}
+    }
+    case 'SET_FILTER_OPTIONS': {
+      return {...state, ...action.payload}
+    }
+    case 'SET_TYPE_SEARCH': {
       return {...state, ...action.payload}
     }
     default:

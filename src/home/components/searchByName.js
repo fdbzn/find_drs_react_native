@@ -1,57 +1,79 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {NavigationActions} from 'react-navigation';
-import {StyleSheet, Text, View, TouchableOpacity, TextInput} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  TextInput,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 class SearchByLocation extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super (props);
     this.state = {
-      docName:'',
+      docName: '',
       txtBtnSpecialty: 'Medico General.',
       txtBtnAddress: 'Selecciona tu ubicación',
     };
   }
 
-  componentDidUpdate(previousProps, previousState) {
+  componentDidUpdate (previousProps, previousState) {
     // actualiza texto del boton
     if (
       previousProps.homeSearch.selected_specialty !==
       this.props.homeSearch.selected_specialty
     ) {
-      this.setState({
+      this.setState ({
         txtBtnSpecialty: this.props.homeSearch.selected_specialty.name,
       });
     }
   }
 
   handleGoSelectSpecialty = () => {
-    this.props.dispatch(
-      NavigationActions.navigate({
+    this.props.dispatch (
+      NavigationActions.navigate ({
         routeName: 'Specialties',
       })
     );
   };
 
-  
-
   handleGoResultDoctors = () => {
-    this.props.dispatch({
+    // --- set specialty id if not select one
+    if (typeof this.props.homeSearch.selected_specialty === 'undefined') {
+      this.props.dispatch ({
+        type: 'SET_SELECTED_SPECIALTY',
+        payload: {
+          selected_specialty: {_id: '5bff8c716669127b3424fa80'},
+        },
+      });
+    }
+    // --- set type of search
+    this.props.dispatch ({
+      type: 'SET_TYPE_SEARCH',
+      payload: {
+        type_search: 2,
+      },
+    });
+    // --- set name to search
+    this.props.dispatch ({
       type: 'SET_NAME_DOCTOR',
       payload: {
-        doctor_name : this.state.docName
-      }
-    })
-      
-    this.props.dispatch(
-      NavigationActions.navigate({
-        routeName: 'ResultDoctorsName',
+        doctor_name: this.state.docName,
+      },
+    });
+
+    // --- go to results
+    this.props.dispatch (
+      NavigationActions.navigate ({
+        routeName: 'ResultDoctors',
       })
     );
   };
 
-  render() {
+  render () {
     return (
       <View style={styles.container}>
         <Text style={styles.txtBusca}>ENCUENTRA UN DOCTOR</Text>
@@ -75,7 +97,7 @@ class SearchByLocation extends Component {
             autoCapitalize="none"
             style={styles.input}
             underlineColorAndroid="transparent"
-            onChangeText={docName => this.setState({docName})}
+            onChangeText={docName => this.setState ({docName})}
           />
         </View>
 
@@ -94,7 +116,7 @@ const montserrat_b = 'Montserrat-Bold';
 const montserrat_m = 'Montserrat-Medium';
 const montserrat_r = 'Montserrat-Regular';
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create ({
   container: {
     flex: 1,
     backgroundColor: '#fff',
@@ -171,19 +193,19 @@ const styles = StyleSheet.create({
     fontFamily: montserrat_m,
   },
 
-  input:{
-    paddingLeft:15,
-    fontSize:16,
+  input: {
+    paddingLeft: 15,
+    fontSize: 16,
     fontFamily: montserrat_r,
-    flex:1,
+    flex: 1,
   },
 });
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     navigation: state.navigation,
     homeSearch: state.homeSearch,
   };
 }
 
-export default connect(mapStateToProps)(SearchByLocation);
+export default connect (mapStateToProps) (SearchByLocation);

@@ -14,6 +14,8 @@ class Dropdown extends Component {
     this.setState ({
       txt_selected_dropdown: val,
     });
+
+    this.props.filter_function(key);
     
   };
 
@@ -22,7 +24,7 @@ class Dropdown extends Component {
       <View style={styles.container}>
         
         <ModalDropdown
-          options={['Cercania', 'Precio', 'Ranking']}
+          options={this.props.filter_options}
           onSelect={this.handlerSortby}
           style={styles.dropdownBtn}
           dropdownStyle={styles.dropdown}
@@ -85,8 +87,9 @@ const styles = StyleSheet.create ({
 
 function mapStateToProps (state) {
   return {
-    filter_options: state.filter_options,
+    filter_options: state.homeSearch.filter_options,
+    filter_function: state.homeSearch.filter_function,
   };
 }
 
-export default connect (null) (Dropdown);
+export default connect (mapStateToProps) (Dropdown);

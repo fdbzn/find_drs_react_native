@@ -56,6 +56,25 @@ class SearchByLocation extends Component {
   };
 
   handleGoResultDoctors = () => {
+    // --- set specialty id if not select one
+    if ( ( typeof this.props.homeSearch.selected_specialty === 'undefined' ) ){
+      this.props.dispatch ({
+        type: 'SET_SELECTED_SPECIALTY',
+        payload: {
+          selected_specialty: {_id:"5bff8c716669127b3424fa80"},
+        },
+      });
+    }
+
+    // --- set type of search 
+    this.props.dispatch ({
+      type: 'SET_TYPE_SEARCH',
+      payload: {
+        type_search: 1,
+      },
+    });
+
+    // --- navigation to results 
     this.props.dispatch (
       NavigationActions.navigate ({
         routeName: 'ResultDoctors',
