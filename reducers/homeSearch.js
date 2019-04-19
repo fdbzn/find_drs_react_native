@@ -22,6 +22,9 @@ function homeSearch(state = {}, action) {
     case 'SET_TYPE_SEARCH': {
       return {...state, ...action.payload}
     }
+    case 'LOAD_MORE': {
+      return {...state, ...action.payload}
+    }
     default:
       return state
   }

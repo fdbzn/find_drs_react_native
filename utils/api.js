@@ -30,13 +30,13 @@ class Api {
     return this.get(`${BASE_API}specialities?${params}`);
   }
 
-  getDoctorsByLocation(speciality, lat, lng, sort) {
-    const params = this.toParams( {speciality, lat, lng, sort} )
+  getDoctorsByLocation(speciality, lat, lng, limit, page, sort) {
+    const params = this.toParams( {speciality, lat, lng, limit, page, sort} )
     return this.get(`${BASE_API}doctors?${params}`);
   }
 
-  getDoctorsByName( speciality, name, sort ){
-    const params = this.toParams( {speciality, name, sort} );
+  getDoctorsByName( speciality, name, limit, page, sort){
+    const params = this.toParams( {speciality, name, limit, page, sort} );
     return this.get(`${BASE_API}doctors?${params}`);
   }
 

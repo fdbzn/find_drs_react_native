@@ -10,7 +10,14 @@ import Close from '../../sections/components/close';
 import API from '../../../utils/api';
 
 class ResultDoctors extends Component {
+  // --- la actualizacion de estas variables son usadas doctorList
+  state = {
+    limit:1,
+    page:0,
+  }
+
   componentDidMount () {
+    // --- search by address
     if (this.props.homeSearchStore.type_search === 1) {
       const sortBy = 'near';
       this.processByLocation (sortBy);
@@ -18,6 +25,7 @@ class ResultDoctors extends Component {
       const filter_options = ['Precio', 'Ranking', 'Cercania'];
       this.setFilterOptions( filter_options );
     } else {
+      // --- search by name
       const sortBy = 'rank';
       this.processByName (sortBy);
 
@@ -26,12 +34,19 @@ class ResultDoctors extends Component {
     }
   }
 
-  processByLocation = async ( sortBy ) => {
+  processByLocation = async ( sortBy, limit_records=0, page_num=0 ) => {
+    // --- solo se define el limite y la pagina cuando lo configura el paginador
+    // --- si no toman los valores configurados por default
+    const limit = (limit_records === 0) ? this.state.limit : limit_records;
+    const page = (page_num === 0) ? this.state.page : page_num;
+    
     // --- haciendo la busqueda
     const json_doctors = await API.getDoctorsByLocation (
       this.props.homeSearchStore.selected_specialty._id,
       this.props.homeSearchStore.selected_address.location.lat,
       this.props.homeSearchStore.selected_address.location.lng,
+      limit,
+      page,
       sortBy
     );
     
@@ -39,9 +54,16 @@ class ResultDoctors extends Component {
   };
 
   processByName = async (sortBy) => {
+    // --- solo se define el limite y la pagina cuando lo configura el paginador
+    const limit = (limit_records === 0) ? this.state.limit : limit_records;
+    const page = (page_num === 0) ? this.state.page : page_num;
+
+    // --- haciendo la busqueda
     const json_doctors = await API.getDoctorsByName (
       this.props.homeSearchStore.selected_specialty._id,
       this.props.homeSearchStore.doctor_name,
+      limit,
+      page,
       sortBy
     );
 
@@ -49,11 +71,18 @@ class ResultDoctors extends Component {
   };
 
   setValuesToSearch = (json_doctors) => {
-    // --- guardando para su uso en otro componente
+    // --- guardando para su uso en componente doctorlist
     this.props.dispatch ({
       type: 'SET_DOCTOR_LIST',
       payload: {
         doctors_list: json_doctors,
+      },
+    });
+
+    this.props.dispatch ({
+      type: 'LOAD_MORE',
+      payload: {
+        load_more: false,
       },
     });
   };
@@ -78,186 +107,7 @@ class ResultDoctors extends Component {
       case '0': 
         const sortBy = 'price';
         if( type_search === 1 ){
-          //this.processByLocation(sortBy);
-
-          const hola = {
-            data: [
-              {
-                _id: '2bff8c716669127b3424fa10',
-                name: 'Antonio Aguirre',
-                lastName: 'Ruiz',
-                rank: 4.5,
-                picture: 'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png',
-                __v: 0,
-                workplace: {
-                  _id: '1bff8c711669127b3424fa10',
-                  healthCenter: {
-                    _id: '6bff8c716669127b3424fa40',
-                    name: 'Edificio Quiminet',
-                    address: 'Insurgentes Sur 553, Escandón I Secc, 11800 Ciudad de México, CDMX',
-                    __v: 0
-                  },
-                  speciality: {
-                    _id: '5bff8c716669127b3424fa80',
-                    name: 'General',
-                    __v: 0
-                  },
-                  price: 250,
-                  __v: 0
-                }
-              },
-              {
-                _id: '2bff8c716669127b3424fa10',
-                name: 'Antonio Aguirre',
-                lastName: 'Ruiz',
-                rank: 4.5,
-                picture: 'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png',
-                __v: 0,
-                workplace: {
-                  _id: '1bff8c711669127b3424fa11',
-                  healthCenter: {
-                    _id: '6bff8c716669127b3424fa41',
-                    name: 'Hospital Star Médica Hip',
-                    address: 'Calle Nueva York 15, Nápoles, 03810 Ciudad de México, CDMX',
-                    __v: 0
-                  },
-                  speciality: {
-                    _id: '5bff8c716669127b3424fa81',
-                    name: 'Psicología',
-                    __v: 0
-                  },
-                  price: 300,
-                  __v: 0
-                }
-              },
-              {
-                _id: '2bff8c716669127b3424fa11',
-                name: 'Daniela',
-                lastName: 'Muñoz',
-                rank: 5,
-                picture: 'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png',
-                __v: 0,
-                workplace: {
-                  _id: '1bff8c711669127b3424fa12',
-                  healthCenter: {
-                    _id: '6bff8c716669127b3424fa42',
-                    name: 'Hospital Ángeles Metropolitano',
-                    address: 'Tlacotalpan 59, Roma Sur, 06760 Ciudad de México, CDMX',
-                    __v: 0
-                  },
-                  speciality: {
-                    _id: '5bff8c716669127b3424fa81',
-                    name: 'Psicología',
-                    __v: 0
-                  },
-                  price: 200,
-                  __v: 0
-                }
-              },
-              {
-                _id: '2bff8c716669127b3424fa11',
-                name: 'Daniela',
-                lastName: 'Muñoz',
-                rank: 5,
-                picture: 'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png',
-                __v: 0,
-                workplace: {
-                  _id: '1bff8c711669127b3424fa13',
-                  healthCenter: {
-                    _id: '6bff8c716669127b3424fa43',
-                    name: 'Torre Churubusco',
-                    address: '03330, Cto Interior Avenida Río Churubusco 13, Xoco, 03330 Ciudad de México, CDMX',
-                    __v: 0
-                  },
-                  speciality: {
-                    _id: '5bff8c716669127b3424fa81',
-                    name: 'Psicología',
-                    __v: 0
-                  },
-                  price: 200,
-                  __v: 0
-                }
-              },
-              {
-                _id: '2bff8c716669127b3424fa12',
-                name: 'Dr. Simi',
-                lastName: 'Samuel',
-                rank: 3,
-                picture: 'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png',
-                __v: 0,
-                workplace: {
-                  _id: '1bff8c711669127b3424fa14',
-                  healthCenter: {
-                    _id: '6bff8c716669127b3424fa43',
-                    name: 'Torre Churubusco',
-                    address: '03330, Cto Interior Avenida Río Churubusco 13, Xoco, 03330 Ciudad de México, CDMX',
-                    __v: 0
-                  },
-                  speciality: {
-                    _id: '5bff8c716669127b3424fa80',
-                    name: 'General',
-                    __v: 0
-                  },
-                  price: 250,
-                  __v: 0
-                }
-              },
-              {
-                _id: '2bff8c716669127b3424fa12',
-                name: 'Dr. Simi',
-                lastName: 'Samuel',
-                rank: 3,
-                picture: 'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png',
-                __v: 0,
-                workplace: {
-                  _id: '1bff8c711669127b3424fa15',
-                  healthCenter: {
-                    _id: '6bff8c716669127b3424fa44',
-                    name: 'Torre Médica Ermita',
-                    address: 'Ermita Iztapalapa & Av. Río Churubusco, Sinatel, 09470 Ciudad de México, CDMX',
-                    __v: 0
-                  },
-                  speciality: {
-                    _id: '5bff8c716669127b3424fa80',
-                    name: 'General',
-                    __v: 0
-                  },
-                  price: 350,
-                  __v: 0
-                }
-              },
-              {
-                _id: '2bff8c716669127b3424fa12',
-                name: 'Dr. Simi',
-                lastName: 'Samuel',
-                rank: 3,
-                picture: 'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png',
-                __v: 0,
-                workplace: {
-                  _id: '1bff8c711669127b3424fa16',
-                  healthCenter: {
-                    _id: '6bff8c716669127b3424fa45',
-                    name: 'Condominio Rena',
-                    address: 'Av de los Insurgentes Sur 605, Nápoles, 03810 Ciudad de México, CDMX',
-                    __v: 0
-                  },
-                  speciality: {
-                    _id: '5bff8c716669127b3424fa80',
-                    name: 'General',
-                    __v: 0
-                  },
-                  price: 450,
-                  __v: 0
-                }
-              }
-            ]
-          };
-          this.props.dispatch ({
-            type: 'SET_DOCTOR_LIST',
-            payload: {
-              doctors_list: hola.data,
-            },
-          });
+          this.processByLocation(sortBy);
         }else{
           this.processByName(sortBy);
         }
@@ -277,7 +127,7 @@ class ResultDoctors extends Component {
       case '2':
         const sortByNear = 'near';
         if( type_search === 1 ){
-          this.processByLocation(sortBy);
+          this.processByLocation(sortByNear);
         }
         break;
 
@@ -285,8 +135,28 @@ class ResultDoctors extends Component {
         console.log ('error de seleccion');
     }
   };
+  getMoreDoctors(page){
+    console.log("pidio mas", page);
+    this.props.dispatch ({
+      type: 'LOAD_MORE',
+      payload: {
+        load_more: false,
+      },
+    });
 
-  
+  }
+
+  componentDidUpdate (previousProps, previousState) {
+    // si es diferente actualiza pide mas registros
+    console.log(previousProps.homeSearchStore.load_more+"::"+this.props.homeSearchStore.load_more)
+    if (previousProps.homeSearchStore.load_more === this.props.homeSearchStore.load_more ) {
+      this.setState ({
+        page: this.state.page++,
+      })
+      // haces una nueva busqueda
+      this.getMoreDoctors(this.state.page);
+    }
+  }
 
   static navigationOptions = ({navigation}) => {
     return {

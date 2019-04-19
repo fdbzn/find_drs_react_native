@@ -10,12 +10,16 @@ import Separator from '../../sections/components/horizontal-separator';
 
 
 class doctorsList extends Component {
-  
-  state = {
-    doctors_list:[]
+  handleLoadMore = () => {
+    console.log(this.props.page)
+    this.props.dispatch ({
+      type: 'LOAD_MORE',
+      payload: {
+        load_more : true
+      },
+    });
+    
   }
-  
-
   renderEmtpy = () => <Empty text="No se encontraron resultados" />;
   itemSeparator = () => <Separator />;
   keyExtractor = item => item._id.toString ();
@@ -45,7 +49,11 @@ class doctorsList extends Component {
           ListEmptyComponent={this.renderEmtpy}
           ItemSeparatorComponent={this.itemSeparator}
           renderItem={this.renderItem}
+
+          onEndReachedThreshold={0.4}
+          onEndReached={this.handleLoadMore}
         />
+        
       </View>
     );
   }
@@ -67,9 +75,10 @@ const styles = StyleSheet.create ({
 });
 
 function mapStateToProps (state) {
-  //console.log("hoalallalala",state)
   return {
     doctors_list: state.homeSearch.doctors_list,
+    limit: state.homeSearch.limit,
+    load_more: state.homeSearch.load_more,
   };
 }
 
