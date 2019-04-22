@@ -12,21 +12,26 @@ import Home from './home/containers/home';
 import SearchAddress from './home/containers/searchAddress';
 import ResultDoctors from './home/containers/resultDoctors';
 import Specialties from './home/containers/specialties';
+
+import doctorProfile from './appointment/containers/doctorProfile';
+
 import Loading from './welcome/containers/loading';
 import Login from './welcome/containers/login';
 import Welcome from './welcome/containers/welcome';
 import ForgotPass from './welcome/containers/forgotPass';
 import Register from './welcome/containers/register';
+import Conditions from './welcome/containers/conditions';
+
 import Profile from './profile/containers/profile';
 import Notifications from './notifications/containers/notifications';
-import Conditions from './welcome/containers/conditions';
 
 const Main = createStackNavigator (
   {
-    Home: Home,
-    SearchAddress: SearchAddress,
+    Home,
+    SearchAddress,
     ResultDoctors: ResultDoctors,
     Specialties,
+    doctorProfile
   },
   {
     transitionConfig: getSlideFromRightTransition,

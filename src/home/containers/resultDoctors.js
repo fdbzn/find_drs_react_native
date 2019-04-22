@@ -12,8 +12,8 @@ import API from '../../../utils/api';
 class ResultDoctors extends Component {
   // --- la actualizacion de estas variables son usadas doctorList
   state = {
-    limit:1,
-    page:0,
+    limit:100,
+    page:1,
   }
 
   componentDidMount () {
@@ -78,13 +78,6 @@ class ResultDoctors extends Component {
         doctors_list: json_doctors,
       },
     });
-
-    this.props.dispatch ({
-      type: 'LOAD_MORE',
-      payload: {
-        load_more: false,
-      },
-    });
   };
 
   setFilterOptions = ( filter_options ) => {
@@ -135,28 +128,8 @@ class ResultDoctors extends Component {
         console.log ('error de seleccion');
     }
   };
-  getMoreDoctors(page){
-    console.log("pidio mas", page);
-    this.props.dispatch ({
-      type: 'LOAD_MORE',
-      payload: {
-        load_more: false,
-      },
-    });
 
-  }
 
-  componentDidUpdate (previousProps, previousState) {
-    // si es diferente actualiza pide mas registros
-    console.log(previousProps.homeSearchStore.load_more+"::"+this.props.homeSearchStore.load_more)
-    if (previousProps.homeSearchStore.load_more === this.props.homeSearchStore.load_more ) {
-      this.setState ({
-        page: this.state.page++,
-      })
-      // haces una nueva busqueda
-      this.getMoreDoctors(this.state.page);
-    }
-  }
 
   static navigationOptions = ({navigation}) => {
     return {

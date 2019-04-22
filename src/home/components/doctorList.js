@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {NavigationActions} from 'react-navigation';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import {StyleSheet, View, FlatList, Text} from 'react-native';
 
 import DoctorItem from '../components/doctorItem';
@@ -11,22 +10,21 @@ import Separator from '../../sections/components/horizontal-separator';
 
 class doctorsList extends Component {
   handleLoadMore = () => {
-    console.log(this.props.page)
-    this.props.dispatch ({
-      type: 'LOAD_MORE',
-      payload: {
-        load_more : true
-      },
-    });
     
   }
+
+  goToDoctor = item => {
+    
+    this.props.dispatch (
+      NavigationActions.navigate ({
+        routeName: 'doctorProfile',
+      })
+    );
+  };
+
   renderEmtpy = () => <Empty text="No se encontraron resultados" />;
   itemSeparator = () => <Separator />;
   keyExtractor = item => item._id.toString ();
-  goToDoctor = item => {
-    alert("go to doctor");
-  };
-
   renderItem = ({item}) => {
     return (
       <DoctorItem
@@ -76,9 +74,12 @@ const styles = StyleSheet.create ({
 
 function mapStateToProps (state) {
   return {
+    navigation: state.navigation,
     doctors_list: state.homeSearch.doctors_list,
-    limit: state.homeSearch.limit,
-    load_more: state.homeSearch.load_more,
+    spciealty_id : state.homeSearch.selected_specialty._id,
+    lat : state.homeSearch.selected_address.location.lat,
+    lng : state.homeSearch.selected_address.location.lng,
+    type_search : state.homeSearch.type_search,
   };
 }
 
