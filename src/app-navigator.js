@@ -14,6 +14,7 @@ import ResultDoctors from './home/containers/resultDoctors';
 import Specialties from './home/containers/specialties';
 
 import doctorProfile from './appointment/containers/doctorProfile';
+import drHealthCenterMap from './appointment/containers/drHealthCenterMap';
 
 import Loading from './welcome/containers/loading';
 import Login from './welcome/containers/login';
@@ -31,7 +32,8 @@ const Main = createStackNavigator (
     SearchAddress,
     ResultDoctors: ResultDoctors,
     Specialties,
-    doctorProfile
+    doctorProfile,
+    drHealthCenterMap,
   },
   {
     transitionConfig: getSlideFromRightTransition,

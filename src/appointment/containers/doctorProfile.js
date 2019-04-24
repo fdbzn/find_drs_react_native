@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {NavigationActions} from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {
   StyleSheet,
@@ -28,6 +29,15 @@ class DoctorProfile extends Component {
       ),
     };
   };
+
+  handleLocation = ()=>{
+    this.props.dispatch (
+      NavigationActions.navigate ({
+        routeName: 'drHealthCenterMap',
+      })
+    );
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -128,8 +138,10 @@ class DoctorProfile extends Component {
                       'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png',
                   }}
                 />
-                <Text style={styles.nameUsr}>Natalia Nava</Text>
-                <Text style={styles.dateComment}>14/09/08</Text>
+                <View style={styles.detailComment}>
+                  <Text style={styles.nameUsr}>Natalia Nava</Text>
+                  <Text style={styles.dateComment}>14/09/08</Text>
+                </View>
               </View>
               <Text style={styles.commentUsr}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
@@ -290,15 +302,15 @@ const styles = StyleSheet.create({
   boxAppointments:{
     flexDirection:'row',
     marginTop : 30,
-    justifyContent:'space-around',
+    justifyContent:'space-between',
   },
   appointmentBtn:{
     backgroundColor: '#FFE082',
-    width:100,
+    width:90,
     textAlign:'center',
     fontFamily:montserrat_m,
     fontSize:16,
-    paddingHorizontal:10,
+    //paddingHorizontal:10,
     paddingVertical:10,
     borderRadius:40,
     marginBottom:15,
@@ -337,7 +349,6 @@ const styles = StyleSheet.create({
     // android (Android +5.0)
     elevation: 3,
   },
-
   sectionComments:{
     flexDirection: 'column',
     paddingTop: 15,
@@ -348,6 +359,43 @@ const styles = StyleSheet.create({
     marginBottom: 25,
     borderRadius: 4,
     backgroundColor: 'white',
+  },
+
+  itemCommentUsr:{
+    flexDirection:'column',
+    paddingTop:15,
+    paddingBottom:15,
+  },
+
+  usrInfo:{
+    flexDirection:'row',
+    marginBottom:10,
+  },
+  imgUsr:{
+    width:44,
+    height:44,
+    borderRadius:23,
+  },
+
+  detailComment:{
+    flexDirection:'column',
+    marginLeft:15,
+  },
+  nameUsr:{
+    fontFamily:montserrat_b,
+    fontSize:16,
+    color:'black',
+  },
+  
+  dateComment:{
+    fontFamily:montserrat_li,
+    fontSize:16,
+    color:'black',
+  },
+
+  commentUsr:{
+    fontFamily:montserrat_li,
+    fontSize:14,
   },
 
 });
