@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import Header from '../../sections/components/header';
 import Close from '../../sections/components/close';
+import MapView from 'react-native-maps';
 
 class drHealthCenterMap extends Component {
   static navigationOptions = ({navigation}) => {
@@ -27,8 +24,16 @@ class drHealthCenterMap extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text >map</Text>
-        
+        <Text>map</Text>
+        <MapView
+          style={styles.map}
+          initialRegion={{
+            latitude: 37.78825,
+            longitude: -122.4324,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+          }}
+        />
       </View>
     );
   }
@@ -44,7 +49,11 @@ const styles = StyleSheet.create({
     //paddingHorizontal:20,
     paddingTop: '5%',
   },
-  
+  map: {
+    ...StyleSheet.absoluteFillObject,
+    width:100,
+    height:100,
+  },
 });
 
 function mapStateToProps(state) {
