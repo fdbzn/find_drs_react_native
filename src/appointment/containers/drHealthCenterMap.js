@@ -1,11 +1,21 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {StyleSheet, View, Text} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import Header from '../../sections/components/header';
 import Close from '../../sections/components/close';
-import MapView from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 
 class drHealthCenterMap extends Component {
+  state = {
+    markers: [{
+      title: 'hello',
+      coordinates: {
+        latitude: 37.78825,
+        longitude: -122.4324,
+      },
+    }]
+  }
+
   static navigationOptions = ({navigation}) => {
     return {
       header: (
@@ -20,11 +30,14 @@ class drHealthCenterMap extends Component {
       ),
     };
   };
+  
+  
 
   render() {
+    
+
     return (
       <View style={styles.container}>
-        <Text>map</Text>
         <MapView
           style={styles.map}
           initialRegion={{
@@ -33,26 +46,71 @@ class drHealthCenterMap extends Component {
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }}
-        />
+        >
+        {this.state.markers.map(marker => (
+          <Marker 
+            coordinate={marker.coordinates}
+            title={marker.title}
+          />
+        ))}
+        </MapView>
+        <View style={styles.boxToGoogle}>
+          <Text>Torres Bordet 333, Cuahutémoc, Sta María la Ribera</Text>
+          <TouchableOpacity
+              style={styles.button}
+            >
+              <Text style={styles.buttonLabel}>¿Como llegar?</Text>
+            </TouchableOpacity>
+        </View>
       </View>
     );
   }
 }
 
+const montserrat_m = 'Montserrat-Medium';
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
     flexDirection: 'column',
+    flex:1,
     backgroundColor: '#fff',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    //paddingHorizontal:20,
-    paddingTop: '5%',
+    //paddingTop: '5%',
   },
   map: {
-    ...StyleSheet.absoluteFillObject,
-    width:100,
+    width:'100%',
+    flex:1,
+  },
+  boxToGoogle:{
+    flexDirection:'column',
+    width:'100%',
     height:100,
+    paddingHorizontal:20,
+  },
+  button: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: 48,
+    marginBottom: 20,
+    borderRadius: 3,
+
+    // ios
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    // android (Android +5.0)
+    elevation: 3,
+    backgroundColor: '#17bfa5'
+  },
+  buttonLabel: {
+    flex: 1,
+    color: 'black',
+    padding: 10,
+    fontSize: 14,
+    textAlign: 'center',
+    fontFamily:montserrat_m,
   },
 });
 
