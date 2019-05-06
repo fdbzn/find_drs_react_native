@@ -33,10 +33,18 @@ class DoctorProfile extends Component {
   handleLocation = ()=>{
     this.props.dispatch (
       NavigationActions.navigate ({
-        routeName: 'drHealthCenterMap',
+        routeName: 'DrHealthCenterMap',
       })
     );
   }
+
+  handleInitAppointment = () => {
+    this.props.dispatch (
+      NavigationActions.navigate ({
+        routeName: 'WhoAppointment',
+      })
+    );
+  };
 
   render() {
     return (
@@ -104,7 +112,7 @@ class DoctorProfile extends Component {
               <Icon style={styles.iconDefault} name="calendar" />
             </View>
             <View style={styles.boxAppointments}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={this.handleInitAppointment}>
                 <Text style={styles.appointmentBtn}>12:00</Text>
               </TouchableOpacity>
               <TouchableOpacity>

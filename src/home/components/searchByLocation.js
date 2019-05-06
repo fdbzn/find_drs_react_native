@@ -108,7 +108,7 @@ class SearchByLocation extends Component {
           onPress={this.handleGoSearchAddress}
         >
           <View style={styles.inputBlock}>
-              <Text style={styles.buttonLabel} numberOfLines={1}>
+              <Text style={styles.buttonLabel}  numberOfLines={1}>
                 {this.state.txtBtnAddress}
               </Text>
               <Icon style={styles.iconSearch} name="search" />

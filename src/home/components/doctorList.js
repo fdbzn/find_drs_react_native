@@ -17,7 +17,7 @@ class doctorsList extends Component {
     
     this.props.dispatch (
       NavigationActions.navigate ({
-        routeName: 'doctorProfile',
+        routeName: 'DoctorProfile',
       })
     );
   };

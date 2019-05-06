@@ -13,8 +13,11 @@ import SearchAddress from './home/containers/searchAddress';
 import ResultDoctors from './home/containers/resultDoctors';
 import Specialties from './home/containers/specialties';
 
-import doctorProfile from './appointment/containers/doctorProfile';
-import drHealthCenterMap from './appointment/containers/drHealthCenterMap';
+import DoctorProfile from './appointment/containers/doctorProfile';
+import DrHealthCenterMap from './appointment/containers/drHealthCenterMap';
+import WhoAppointment from './appointment/containers/whoAppointment';
+import ConfirmProfile from './appointment/containers/confirmProfile';
+import SelectFamily from './appointment/containers/selectFamily';
 
 import Loading from './welcome/containers/loading';
 import Login from './welcome/containers/login';
@@ -32,8 +35,11 @@ const Main = createStackNavigator (
     SearchAddress,
     ResultDoctors: ResultDoctors,
     Specialties,
-    doctorProfile,
-    drHealthCenterMap,
+    DoctorProfile,
+    DrHealthCenterMap,
+    WhoAppointment,
+    ConfirmProfile,
+    SelectFamily,
   },
   {
     transitionConfig: getSlideFromRightTransition,
