@@ -5,7 +5,7 @@ import {NavigationActions} from 'react-navigation';
 import Header from '../../sections/components/header';
 import Close from '../../sections/components/close';
 
-class confirmProfile extends Component {
+class selectPayMethod extends Component {
   static navigationOptions = ({navigation}) => {
     return {
       header: (
@@ -14,71 +14,71 @@ class confirmProfile extends Component {
             onPress={() => {
               navigation.goBack();
             }}
+            icon="<"
           />
         </Header>
       ),
     };
   };
 
-  handleEdit = () => {
-    alert();
-  };
-
-  handlenGoToPay = () => {
-    this.props.dispatch(
-      NavigationActions.navigate({
-        routeName: 'SelectPayMethod',
-      })
-    );
-  }
-
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.txtTitle}>Datos del paciente</Text>
-        
-          <View style={styles.cardItem}>
-            <TouchableOpacity onPress={this.handleEdit} style={styles.btnEdit}>
-              <Image source={require('../../../assets/appointment/edit.png')} />
-            </TouchableOpacity>
-            <View style={styles.imgBox}>
-              <Image
-                style={styles.imgCard}
-                source={{
-                  uri:
-                    'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png',
-                }}
-              />
-            </View>
+        <Text style={styles.txtTitle}>Datos de pago</Text>
+        <TouchableOpacity
+          onPress={this.handlenGoToPay}
+          style={[styles.button, styles.buttonYellow]}
+        >
+          <Text style={styles.buttonLabel}>AGREGAR NUEVO</Text>
+        </TouchableOpacity>
 
-            <View style={styles.cardDetail}>
-              <Text style={styles.name}>
-                Mauricio francisco Guerra Gonzalez
+        <View style={styles.cardItem}>
+          <TouchableOpacity onPress={this.handleEdit} style={styles.btnEdit}>
+            <Image source={require('../../../assets/appointment/edit.png')} />
+          </TouchableOpacity>
+          <View style={styles.imgBox}>
+            <Image
+              style={styles.imgCard}
+              source={{
+                uri:
+                  'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png',
+              }}
+            />
+          </View>
+
+          <View style={styles.cardDetail}>
+            <Text style={styles.name}>Mauricio francisco Guerra Gonzalez</Text>
+            <Text style={styles.secondaryLabel}>Edad: 29 años</Text>
+            <Text style={styles.secondaryLabel}>Sexo: Masculino</Text>
+            <View style={styles.oneDetailBox}>
+              <Text style={styles.labelBlack}>Cel. </Text>
+              <Text style={styles.labelGreen}>5536882908</Text>
+            </View>
+            <View style={styles.oneDetailBox}>
+              <Text style={styles.labelBlack}>Correo: </Text>
+              <Text
+                style={styles.labelGreen}
+                ellipsizeMode="tail"
+                numberOfLines={1}
+              >
+                daniel.bazan@gmail.com
               </Text>
-              <Text style={styles.secondaryLabel}>Edad: 29 años</Text>
-              <Text style={styles.secondaryLabel}>Sexo: Masculino</Text>
-              <View style={styles.oneDetailBox}>
-                <Text style={styles.labelBlack}>Cel. </Text>
-                <Text style={styles.labelGreen}>5536882908</Text>
-              </View>
-              <View style={styles.oneDetailBox}>
-                <Text style={styles.labelBlack}>Correo: </Text>
-                <Text
-                  style={styles.labelGreen}
-                  ellipsizeMode="tail"
-                  numberOfLines={1}
-                >
-                  daniel.bazan@gmail.com
-                </Text>
-              </View>
             </View>
           </View>
+        </View>
         
+
         <TouchableOpacity
-              onPress={this.handlenGoToPay}
-              style={[styles.button, styles.buttonYellow]}
-            >
-            <Text style={styles.buttonLabel}>SIGUIENTE </Text>
+          onPress={this.handlenGoToPay}
+          style={[styles.button, styles.buttonYellow]}
+        >
+          <Text style={styles.buttonLabel}>PAGAR CON PAYPAL</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={this.handlenGoToPay}
+          style={[styles.button, styles.buttonYellow]}
+        >
+          <Text style={styles.buttonLabel}>CONFIRMAR CITA</Text>
         </TouchableOpacity>
       </View>
     );
@@ -93,9 +93,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     flex: 1,
     backgroundColor: '#fff',
-    //justifyContent: 'center',
-    //alignItems: 'center',
-    paddingHorizontal:20,
+    justifyContent:'center'
   },
   txtTitle: {
     fontSize: 18,
@@ -185,9 +183,6 @@ const styles = StyleSheet.create({
     color: '#00BFA5',
   },
   button: {
-    position:'absolute',
-    bottom:0,
-    right:20,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -217,4 +212,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null)(confirmProfile);
+export default connect(null)(selectPayMethod);

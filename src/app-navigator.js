@@ -18,6 +18,7 @@ import DrHealthCenterMap from './appointment/containers/drHealthCenterMap';
 import WhoAppointment from './appointment/containers/whoAppointment';
 import ConfirmProfile from './appointment/containers/confirmProfile';
 import SelectFamily from './appointment/containers/selectFamily';
+import SelectPayMethod from './appointment/containers/selectPayMethod';
 
 import Loading from './welcome/containers/loading';
 import Login from './welcome/containers/login';
@@ -40,6 +41,7 @@ const Main = createStackNavigator (
     WhoAppointment,
     ConfirmProfile,
     SelectFamily,
+    SelectPayMethod,
   },
   {
     transitionConfig: getSlideFromRightTransition,
@@ -75,6 +77,7 @@ const Initial = createStackNavigator (
     Register: {
       screen: Register,
     },
+    
   },
   {
     initialRouteName: 'Welcome',
