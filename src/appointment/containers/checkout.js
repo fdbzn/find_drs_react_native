@@ -6,7 +6,7 @@ import Header from '../../sections/components/header';
 import Close from '../../sections/components/close';
 
 
-class whoAppointment extends Component {
+class checkout extends Component {
   static navigationOptions = ({navigation}) => {
     return {
       header: (
@@ -41,19 +41,14 @@ class whoAppointment extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.txtTitle}>¿Para quién es la cita?</Text>
+        <Text style={styles.txtTitle}>Confirmar cita</Text>
         <TouchableOpacity
           onPress={this.handleForMe}
           style={[styles.button, styles.buttonYellow]}
         >
-          <Text style={styles.buttonLabel}>PARA MI</Text>
+          <Text style={styles.buttonLabel}>CONFIRMAR CITA</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={this.handleFamily}
-          style={[styles.button, styles.buttonGreen]}
-        >
-          <Text style={styles.buttonLabel}>PARA ALGUIEN MÁS</Text>
-        </TouchableOpacity>
+        
       </View>
     );
   }
@@ -110,4 +105,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null)(whoAppointment);
+export default connect(null)(checkout);

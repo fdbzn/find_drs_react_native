@@ -21,13 +21,21 @@ class selectPayMethod extends Component {
     };
   };
 
+  handlenGoToCheckout = () => {
+    this.props.dispatch(
+      NavigationActions.navigate({
+        routeName: 'Checkout',
+      })
+    );
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.txtTitle}>Datos de pago</Text>
         <TouchableOpacity
           onPress={this.handlenGoToPay}
-          style={[styles.button, styles.buttonYellow]}
+          style={[styles.buttonYellow, styles.buttonAddNewMethod]}
         >
           <Text style={styles.buttonLabel}>AGREGAR NUEVO</Text>
         </TouchableOpacity>
@@ -37,48 +45,33 @@ class selectPayMethod extends Component {
             <Image source={require('../../../assets/appointment/edit.png')} />
           </TouchableOpacity>
           <View style={styles.imgBox}>
-            <Image
-              style={styles.imgCard}
-              source={{
-                uri:
-                  'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png',
-              }}
-            />
+            <Image style={styles.imgCard} source={require('../../../assets/appointment/credit_card_icon.png')} />
           </View>
 
           <View style={styles.cardDetail}>
-            <Text style={styles.name}>Mauricio francisco Guerra Gonzalez</Text>
-            <Text style={styles.secondaryLabel}>Edad: 29 años</Text>
-            <Text style={styles.secondaryLabel}>Sexo: Masculino</Text>
+            <Text style={styles.name}>Banamex Master</Text>
+            <Text style={styles.secondaryLabel}>Nombre de usuario</Text>
             <View style={styles.oneDetailBox}>
-              <Text style={styles.labelBlack}>Cel. </Text>
-              <Text style={styles.labelGreen}>5536882908</Text>
+              <Text style={styles.labelBlack}>Tarjeta: </Text>
+              <Text style={styles.labelGreen}>************1358</Text>
             </View>
-            <View style={styles.oneDetailBox}>
-              <Text style={styles.labelBlack}>Correo: </Text>
-              <Text
-                style={styles.labelGreen}
-                ellipsizeMode="tail"
-                numberOfLines={1}
-              >
-                daniel.bazan@gmail.com
-              </Text>
-            </View>
+            <Image style={styles.imgTypeCard} source={require('../../../assets/appointment/visa_debit.png')} />
           </View>
         </View>
         
 
         <TouchableOpacity
           onPress={this.handlenGoToPay}
-          style={[styles.button, styles.buttonYellow]}
+          style={[styles.button, styles.buttonGray]}
         >
-          <Text style={styles.buttonLabel}>PAGAR CON PAYPAL</Text>
+          <Text style={styles.paypalLabel}>Pagar con </Text>
+          <Image style={styles.imgPaypal} source={require('../../../assets/appointment/paypal_logo.png')} />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={this.handlenGoToPay}
           style={[styles.button, styles.buttonYellow]}
         >
-          <Text style={styles.buttonLabel}>CONFIRMAR CITA</Text>
+          <Text style={styles.buttonLabel}>IR A CONFIRMACION</Text>
         </TouchableOpacity>
       </View>
     );
@@ -87,19 +80,20 @@ class selectPayMethod extends Component {
 
 const montserrat_b = 'Montserrat-Bold';
 const montserrat_m = 'Montserrat-Medium';
+const montserrat = 'Montserrat';
+const montserrat_li = 'Montserrat-Light';
 const montserrat_sb = 'Montserrat-SemiBold';
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
     flex: 1,
     backgroundColor: '#fff',
-    justifyContent:'center'
   },
   txtTitle: {
     fontSize: 18,
     color: 'black',
-    marginTop: 22,
-    marginBottom: 33,
+    marginTop: 20,
+    marginBottom: 15,
     paddingLeft: 20,
     fontFamily: montserrat_b,
   },
@@ -111,30 +105,22 @@ const styles = StyleSheet.create({
   cardItem: {
     flexDirection: 'row',
     paddingTop: 20,
-    paddingBottom: 10,
+    paddingBottom: 30,
     paddingHorizontal: 10,
     alignSelf: 'center',
     width: '100%',
     minHeight: 150,
-    borderWidth: 1,
+    borderBottomWidth: 2,
     borderColor: '#e9e9e9',
     marginBottom: 10,
     borderRadius: 4,
     backgroundColor: 'white',
-
-    // ios
-    shadowRadius: 4,
-    shadowOffset: {width: 0, height: 3},
-    shadowOpacity: 0.3,
-
-    // android (Android +5.0)
-    elevation: 3,
   },
   btnEdit: {
     zIndex: 1,
     position: 'absolute',
-    top: 10,
-    right: 10,
+    bottom: 20,
+    right: 20,
     width: 46,
     height: 46,
   },
@@ -179,17 +165,37 @@ const styles = StyleSheet.create({
   labelGreen: {
     flex: 1,
     fontSize: 16,
-    fontFamily: montserrat_sb,
-    color: '#00BFA5',
+    fontFamily: montserrat_li,
+    color: 'black',
   },
+
+  buttonAddNewMethod:{
+    width:210,
+    marginLeft:'auto',
+    marginRight:20,
+    marginBottom: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 36, 
+    borderRadius: 3,
+
+    // ios
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+    // android (Android +5.0)
+    elevation: 3,
+  },
+
   button: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
-    height: 48,
-    marginBottom: 20,
+    height: 48, 
     borderRadius: 3,
+    marginHorizontal:20,
+    marginBottom:15,
 
     // ios
     shadowOffset: {width: 0, height: 3},
@@ -202,13 +208,30 @@ const styles = StyleSheet.create({
   buttonYellow: {
     backgroundColor: '#fee082',
   },
+  
+  buttonGray:{
+    backgroundColor: '#E4E4E4',
+  },
+
   buttonLabel: {
-    flex: 0.5,
+    flex: 1,
     color: 'black',
-    padding: 10,
-    fontSize: 14,
+    fontSize: 13,
     textAlign: 'center',
     fontFamily: montserrat_m,
+  },
+  paypalLabel:{
+    color: 'black',
+    fontSize: 15,
+    textAlign: 'center',
+    fontFamily: montserrat_li,
+    marginRight:5,
+  },
+  imgTypeCard:{
+    marginTop:10,
+  },
+  imgPaypal:{
+    //flex:1,
   },
 });
 
