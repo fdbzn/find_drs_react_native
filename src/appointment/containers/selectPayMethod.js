@@ -61,14 +61,14 @@ class selectPayMethod extends Component {
         
 
         <TouchableOpacity
-          onPress={this.handlenGoToPay}
+          onPress={this.handlenPayPal}
           style={[styles.button, styles.buttonGray]}
         >
           <Text style={styles.paypalLabel}>Pagar con </Text>
           <Image style={styles.imgPaypal} source={require('../../../assets/appointment/paypal_logo.png')} />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={this.handlenGoToPay}
+          onPress={this.handlenGoToCheckout}
           style={[styles.button, styles.buttonYellow]}
         >
           <Text style={styles.buttonLabel}>IR A CONFIRMACION</Text>

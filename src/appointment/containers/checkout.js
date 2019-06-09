@@ -22,7 +22,7 @@ class checkout extends Component {
     };
   };
 
-  handleForMe = () => {
+  handleEndAppointment = () => {
     this.props.dispatch(
       NavigationActions.navigate({
         routeName: 'ConfirmProfile',
@@ -105,4 +105,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null)(checkout);
+
+function mapStateToProps (state) {
+  return {
+    all: state,
+  };
+}
+export default connect(mapStateToProps)(checkout);

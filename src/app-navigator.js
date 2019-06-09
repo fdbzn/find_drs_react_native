@@ -19,6 +19,7 @@ import WhoAppointment from './appointment/containers/whoAppointment';
 import ConfirmProfile from './appointment/containers/confirmProfile';
 import SelectFamily from './appointment/containers/selectFamily';
 import SelectPayMethod from './appointment/containers/selectPayMethod';
+import Checkout from './appointment/containers/checkout';
 
 import Loading from './welcome/containers/loading';
 import Login from './welcome/containers/login';
@@ -42,6 +43,7 @@ const Main = createStackNavigator (
     ConfirmProfile,
     SelectFamily,
     SelectPayMethod,
+    Checkout,
   },
   {
     transitionConfig: getSlideFromRightTransition,
