@@ -22,6 +22,14 @@ class selectPayMethod extends Component {
   };
 
   handlenGoToCheckout = () => {
+    // --- guarda metodo de pago
+    this.props.dispatch({
+      type: 'SET_PAY_METHOD',
+      payload: {
+        name_method:'banamex1',
+        card_numbers:'**** **** **** 1294',
+      }
+    });
     this.props.dispatch(
       NavigationActions.navigate({
         routeName: 'Checkout',

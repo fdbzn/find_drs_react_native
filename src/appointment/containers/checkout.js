@@ -23,17 +23,10 @@ class checkout extends Component {
   };
 
   handleEndAppointment = () => {
+    console.log(this.props.all)
     this.props.dispatch(
       NavigationActions.navigate({
-        routeName: 'ConfirmProfile',
-      })
-    );
-  };
-  
-  handleFamily = () => {
-    this.props.dispatch(
-      NavigationActions.navigate({
-        routeName: 'SelectFamily',
+        routeName: 'SuccessAppointment',
       })
     );
   };
@@ -43,7 +36,7 @@ class checkout extends Component {
       <View style={styles.container}>
         <Text style={styles.txtTitle}>Confirmar cita</Text>
         <TouchableOpacity
-          onPress={this.handleForMe}
+          onPress={this.handleEndAppointment}
           style={[styles.button, styles.buttonYellow]}
         >
           <Text style={styles.buttonLabel}>CONFIRMAR CITA</Text>

@@ -1,6 +1,9 @@
 
 function appointment(state = {}, action) {
     switch(action.type) {
+      case 'SET_DR_PROFILE': {
+        return {...state, ...action.payload}
+      }
       case 'SET_USER_PATIENT': {
         return {...state, ...action.payload}
       }

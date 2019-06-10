@@ -39,6 +39,17 @@ class DoctorProfile extends Component {
   }
 
   handleInitAppointment = () => {
+    // --- guarda la hora de cita
+    this.props.dispatch({
+      type: 'SET_DR_PROFILE',
+      payload: {
+        schedule:'31 de sep 13:30',
+        address:'insurgentes 553',
+        geo_address:'',
+        dr_name:'Juan Pablo Rodriguez',
+        cost:'850',
+      }
+    });
     this.props.dispatch (
       NavigationActions.navigate ({
         routeName: 'WhoAppointment',

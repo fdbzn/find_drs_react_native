@@ -25,6 +25,7 @@ class confirmProfile extends Component {
   };
 
   handlenGoToPay = () => {
+    
     this.props.dispatch(
       NavigationActions.navigate({
         routeName: 'SelectPayMethod',
