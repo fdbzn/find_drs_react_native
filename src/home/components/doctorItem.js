@@ -3,6 +3,10 @@ import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import {Rating} from 'react-native-elements';
 
 function doctorsItem(props) {
+  const  first_interval = props.workplace.intervals[0];
+  const  last_interval = props.workplace.intervals.pop();
+  console.log(first_interval);
+  
   return (
     <TouchableOpacity onPress={props.onPress}>
       <View style={styles.doctorItem}>
@@ -17,7 +21,7 @@ function doctorsItem(props) {
 
         <View style={styles.doctorDetail}>
           <Text style={styles.docName}>Dr. {props.name}</Text>
-          <Text style={styles.docSpecialty}>Médico General</Text>
+          <Text style={styles.docSpecialty}>{props.workplace.speciality.name}</Text>
           <View style={styles.starsPriceBlock}>
             <Rating
               type='custom'
@@ -29,8 +33,9 @@ function doctorsItem(props) {
             />
             
             <Text style={styles.docPrice}>${props.workplace.price}</Text>
+            
           </View>
-          <Text style={styles.docAddress}>Torres Bordet 234,Cuahutémoc, Sta María la Ribera </Text>
+          <Text style={styles.docAddress}>{props.workplace.healthCenter.address}</Text>
           <Text style={styles.docSchedule}>Disponibilidad:</Text>
           <Text style={styles.docHours}>13hrs - 17hrs,  19hrs-23hrs</Text>
         </View>
