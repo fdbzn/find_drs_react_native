@@ -14,6 +14,14 @@ class doctorsList extends Component {
   }
 
   goToDoctor = item => {
+    this.props.dispatch({
+      type: 'SET_SELECTED_DR',
+      payload: {
+        selected_dr : item
+      }
+    })
+    
+
     
     this.props.dispatch (
       NavigationActions.navigate ({

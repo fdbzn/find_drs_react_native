@@ -3,9 +3,15 @@ import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import {Rating} from 'react-native-elements';
 
 function doctorsItem(props) {
-  const  first_interval = props.workplace.intervals[0];
-  const  last_interval = props.workplace.intervals.pop();
-  console.log(first_interval);
+  let  first_interval = ""; 
+  let  last_interval = "";
+   
+  if( props.workplace.intervals.length > 0 ){
+    first_interval = props.workplace.intervals[0].startTime;
+  }
+  if( props.workplace.intervals.length > 0 ){
+    last_interval = props.workplace.intervals.pop().endTime;
+  }  
   
   return (
     <TouchableOpacity onPress={props.onPress}>
@@ -20,14 +26,14 @@ function doctorsItem(props) {
         </View>
 
         <View style={styles.doctorDetail}>
-          <Text style={styles.docName}>Dr. {props.name}</Text>
+          <Text style={styles.docName}>{props.name}</Text>
           <Text style={styles.docSpecialty}>{props.workplace.speciality.name}</Text>
           <View style={styles.starsPriceBlock}>
             <Rating
               type='custom'
               imageSize={15}
               readonly
-              startingValue={3}
+              startingValue={props.rank}
               ratingColor='#EFB04B'
               style={ styles.rating }
             />
@@ -37,7 +43,7 @@ function doctorsItem(props) {
           </View>
           <Text style={styles.docAddress}>{props.workplace.healthCenter.address}</Text>
           <Text style={styles.docSchedule}>Disponibilidad:</Text>
-          <Text style={styles.docHours}>13hrs - 17hrs,  19hrs-23hrs</Text>
+          <Text style={styles.docHours}>{first_interval} - {last_interval}</Text>
         </View>
       </View>
     </TouchableOpacity>

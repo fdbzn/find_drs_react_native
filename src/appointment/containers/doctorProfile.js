@@ -68,29 +68,29 @@ class DoctorProfile extends Component {
                 <Image
                   style={styles.imgDoc}
                   source={{
-                    uri:
-                      'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png',
-                  }}
+                    uri: this.props.doctor.picture,
+                  }} 
+                  
                 />
               </View>
 
               <View style={styles.doctorDetail}>
-                <Text style={styles.subtitle}>Dr. David Perez</Text>
-                <Text style={styles.docSpecialty}>Médico General</Text>
+                <Text style={styles.subtitle}>{this.props.doctor.name}</Text>
+                <Text style={styles.docSpecialty}>{this.props.specialty}</Text>
                 <View style={styles.starsPriceBlock}>
                   <Rating
                     type="custom"
                     imageSize={15}
                     readonly
-                    startingValue={3}
+                    startingValue={this.props.doctor.rank}
                     ratingColor="#EFB04B"
                     style={styles.rating}
                   />
 
-                  <Text style={styles.docPrice}>$800</Text>
+                  <Text style={styles.docPrice}>${this.props.doctor.workplace.price}</Text>
                 </View>
                 <Text style={styles.docAddress}>
-                  Torres Bordet 234,Cuahutémoc, Sta María la Ribera
+                  {this.props.doctor.workplace.healthCenter.address}
                 </Text>
               </View>
 
@@ -420,8 +420,11 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  console.log(state);
-  return {};
+  console.log('dr_profile', state);
+  return {
+    doctor : state.homeSearch.selected_dr,
+    specialty: state.homeSearch.selected_specialty.name
+  };
 }
 
 export default connect(mapStateToProps)(DoctorProfile);
