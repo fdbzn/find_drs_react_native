@@ -10,6 +10,9 @@ function appointment(state = {}, action) {
       case 'SET_PAY_METHOD': {
         return {...state, ...action.payload}
       }
+      case 'SET_INTERVALS': {
+        return {...state, ...action.payload}
+      }
      
       default:
         return state

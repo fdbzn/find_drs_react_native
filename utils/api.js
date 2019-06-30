@@ -2,6 +2,10 @@ import {errorMessage} from './apiMessages';
 const BASE_API = 'http://api.yiunic.com/';
 
 class Api {
+  getIntervalsByDate( date ){
+    return this.get( `${BASE_API}specialities`, {date} );
+  }
+
   createUser(name,lastName,email,birthDate,gender,phone,password) {
     const data = {
       username:email,

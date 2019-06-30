@@ -5,7 +5,7 @@ import {Rating} from 'react-native-elements';
 function doctorsItem(props) {
   let  first_interval = ""; 
   let  last_interval = "";
-   
+    
   if( props.workplace.intervals.length > 0 ){
     first_interval = props.workplace.intervals[0].startTime;
   }
