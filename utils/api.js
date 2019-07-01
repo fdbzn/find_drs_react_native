@@ -2,8 +2,9 @@ import {errorMessage} from './apiMessages';
 const BASE_API = 'http://api.yiunic.com/';
 
 class Api {
-  getIntervalsByDate( date ){
-    return this.get( `${BASE_API}specialities`, {date} );
+  getIntervalsByDate( workplace_id, date ){
+    const params = this.toParams( {date} )
+    return this.get( `${BASE_API}workplaces/${workplace_id}/intervals?${params}` );
   }
 
   createUser(name,lastName,email,birthDate,gender,phone,password) {
@@ -63,6 +64,7 @@ class Api {
   }
 
   async handleResponse(query){
+    console.log("apilog-query:",query)
     let response = {};
     if(query.status === 200 || query.status === 201){
       response = await query.json();
@@ -73,8 +75,8 @@ class Api {
       response.success = false;
       response.error_desc = errorMessage[response.code];
     }
-    console.log("apilog:",query)
-    console.log("apilog:",response)
+    
+    console.log("apilog-response:",response)
     return response;
   }
 

@@ -18,9 +18,12 @@ class DoctorProfile extends Component {
   
 
   async componentDidMount() {
-    const intervals = await API.getIntervalsByDate();
-
-    this.props.dispatch({
+    //const curdate = new Date().toJSON().slice(0,10).replace(/-/g,'-');
+    const curdate = '2019-03-04'
+    const workplace_id = this.props.doctor.workplace._id;
+    const intervals = await API.getIntervalsByDate(workplace_id, curdate);
+ 
+    this.props.dispatch({ 
       type: 'SET_INTERVALS',
       payload: {
         intervals: intervals.data,
@@ -88,5 +91,10 @@ const styles = StyleSheet.create({
   },
 });
 
+function mapStateToProps(state) {
+  return {
+    doctor : state.homeSearch.selected_dr
+  };
+}
 
-export default connect(null)(DoctorProfile);
+export default connect(mapStateToProps)(DoctorProfile);

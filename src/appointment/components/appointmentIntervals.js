@@ -2,7 +2,12 @@ import React, {Component} from 'react';
 import DatePicker from 'react-native-datepicker';
 import {NavigationActions} from 'react-navigation';
 import {connect} from 'react-redux';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity, FlatList} from 'react-native';
+
+import Empty from '../../sections/components/empty';
+import Separator from '../../sections/components/horizontal-separator';
+import IntervalItem from './intervalItem';
+
 
 class appointmentIntervals extends Component {
   state = {
@@ -37,6 +42,19 @@ class appointmentIntervals extends Component {
       })
     );
   };
+
+  renderEmtpy = () => <Empty text="No se encontraron resultados" />;
+  itemSeparator = () => <Separator />;
+  keyExtractor = item => item._id.toString ();
+  renderItem = ({item}) => {
+    return (
+      <IntervalItem
+        {...item}
+        onPress={()=> { this.handleInitAppointment(item) }}
+      />
+    )
+  };
+
   render() {
     return (
       <View style={styles.sectionAppointment}>
@@ -78,6 +96,17 @@ class appointmentIntervals extends Component {
             <Text style={styles.appointmentBtn}>16:00</Text>
             </TouchableOpacity>
         </View>
+
+        <FlatList
+          style={styles.listAppointments}
+          contentContainerStyle={styles.listBox}
+          data={this.props.intervals}
+
+          keyExtractor={this.keyExtractor}
+          ListEmptyComponent={this.renderEmtpy}
+          ItemSeparatorComponent={this.itemSeparator}
+          renderItem={this.renderItem}
+        />
       </View>
     );
   }
@@ -140,6 +169,10 @@ const styles = StyleSheet.create({
     marginTop: 30,
     justifyContent: 'space-between',
   },
+  listAppointments: {
+    marginTop: 30,
+    
+  },
   appointmentBtn: {
     backgroundColor: '#FFE082',
     width: 90,
@@ -160,8 +193,9 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
+  console.log(state)
   return {
-    
+    intervals : state.appointment.intervals
   };
 }
 
