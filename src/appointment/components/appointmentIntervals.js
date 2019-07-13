@@ -8,7 +8,6 @@ import Empty from '../../sections/components/empty';
 import Separator from '../../sections/components/horizontal-separator';
 import IntervalItem from './intervalItem';
 
-
 class appointmentIntervals extends Component {
   state = {
     appointment_date: new Date(),
@@ -45,14 +44,16 @@ class appointmentIntervals extends Component {
 
   renderEmtpy = () => <Empty text="No se encontraron resultados" />;
   itemSeparator = () => <Separator />;
-  keyExtractor = item => item._id.toString ();
+  keyExtractor = item => item._id.toString();
   renderItem = ({item}) => {
     return (
       <IntervalItem
         {...item}
-        onPress={()=> { this.handleInitAppointment(item) }}
+        onPress={() => {
+          this.handleInitAppointment(item);
+        }}
       />
-    )
+    );
   };
 
   render() {
@@ -85,28 +86,27 @@ class appointmentIntervals extends Component {
             }}
           />
         </View>
-        <View style={styles.boxAppointments}> 
-            <TouchableOpacity onPress={this.handleInitAppointment}>
-            <Text style={styles.appointmentBtn}>12:00</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-            <Text style={styles.appointmentBtn}>13:00</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-            <Text style={styles.appointmentBtn}>16:00</Text>
-            </TouchableOpacity>
+
+        <View onStartShouldSetResponderCapture={()=>{
+            if(this.props.appointments.length > 12){
+              this.props.onEnableScroll()
+            }
+        }}>
+          <FlatList
+            style={styles.listAppointments}
+            contentContainerStyle={styles.listBox}
+            data={this.props.appointments}
+            //horizontal = {true}
+            numColumns={3}
+            keyExtractor={this.keyExtractor}
+            ListEmptyComponent={this.renderEmtpy}
+            ItemSeparatorComponent={this.itemSeparator}
+            renderItem={this.renderItem}
+          />
+
+          
         </View>
 
-        <FlatList
-          style={styles.listAppointments}
-          contentContainerStyle={styles.listBox}
-          data={this.props.intervals}
-
-          keyExtractor={this.keyExtractor}
-          ListEmptyComponent={this.renderEmtpy}
-          ItemSeparatorComponent={this.itemSeparator}
-          renderItem={this.renderItem}
-        />
       </View>
     );
   }
@@ -171,8 +171,10 @@ const styles = StyleSheet.create({
   },
   listAppointments: {
     marginTop: 30,
-    
+    height: 200,
+    flexWrap: 'wrap',
   },
+
   appointmentBtn: {
     backgroundColor: '#FFE082',
     width: 90,
@@ -193,9 +195,9 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  console.log(state)
+  
   return {
-    intervals : state.appointment.intervals
+    appointments: state.appointment.appointments,
   };
 }
 

@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
     appointmentBtn: {
         backgroundColor: '#FFE082',
         width: 90,
+        
         textAlign: 'center',
         fontFamily: montserrat_m,
         fontSize: 16,
