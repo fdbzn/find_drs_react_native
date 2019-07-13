@@ -53,7 +53,7 @@ class ResultDoctors extends Component {
     this.setValuesToSearch (json_doctors.data);
   };
 
-  processByName = async (sortBy) => {
+  processByName = async (sortBy, limit_records=0, page_num=0) => {
     // --- solo se define el limite y la pagina cuando lo configura el paginador
     const limit = (limit_records === 0) ? this.state.limit : limit_records;
     const page = (page_num === 0) ? this.state.page : page_num;

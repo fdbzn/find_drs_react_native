@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  
+  console.log(state);
   return {
     appointments: state.appointment.appointments,
   };

@@ -4,7 +4,7 @@ import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 function intervalItem(props) {
   return (
     <TouchableOpacity onPress={props.onPress}>
-      <Text style={styles.appointmentBtn}>12:00</Text>
+      <Text style={styles.appointmentBtn}>{props.startTime}</Text>
     </TouchableOpacity>
   );
 }
