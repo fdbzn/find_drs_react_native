@@ -18,6 +18,7 @@ import DrHealthCenterMap from './appointment/containers/drHealthCenterMap';
 import WhoAppointment from './appointment/containers/whoAppointment';
 import ConfirmProfile from './appointment/containers/confirmProfile';
 import SelectFamily from './appointment/containers/selectFamily';
+import AddFamily from './appointment/containers/addFamily';
 import SelectPayMethod from './appointment/containers/selectPayMethod';
 import Checkout from './appointment/containers/checkout';
 
@@ -42,6 +43,7 @@ const Main = createStackNavigator (
     WhoAppointment,
     ConfirmProfile,
     SelectFamily,
+    AddFamily,
     SelectPayMethod,
     Checkout,
   },

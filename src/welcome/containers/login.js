@@ -45,7 +45,7 @@ class Login extends Component {
       this.props.dispatch ({
         type: 'SET_USER',
         payload: {
-          token: login.token,
+          token: login.data.token,
           username: 'userconlogin',
         },
       });

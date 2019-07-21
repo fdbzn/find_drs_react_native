@@ -88,7 +88,6 @@ class selectPayMethod extends Component {
 
 const montserrat_b = 'Montserrat-Bold';
 const montserrat_m = 'Montserrat-Medium';
-const montserrat = 'Montserrat';
 const montserrat_li = 'Montserrat-Light';
 const montserrat_sb = 'Montserrat-SemiBold';
 const styles = StyleSheet.create({

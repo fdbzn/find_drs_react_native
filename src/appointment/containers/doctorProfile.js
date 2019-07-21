@@ -31,12 +31,18 @@ class DoctorProfile extends Component {
     const curdate = '2019-03-04'
     const workplace_id = this.props.doctor.workplace._id;
     const intervals = await API.getIntervalsByDate(workplace_id, curdate);
-    // --- get interval object and concat schedules in one
-    const appointments = intervals.data.map( interval=>{
-      return interval.appointments
-    }).reduce((pre, cur)=>{
-      return pre.concat(cur);
-    });
+    let appointments = [];
+
+    // --- validating if exist a result
+    if(intervals.data.length > 0){
+      // --- get interval object and concat schedules in one
+      appointments = intervals.data.map( interval=>{
+        return interval.appointments
+      }).reduce((pre, cur)=>{
+        return pre.concat(cur);
+      });
+    }
+
 
     this.props.dispatch({ 
       type: 'SET_INTERVALS',

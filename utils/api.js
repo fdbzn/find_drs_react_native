@@ -2,9 +2,27 @@ import {errorMessage} from './apiMessages';
 const BASE_API = 'http://api.yiunic.com/';
 
 class Api {
+
+  getMyRelatives(token){
+    return this.secure_get( `${BASE_API}users/me/relatives`, token );  
+  }
+
   getIntervalsByDate( workplace_id, date ){
     const params = this.toParams( {date} )
     return this.get( `${BASE_API}workplaces/${workplace_id}/intervals?${params}` );
+  }
+
+  createFamily(name,lastName,email,birthDate,gender,phone, token) {
+    const data = {
+      username:email,
+      name,
+      lastName,
+      email,
+      birthDate:`${birthDate}T00:00:00.000Z`,
+      gender,
+      phone,
+    }
+    return this.secure_post(`${BASE_API}users/me/relatives`, data, token);
   }
 
   createUser(name,lastName,email,birthDate,gender,phone,password) {
@@ -49,6 +67,17 @@ class Api {
       const query = await fetch( url,  {method: 'GET'} );
       return this.handleResponse(query);
   }
+  async secure_get(url, token){
+      const query = await fetch( url,  {
+        method: 'GET', 
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer '+token, 
+        },
+      });
+      return this.handleResponse(query);
+  }
 
   async post(url, data){
       const query = await fetch(url,  {
@@ -62,6 +91,20 @@ class Api {
 
       return this.handleResponse(query);
   }
+
+  async secure_post(url, data, token){
+    const query = await fetch(url,  {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '+token, 
+      },
+      body: JSON.stringify(data)
+    });
+
+    return this.handleResponse(query);
+}
 
   async handleResponse(query){
     console.log("apilog-query:",query)

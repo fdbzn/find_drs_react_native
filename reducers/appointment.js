@@ -1,7 +1,10 @@
 
 function appointment(state = {}, action) {
     switch(action.type) {
-      case 'SET_DR_PROFILE': {
+      case 'SET_RELATIVES': {
+        return {...state, ...action.payload}
+      }
+      case 'SET_SCHEDULE': {
         return {...state, ...action.payload}
       }
       case 'SET_USER_PATIENT': {
@@ -12,6 +15,9 @@ function appointment(state = {}, action) {
       }
       case 'SET_INTERVALS': {
         return {...state, ...action.payload}
+      }
+      case 'APPOINTMENT_CLEAR': {
+        return false
       }
      
       default:

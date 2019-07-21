@@ -2,15 +2,43 @@ import React, {Component} from 'react';
 import DatePicker from 'react-native-datepicker';
 import {NavigationActions} from 'react-navigation';
 import {connect} from 'react-redux';
-import {StyleSheet, View, Text, TouchableOpacity, FlatList} from 'react-native';
+import {StyleSheet, View, Text, FlatList} from 'react-native';
 
 import Empty from '../../sections/components/empty';
+import API from '../../../utils/api';
 import Separator from '../../sections/components/horizontal-separator';
 import IntervalItem from './intervalItem';
 
 class appointmentIntervals extends Component {
   state = {
     appointment_date: new Date(),
+  };
+
+  handleChangeDate = async ( date )=>{
+    const part_date = date.split('/');
+    const format_date = part_date[2]+'-'+part_date[1]+'-'+part_date[0];
+
+    const workplace_id = this.props.doctor.workplace._id;
+    const intervals = await API.getIntervalsByDate(workplace_id, format_date);
+    let appointments = [];
+
+    // --- validating if exist a result
+    if(intervals.data.length > 0){
+      // --- get interval object and concat schedules in one
+      appointments = intervals.data.map( interval=>{
+        return interval.appointments
+      }).reduce((pre, cur)=>{
+        return pre.concat(cur);
+      });
+    }
+
+
+    this.props.dispatch({ 
+      type: 'SET_INTERVALS',
+      payload: {
+        appointments: appointments,
+      },
+    });
   };
 
   curdate = () => {
@@ -23,16 +51,12 @@ class appointmentIntervals extends Component {
     return dt;
   };
 
-  handleInitAppointment = () => {
+  handleInitAppointment = ( schedule ) => {
     // --- guarda la hora de cita
     this.props.dispatch({
-      type: 'SET_DR_PROFILE',
+      type: 'SET_SCHEDULE',
       payload: {
-        schedule: '31 de sep 13:30',
-        address: 'insurgentes 553',
-        geo_address: '',
-        dr_name: 'Juan Pablo Rodriguez',
-        cost: '850',
+        schedule: schedule,
       },
     });
     this.props.dispatch(
@@ -81,7 +105,7 @@ class appointmentIntervals extends Component {
               },
             }}
             onDateChange={date => {
-              console.log(date);
+              this.handleChangeDate( date );
               this.setState({appointment_date: date});
             }}
           />
@@ -195,9 +219,9 @@ const styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     appointments: state.appointment.appointments,
+    doctor : state.homeSearch.selected_dr,
   };
 }
 

@@ -25,6 +25,9 @@ function homeSearch(state = {}, action) {
     case 'SET_SELECTED_DR': {
       return {...state, ...action.payload}
     }
+    case 'HOME_CLEAR': {
+      return false
+    }
     
     default:
       return state
