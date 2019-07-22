@@ -9,8 +9,18 @@ import Separator from '../../sections/components/horizontal-separator';
 
 
 class RelativeList extends Component {
-  goToDoctor = item => {
-    
+  editProfile = item => {
+    console.log('edita...', item)
+  };
+  removeProfile = item => {
+    console.log('borra...', item)
+  };
+  selectProfile = item => {
+    this.props.dispatch(
+        NavigationActions.navigate({
+            routeName: 'SelectPayMethod',
+        })
+    );
   };
 
   renderEmtpy = () => <Empty text="No se encontraron resultados" />;
@@ -20,7 +30,10 @@ class RelativeList extends Component {
     return (
       <CardItemProfile
         {...item}
-        onPress={()=> { this.goToDoctor(item) }}
+        onPress={()=> { this.selectProfile(item) }}
+        onPressEdit={()=> { this.editProfile(item) }}
+        onPressRemove={()=> { this.removeProfile(item) }}
+        showBtnRemove={true}
       />
     )
   };
