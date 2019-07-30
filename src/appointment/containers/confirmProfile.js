@@ -6,8 +6,13 @@ import {NavigationActions} from 'react-navigation';
 import CardItemProfile from '../components/cardItemProfile.js';
 import Header from '../../sections/components/header';
 import Close from '../../sections/components/close';
+import API from '../../../utils/api';
 
 class confirmProfile extends Component {
+  state = {
+    my_profile:{}
+  }
+
   static navigationOptions = ({navigation}) => {
     return {
       header: (
@@ -21,6 +26,19 @@ class confirmProfile extends Component {
       ),
     };
   };
+
+  componentDidMount () {
+    this.getMyProfile();
+  }  
+  
+  getMyProfile = async ()=>{
+    const my_profile = await API.getMyProfile(this.props.token)
+    if(my_profile.success == true){
+      this.setState({my_profile:my_profile.data});
+      console.log(my_profile)
+    }
+    
+  }
 
   handleEdit = () => {
     alert();
@@ -40,7 +58,7 @@ class confirmProfile extends Component {
       <View style={styles.container}>
         <Text style={styles.txtTitle}>Datos del paciente</Text>
         
-        <CardItemProfile />  
+        <CardItemProfile {...this.state.my_profile} />  
         
         <TouchableOpacity
               onPress={this.handlenGoToPay}
@@ -111,4 +129,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null)(confirmProfile);
+function mapStateToProps (state) {
+  return {
+    remove_profile: state.appointment.remove_profile,
+    token: state.user.token,
+  }
+}
+
+export default connect(mapStateToProps)(confirmProfile);

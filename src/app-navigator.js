@@ -19,6 +19,8 @@ import WhoAppointment from './appointment/containers/whoAppointment';
 import ConfirmProfile from './appointment/containers/confirmProfile';
 import SelectFamily from './appointment/containers/selectFamily';
 import AddFamily from './appointment/containers/addFamily';
+import EditRelative from './appointment/containers/editRelative';
+import RemoveRelative from './appointment/containers/removeRelative';
 import SelectPayMethod from './appointment/containers/selectPayMethod';
 import Checkout from './appointment/containers/checkout';
 
@@ -44,6 +46,8 @@ const Main = createStackNavigator (
     ConfirmProfile,
     SelectFamily,
     AddFamily,
+    EditRelative,
+    RemoveRelative,
     SelectPayMethod,
     Checkout,
   },

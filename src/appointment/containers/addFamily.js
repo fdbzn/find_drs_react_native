@@ -167,9 +167,6 @@ class AddFamily extends Component {
   }
 }
 
-const montserrat_b = 'Montserrat-Bold';
-const montserrat_m = 'Montserrat-Medium';
-
 const styles = StyleSheet.create({
   keyboardContainer: {
     flex: 1,

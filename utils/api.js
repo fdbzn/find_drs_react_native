@@ -2,6 +2,13 @@ import {errorMessage} from './apiMessages';
 const BASE_API = 'http://api.yiunic.com/';
 
 class Api {
+  getMyProfile(token){
+    return this.secure_get( `${BASE_API}users/me/`, token );  
+  }
+
+  removeRelative(relative_id, token){
+    return this.delete(`${BASE_API}users/me/relatives/${relative_id}`, token);
+  }
 
   getMyRelatives(token){
     return this.secure_get( `${BASE_API}users/me/relatives`, token );  
@@ -70,6 +77,17 @@ class Api {
   async secure_get(url, token){
       const query = await fetch( url,  {
         method: 'GET', 
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer '+token, 
+        },
+      });
+      return this.handleResponse(query);
+  }
+  async delete(url, token){
+      const query = await fetch( url,  {
+        method: 'DELETE', 
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',

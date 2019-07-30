@@ -1,6 +1,12 @@
 
 function appointment(state = {}, action) {
     switch(action.type) {
+      case 'SET_EDIT_RELATIVE': {
+        return {...state, ...action.payload}
+      }
+      case 'SET_REMOVE_RELATIVE': {
+        return {...state, ...action.payload}
+      }
       case 'SET_RELATIVES': {
         return {...state, ...action.payload}
       }

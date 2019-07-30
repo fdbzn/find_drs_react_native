@@ -10,10 +10,33 @@ import Separator from '../../sections/components/horizontal-separator';
 
 class RelativeList extends Component {
   editProfile = item => {
-    console.log('edita...', item)
+    this.props.dispatch ({
+      type: 'SET_EDIT_RELATIVE',
+      payload: {
+        edit_profile: item,
+      },
+    });
+
+    this.props.dispatch(
+      NavigationActions.navigate({
+        routeName: 'EditRelative',
+      })
+    );
   };
+
   removeProfile = item => {
-    console.log('borra...', item)
+    this.props.dispatch ({
+      type: 'SET_REMOVE_RELATIVE',
+      payload: {
+        remove_profile: item,
+      },
+    });
+
+    this.props.dispatch(
+      NavigationActions.navigate({
+        routeName: 'RemoveRelative',
+      })
+    );
   };
   selectProfile = item => {
     this.props.dispatch(
