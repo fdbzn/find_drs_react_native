@@ -7,9 +7,10 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   ScrollView,
+  Keyboard,
 } from 'react-native';
 import {connect} from 'react-redux';
-import DatePicker from 'react-native-datepicker'
+import DatePicker from 'react-native-datepicker';
 
 import Header from '../../sections/components/header';
 import Close from '../../sections/components/close';
@@ -26,6 +27,38 @@ class Register extends Component {
     phone: '',
     password: '',
     password_confirm: '',
+    btnStyle: {},
+  };
+  componentDidMount() {
+    this.keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      this._keyboardDidShow
+    );
+    this.keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      this._keyboardDidHide
+    );
+  }
+
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+
+  _keyboardDidShow = event => {
+    const endWin = event.endCoordinates.height;
+    console.log(endWin);
+    this.setState({
+      btnStyle: {
+        alignSelf: 'flex-end',
+      },
+    });
+  };
+
+  _keyboardDidHide = () => {
+    this.setState({
+      btnStyle: {},
+    });
   };
 
   static navigationOptions = ({navigation}) => {
@@ -34,7 +67,7 @@ class Register extends Component {
         <Header>
           <Close
             onPress={() => {
-              navigation.goBack ();
+              navigation.goBack();
             }}
           />
         </Header>
@@ -42,12 +75,11 @@ class Register extends Component {
     };
   };
 
-  setSexValue = (dropdownVal) =>{
-    this.setState ({sex:dropdownVal})
+  setSexValue = dropdownVal => {
+    this.setState({sex: dropdownVal});
   };
 
   handleRegisterUser = async () => {
-    
     // --- check login in server
     const createUser = await API.createUser(
       this.state.name,
@@ -57,16 +89,15 @@ class Register extends Component {
       this.state.sex,
       this.state.phone,
       this.state.password
-    ); 
-    console.log("fin_create",createUser);
-    
-    
-    // --- hacer login 
+    );
+    console.log('fin_create', createUser);
+
+    // --- hacer login
     const email = createUser.email;
     const password = createUser.password;
-    const login = await API.login(email, password); 
+    const login = await API.login(email, password);
 
-    this.props.dispatch ({
+    this.props.dispatch({
       type: 'SET_USER',
       payload: {
         token: login.token,
@@ -74,19 +105,15 @@ class Register extends Component {
       },
     });
     // --- redirigir a home
-    this.props.navigation.navigate ('Loading');
+    this.props.navigation.navigate('Loading');
   };
 
-  render () {
+  render() {
     return (
-      <KeyboardAvoidingView
-        style={styles.keyboardContainer}
-        behavior="padding"
-        enabled
+      <View
+        style={styles.mainContainer} 
       >
         <ScrollView style={styles.container}>
-         
-
           <Text style={styles.mainTitle}>Registro</Text>
           <Text style={styles.label}>Nombre</Text>
           <TextInput
@@ -94,10 +121,10 @@ class Register extends Component {
             underlineColorAndroid="transparent"
             returnKeyType={'next'}
             onSubmitEditing={() => {
-              this.lastName.focus ();
+              this.lastName.focus();
             }}
             blurOnSubmit={false}
-            onChangeText={name => this.setState ({name})}
+            onChangeText={name => this.setState({name})}
           />
           <Text style={styles.label}>Apellido</Text>
           <TextInput
@@ -108,10 +135,10 @@ class Register extends Component {
               this.lastName = input;
             }}
             onSubmitEditing={() => {
-              this.email.focus ();
+              this.email.focus();
             }}
             blurOnSubmit={false}
-            onChangeText={last_name => this.setState ({last_name})}
+            onChangeText={last_name => this.setState({last_name})}
           />
           <Text style={styles.label}>Correo electrónico</Text>
           <TextInput
@@ -122,7 +149,7 @@ class Register extends Component {
             ref={input => {
               this.email = input;
             }}
-            onChangeText={email => this.setState ({email})}
+            onChangeText={email => this.setState({email})}
           />
           <Text style={styles.label}>Fecha de nacimiento</Text>
           <DatePicker
@@ -136,22 +163,22 @@ class Register extends Component {
             confirmBtnText="Confirmar"
             cancelBtnText="Cancelar"
             showIcon={false}
-            customStyles={{  
+            customStyles={{
               dateInput: {
                 //marginLeft: 36,
-                borderWidth:0, 
+                borderWidth: 0,
               },
               // ... You can check the source to find the other keys.
             }}
             onDateChange={date => {
-              this.setState ({birthdate:date}); 
+              this.setState({birthdate: date});
             }}
           />
 
           <View style={styles.rowForm}>
             <View style={styles.columnLeft}>
               <Text style={styles.label}>Sexo</Text>
-              <GenreDropDown setValueInForm={this.setSexValue}/>
+              <GenreDropDown setValueInForm={this.setSexValue} />
             </View>
             <View style={styles.columnRight}>
               <Text style={styles.label}>Telefono</Text>
@@ -164,10 +191,10 @@ class Register extends Component {
                   this.phone = input;
                 }}
                 onSubmitEditing={() => {
-                  this.password.focus ();
+                  this.password.focus();
                 }}
                 blurOnSubmit={false}
-                onChangeText={phone => this.setState ({phone})}
+                onChangeText={phone => this.setState({phone})}
               />
             </View>
           </View>
@@ -182,10 +209,10 @@ class Register extends Component {
               this.password = input;
             }}
             onSubmitEditing={() => {
-              this.password_confirm.focus ();
+              this.password_confirm.focus();
             }}
             blurOnSubmit={false}
-            onChangeText={password => this.setState ({password})}
+            onChangeText={password => this.setState({password})}
           />
           <Text style={styles.label}>Confirmar contraseña</Text>
           <TextInput
@@ -196,37 +223,40 @@ class Register extends Component {
             ref={input => {
               this.password_confirm = input;
             }}
-            onChangeText={password_confirm =>
-              this.setState ({password_confirm})}
+            onChangeText={password_confirm => this.setState({password_confirm})}
           />
-
+        </ScrollView>
+        <View style={styles.withPadding}>
           <TouchableOpacity
             onPress={this.handleRegisterUser}
-            style={[styles.button]}
+            style={[styles.button, this.state.btnStyle]}
           >
             <Text style={styles.buttonLabel}>REGISTRATE</Text>
           </TouchableOpacity>
-
-        </ScrollView>
-      </KeyboardAvoidingView>
+        </View>
+      
+      </View>
     );
   }
 }
 
-const styles = StyleSheet.create ({
-  keyboardContainer: {
+const styles = StyleSheet.create({
+  mainContainer: {
     flex: 1,
+    width:'100%',
     flexDirection: 'column',
-    minHeight: 100, // --- evita error de minimizar demasiado la pantalla con keyboard
+    alignItems:'center',
+    
+    //minHeight: 700, // --- evita error de minimizar demasiado la pantalla con keyboard
     backgroundColor: 'white',
     paddingTop: 20,
-    paddingBottom: 100,
   },
   container: {
+    flex: 1,
     flexDirection: 'column',
     paddingHorizontal: 10,
     width: '100%',
-    //backgroundColor: "blue",
+    
   },
   mainTitle: {
     fontSize: 21,
@@ -263,14 +293,20 @@ const styles = StyleSheet.create ({
     color: 'black',
     fontSize: 17,
   },
+  
+  withPadding:{
+    width:'100%',
+    paddingHorizontal: 10,
+  },
+
   button: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
     height: 40,
-    marginTop: 35,
-    marginBottom: 30,
+    marginTop: 15,
+    marginBottom: 15,
     borderRadius: 5,
     // ios
     shadowOffset: {width: 0, height: 13},
@@ -290,4 +326,4 @@ const styles = StyleSheet.create ({
   },
 });
 
-export default connect (null) (Register);
+export default connect(null)(Register);
