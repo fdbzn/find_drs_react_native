@@ -2,10 +2,24 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import {NavigationActions} from 'react-navigation';
+
+import CreditCardList from '../components/creditCardList'
 import Header from '../../sections/components/header';
 import Close from '../../sections/components/close';
+import API from '../../../utils/api';
 
 class selectPayMethod extends Component {
+  async componentDidMount () {
+    const credit_cards = await API.getSpecialties();
+    
+    this.props.dispatch ({
+      type: 'SET_CREDIT_CARDS',
+      payload: {
+        credit_cards: credit_cards.data,
+      },
+    });
+  }
+
   static navigationOptions = ({navigation}) => {
     return {
       header: (
@@ -20,6 +34,8 @@ class selectPayMethod extends Component {
       ),
     };
   };
+  
+ 
 
   handlenGoToCheckout = () => {
     // --- guarda metodo de pago
@@ -48,25 +64,7 @@ class selectPayMethod extends Component {
           <Text style={styles.buttonLabel}>AGREGAR NUEVO</Text>
         </TouchableOpacity>
 
-        <View style={styles.cardItem}>
-          <TouchableOpacity onPress={this.handleEdit} style={styles.btnEdit}>
-            <Image source={require('../../../assets/appointment/edit.png')} />
-          </TouchableOpacity>
-          <View style={styles.imgBox}>
-            <Image style={styles.imgCard} source={require('../../../assets/appointment/credit_card_icon.png')} />
-          </View>
-
-          <View style={styles.cardDetail}>
-            <Text style={styles.name}>Banamex Master</Text>
-            <Text style={styles.secondaryLabel}>Nombre de usuario</Text>
-            <View style={styles.oneDetailBox}>
-              <Text style={styles.labelBlack}>Tarjeta: </Text>
-              <Text style={styles.labelGreen}>************1358</Text>
-            </View>
-            <Image style={styles.imgTypeCard} source={require('../../../assets/appointment/visa_debit.png')} />
-          </View>
-        </View>
-        
+        <CreditCardList />        
 
         <TouchableOpacity
           onPress={this.handlenPayPal}

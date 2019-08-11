@@ -95,9 +95,6 @@ const styles = StyleSheet.create ({
     paddingHorizontal: 20,
     marginBottom:10,
   },
-  listBox: {
-    //flexGrow: 1,
-  },
 });
 
 function mapStateToProps (state) {

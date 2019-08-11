@@ -1,6 +1,9 @@
 
 function appointment(state = {}, action) {
     switch(action.type) {
+      case 'SET_CREDIT_CARDS': {
+        return {...state, ...action.payload}
+      }
       case 'SET_EDIT_RELATIVE': {
         return {...state, ...action.payload}
       }
