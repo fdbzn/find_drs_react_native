@@ -22,6 +22,7 @@ import AddFamily from './appointment/containers/addFamily';
 import EditRelative from './appointment/containers/editRelative';
 import RemoveRelative from './appointment/containers/removeRelative';
 import SelectPayMethod from './appointment/containers/selectPayMethod';
+import NewPayMethod from './appointment/containers/newPayMethod';
 import Checkout from './appointment/containers/checkout';
 
 import Loading from './welcome/containers/loading';
@@ -49,6 +50,7 @@ const Main = createStackNavigator (
     EditRelative,
     RemoveRelative,
     SelectPayMethod,
+    NewPayMethod,
     Checkout,
   },
   {
