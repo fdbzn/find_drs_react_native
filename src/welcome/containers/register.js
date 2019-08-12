@@ -27,39 +27,10 @@ class Register extends Component {
     phone: '',
     password: '',
     password_confirm: '',
-    btnStyle: {},
+   
   };
-  componentDidMount() {
-    this.keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      this._keyboardDidShow
-    );
-    this.keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      this._keyboardDidHide
-    );
-  }
+  
 
-  componentWillUnmount() {
-    this.keyboardDidShowListener.remove();
-    this.keyboardDidHideListener.remove();
-  }
-
-  _keyboardDidShow = event => {
-    const endWin = event.endCoordinates.height;
-    console.log(endWin);
-    this.setState({
-      btnStyle: {
-        alignSelf: 'flex-end',
-      },
-    });
-  };
-
-  _keyboardDidHide = () => {
-    this.setState({
-      btnStyle: {},
-    });
-  };
 
   static navigationOptions = ({navigation}) => {
     return {
@@ -229,7 +200,7 @@ class Register extends Component {
         <View style={styles.withPadding}>
           <TouchableOpacity
             onPress={this.handleRegisterUser}
-            style={[styles.button, this.state.btnStyle]}
+            style={styles.button}
           >
             <Text style={styles.buttonLabel}>REGISTRATE</Text>
           </TouchableOpacity>
