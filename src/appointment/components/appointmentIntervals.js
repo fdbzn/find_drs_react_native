@@ -171,9 +171,6 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   selected_day: {
-    fontFamily: montserrat_li,
-    fontSize: 16,
-    color: 'black',
     marginLeft: 5,
     //marginRight : 15,
     //backgroundColor:'blue',

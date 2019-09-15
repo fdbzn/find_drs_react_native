@@ -38,7 +38,15 @@ class RelativeList extends Component {
       })
     );
   };
-  selectProfile = item => {
+  selectProfile = item_profile => {
+    // --- guarda el id del paciente
+    this.props.dispatch({
+      type: 'SET_USER_PATIENT',
+      payload: {
+        patient : item_profile
+      }
+    });
+
     this.props.dispatch(
         NavigationActions.navigate({
             routeName: 'SelectPayMethod',
