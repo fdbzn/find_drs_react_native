@@ -23,13 +23,7 @@ class whoAppointment extends Component {
   };
 
   handleForMe = () => {
-    // --- guarda el id del paciente
-    this.props.dispatch({
-      type: 'SET_USER_PATIENT',
-      payload: {
-        patient_id:'13:30'
-      }
-    });
+    
     this.props.dispatch(
       NavigationActions.navigate({
         routeName: 'ConfirmProfile',

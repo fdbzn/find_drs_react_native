@@ -2,6 +2,10 @@ import {errorMessage} from './apiMessages';
 const BASE_API = 'http://api.yiunic.com/';
 
 class Api {
+  getMyPayMethods(user_token){
+    return this.secure_get( `${BASE_API}users/me/paymentMethods`, user_token );  
+  }
+
   getMyProfile(token){
     return this.secure_get( `${BASE_API}users/me/`, token );  
   }
