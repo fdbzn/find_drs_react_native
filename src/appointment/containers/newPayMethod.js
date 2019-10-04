@@ -9,6 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {NavigationActions} from 'react-navigation';
+import Conekta from 'react-native-conekta';
 
 import Header from '../../sections/components/header';
 import Close from '../../sections/components/close';
@@ -53,13 +54,52 @@ class newPayMethod extends Component {
     this.setState({ expire: expire_final})
   }
 
+  updateListMethods = async ()=>{
+    const credit_cards = await API.getPaymentMethods(this.props.token);
+    
+    this.props.dispatch ({
+      type: 'SET_CREDIT_CARDS',
+      payload: {
+        credit_cards: credit_cards.data,
+      },
+    });
+  }
+  
+
   handleRegisterMethod = async () => {
-    console.log(this.state)
-    this.props.dispatch(
-      NavigationActions.navigate({
-        routeName: 'SelectPayMethod',
-      })
+    var conektaApi = new Conekta();
+    let self = this;
+    conektaApi.setPublicKey('key_BUHxGEyykqKwszKUxUvcbTA');
+
+    conektaApi.createToken(
+      {
+        cardNumber: this.state.card_number,
+        name: this.state.name,
+        cvc: this.state.cvc,
+        expMonth: this.state.expMonth,
+        expYear: this.state.expYear,
+      },
+
+      async function(data) {
+        const card = await API.addPaymentMethods(data.id, self.props.token);
+        if(card.success == true){
+          await self.updateListMethods();
+
+          self.props.dispatch(
+            NavigationActions.navigate({
+              routeName: 'SelectPayMethod',
+            })
+          );
+
+        }else{
+          alert('Error de conexion')
+        }
+      },
+      function() {
+        alert('Error de registro');
+      }
     );
+    
   };
 
   render() {
@@ -233,4 +273,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null)(newPayMethod);
+
+function mapStateToProps (state) {
+  return {
+    token: state.user.token,
+  }
+}
+export default connect(mapStateToProps)(newPayMethod);

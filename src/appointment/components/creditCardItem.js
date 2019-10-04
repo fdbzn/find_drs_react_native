@@ -3,7 +3,7 @@ import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 
 function creditCardItem (props) {
     let item_selected = {};
-    if(props.id_selected === props._id ){
+    if(props.id_selected === props.id ){
         item_selected = {
             backgroundColor:'#91ecde',
             borderTopWidth:1,
@@ -27,11 +27,11 @@ function creditCardItem (props) {
           </View>
 
           <View style={styles.cardDetail}>
-            <Text style={styles.name}>Banamex Master</Text>
-            <Text style={styles.secondaryLabel}>Nombre de usuario</Text>
+            <Text style={styles.name}>Tarjeta de pago</Text>
+            <Text style={styles.secondaryLabel}>{props.name}</Text>
             <View style={styles.oneDetailBox}>
               <Text style={styles.labelBlack}>Tarjeta: </Text>
-              <Text style={styles.labelGreen}>************1358</Text>
+              <Text style={styles.labelGreen}>************{props.last4}</Text>
             </View>
             <Image
               style={styles.imgTypeCard}

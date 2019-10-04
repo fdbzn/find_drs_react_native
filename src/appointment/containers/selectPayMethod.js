@@ -10,7 +10,7 @@ import API from '../../../utils/api';
 
 class selectPayMethod extends Component {
   async componentDidMount () {
-    const credit_cards = await API.getSpecialties();
+    const credit_cards = await API.getPaymentMethods(this.props.token);
     
     this.props.dispatch ({
       type: 'SET_CREDIT_CARDS',
@@ -178,4 +178,10 @@ const styles = StyleSheet.create({
   
 });
 
-export default connect(null)(selectPayMethod);
+function mapStateToProps (state) {
+  return {
+    token: state.user.token,
+  }
+}
+
+export default connect(mapStateToProps)(selectPayMethod);

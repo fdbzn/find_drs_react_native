@@ -2,6 +2,13 @@ import {errorMessage} from './apiMessages';
 const BASE_API = 'http://api.yiunic.com/';
 
 class Api {
+  addPaymentMethods(payToken, userToken){
+    return this.secure_post( `${BASE_API}users/me/paymentMethods`, {token:payToken}, userToken);  
+  }
+  getPaymentMethods(userToken){
+    return this.secure_get( `${BASE_API}users/me/paymentMethods`, userToken );  
+  }
+
   getMyProfile(token){
     return this.secure_get( `${BASE_API}users/me/`, token );  
   }
@@ -75,6 +82,7 @@ class Api {
       return this.handleResponse(query);
   }
   async secure_get(url, token){
+      console.log('user_token:', token)
       const query = await fetch( url,  {
         method: 'GET', 
         headers: {
@@ -111,6 +119,7 @@ class Api {
   }
 
   async secure_post(url, data, token){
+    console.log('user_token:', token)
     const query = await fetch(url,  {
       method: 'POST',
       headers: {

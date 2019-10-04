@@ -12,7 +12,7 @@ class creditCardList extends Component {
     };
     onPressAction = (item) => {
         this.setState({
-            id_selected: item._id
+            id_selected: item.id
         });
         
     }
@@ -20,7 +20,7 @@ class creditCardList extends Component {
 
   renderEmtpy = () => <Empty text="No se encontraron resultados" />;
   itemSeparator = () => <Separator />;
-  keyExtractor = item => item._id.toString ();
+  keyExtractor = item => item.id.toString ();
   renderItem = ({item}) => {
     return (
       <CreditCardItem
