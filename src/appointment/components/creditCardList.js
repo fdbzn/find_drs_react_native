@@ -10,7 +10,10 @@ class creditCardList extends Component {
     state = {
         id_selected: 0 
     };
+    
     onPressAction = (item) => {
+        this.props.payMethodSelected( item );
+
         this.setState({
             id_selected: item.id
         });

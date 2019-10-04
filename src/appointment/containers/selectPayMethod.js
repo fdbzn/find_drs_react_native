@@ -9,6 +9,12 @@ import Close from '../../sections/components/close';
 import API from '../../../utils/api';
 
 class selectPayMethod extends Component {
+  state = {
+    btn_color : {backgroundColor: '#ccc'},
+    btn_state : true,
+  }
+
+
   async componentDidMount () {
     const credit_cards = await API.getPaymentMethods(this.props.token);
     
@@ -43,22 +49,31 @@ class selectPayMethod extends Component {
       })
     );
   }
+  
 
   handlenGoToCheckout = () => {
-    // --- guarda metodo de pago
-    this.props.dispatch({
-      type: 'SET_PAY_METHOD',
-      payload: {
-        name_method:'banamex1',
-        card_numbers:'**** **** **** 1294',
-      }
-    });
     this.props.dispatch(
       NavigationActions.navigate({
         routeName: 'Checkout',
       })
     );
   };
+
+  payMethodSelected = (item_pay_method) => {
+    // --- guarda metodo de pago
+    this.props.dispatch({
+      type: 'SET_PAY_METHOD',
+      payload: {
+        payment_method : item_pay_method
+      }
+    });
+
+    // --- habilitar boton para continuar
+    this.setState({
+      btn_color: {backgroundColor: '#fee082'},
+      btn_state: false,
+    });
+  }
 
   render() {
     return (
@@ -71,7 +86,9 @@ class selectPayMethod extends Component {
           <Text style={styles.buttonLabel}>AGREGAR NUEVO</Text>
         </TouchableOpacity>
 
-        <CreditCardList />        
+        <CreditCardList 
+          payMethodSelected={this.payMethodSelected} 
+        />        
 
         {/* 
         <TouchableOpacity
@@ -83,8 +100,9 @@ class selectPayMethod extends Component {
         </TouchableOpacity>
         */}
         <TouchableOpacity
+          disabled={this.state.btn_state}
           onPress={this.handlenGoToCheckout}
-          style={[styles.button, styles.buttonYellow]}
+          style={[styles.button, this.state.btn_color]}
           
         >
           <Text style={styles.buttonLabel}>IR A CONFIRMACION</Text>

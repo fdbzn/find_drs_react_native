@@ -22,6 +22,10 @@ class checkout extends Component {
     };
   };
 
+  componentDidMount () {
+    console.log(this.props.all)
+  }
+
   handleEndAppointment = () => {
     console.log(this.props.all)
     this.props.dispatch(

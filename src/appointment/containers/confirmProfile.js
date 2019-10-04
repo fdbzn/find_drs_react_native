@@ -35,7 +35,7 @@ class confirmProfile extends Component {
     const my_profile = await API.getMyProfile(this.props.token)
     if(my_profile.success == true){
       this.setState({my_profile:my_profile.data});
-      console.log(my_profile)
+      
     }
     
   }
@@ -45,7 +45,15 @@ class confirmProfile extends Component {
   };
 
   handlenGoToPay = () => {
-    
+    // --- guarda el id del paciente
+    this.props.dispatch({
+      type: 'SET_USER_PATIENT',
+      payload: {
+        patient:{}
+      }
+    });
+
+
     this.props.dispatch(
       NavigationActions.navigate({
         routeName: 'SelectPayMethod',

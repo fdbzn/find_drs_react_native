@@ -10,6 +10,10 @@ function creditCardItem (props) {
             borderColor:'#17bfa5',
         }
     }
+
+    var icon_type_card = props.brand == 'VISA'
+      ? require('../../../assets/appointment/visa_debit.png')
+      : require('../../../assets/appointment/master_card.png');
  
     return (
       <TouchableOpacity
@@ -33,9 +37,10 @@ function creditCardItem (props) {
               <Text style={styles.labelBlack}>Tarjeta: </Text>
               <Text style={styles.labelGreen}>************{props.last4}</Text>
             </View>
+            
             <Image
-              style={styles.imgTypeCard}
-              source={require('../../../assets/appointment/visa_debit.png')}
+              style={styles.imgTypeCard} 
+              source={icon_type_card} 
             />
           </View>
         </View>
