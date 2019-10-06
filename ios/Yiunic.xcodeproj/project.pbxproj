@@ -450,6 +450,7 @@
 		7506E1D3D15C405385C7E068 /* libAirMaps.a */ = {isa = PBXFileReference; name = "libAirMaps.a"; path = "libAirMaps.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		28C4DD479E67445BB6916368 /* RNConekta.xcodeproj */ = {isa = PBXFileReference; name = "RNConekta.xcodeproj"; path = "../node_modules/react-native-conekta/RNConekta/RNConekta.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		36275EC3DF5549EB8C8D1331 /* libRNConekta.a */ = {isa = PBXFileReference; name = "libRNConekta.a"; path = "libRNConekta.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		C28DC9E4479643BABCA1F955 /* Conekta.xcodeproj */ = {isa = PBXFileReference; name = "Conekta.xcodeproj"; path = "../node_modules/react-native-conekta/RNConekta/Conekta/Conekta.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -708,6 +709,7 @@
 				4BB6521B24AF48BC961E9921 /* RCTVideo.xcodeproj */,
 				E35B533686634F6C94C0CFF2 /* AirMaps.xcodeproj */,
 				28C4DD479E67445BB6916368 /* RNConekta.xcodeproj */,
+				C28DC9E4479643BABCA1F955 /* Conekta.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1425,6 +1427,7 @@
 					"$(SRCROOT)/../node_modules/react-native-video/ios",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-conekta/RNConekta/**",
+					"$(SRCROOT)/../node_modules/react-native-conekta/RNConekta/**",
 				);
 				INFOPLIST_FILE = YiunicTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -1460,6 +1463,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-video/ios",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-conekta/RNConekta/**",
 					"$(SRCROOT)/../node_modules/react-native-conekta/RNConekta/**",
 				);
 				INFOPLIST_FILE = YiunicTests/Info.plist;
@@ -1499,6 +1503,7 @@
 					"$(SRCROOT)/../node_modules/react-native-video/ios",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-conekta/RNConekta/**",
+					"$(SRCROOT)/../node_modules/react-native-conekta/RNConekta/**",
 				);
 				INFOPLIST_FILE = Yiunic/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1525,6 +1530,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-video/ios",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-conekta/RNConekta/**",
 					"$(SRCROOT)/../node_modules/react-native-conekta/RNConekta/**",
 				);
 				INFOPLIST_FILE = Yiunic/Info.plist;
@@ -1558,6 +1564,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-video/ios",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-conekta/RNConekta/**",
 					"$(SRCROOT)/../node_modules/react-native-conekta/RNConekta/**",
 				);
 				INFOPLIST_FILE = "Yiunic-tvOS/Info.plist";
@@ -1603,6 +1610,7 @@
 					"$(SRCROOT)/../node_modules/react-native-video/ios",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-conekta/RNConekta/**",
+					"$(SRCROOT)/../node_modules/react-native-conekta/RNConekta/**",
 				);
 				INFOPLIST_FILE = "Yiunic-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1646,6 +1654,7 @@
 					"$(SRCROOT)/../node_modules/react-native-video/ios",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
 					"$(SRCROOT)/../node_modules/react-native-conekta/RNConekta/**",
+					"$(SRCROOT)/../node_modules/react-native-conekta/RNConekta/**",
 				);
 				INFOPLIST_FILE = "Yiunic-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1688,6 +1697,7 @@
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
 					"$(SRCROOT)/../node_modules/react-native-video/ios",
 					"$(SRCROOT)/../node_modules/react-native-maps/lib/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-conekta/RNConekta/**",
 					"$(SRCROOT)/../node_modules/react-native-conekta/RNConekta/**",
 				);
 				INFOPLIST_FILE = "Yiunic-tvOSTests/Info.plist";

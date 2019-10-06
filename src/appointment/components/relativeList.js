@@ -43,6 +43,7 @@ class RelativeList extends Component {
     this.props.dispatch({
       type: 'SET_USER_PATIENT',
       payload: {
+        main_user : false,
         patient : item_profile
       }
     });
