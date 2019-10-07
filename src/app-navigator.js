@@ -24,6 +24,7 @@ import RemoveRelative from './appointment/containers/removeRelative';
 import SelectPayMethod from './appointment/containers/selectPayMethod';
 import NewPayMethod from './appointment/containers/newPayMethod';
 import Checkout from './appointment/containers/checkout';
+import SuccessAppointment from './appointment/containers/successAppointment';
 
 import Loading from './welcome/containers/loading';
 import Login from './welcome/containers/login';
@@ -52,6 +53,7 @@ const Main = createStackNavigator (
     SelectPayMethod,
     NewPayMethod,
     Checkout,
+    SuccessAppointment,
   },
   {
     transitionConfig: getSlideFromRightTransition,

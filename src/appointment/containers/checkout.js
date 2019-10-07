@@ -4,6 +4,7 @@ import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import moment from 'moment';
 
+import API from '../../../utils/api';
 import Header from '../../sections/components/header';
 import Close from '../../sections/components/close';
 
@@ -24,10 +25,6 @@ class checkout extends Component {
     };
   };
 
-  componentDidMount () {
-    console.log(this.props.all)
-  }
-
   handleLocation = () => {
     this.props.dispatch(
       NavigationActions.navigate({
@@ -36,7 +33,17 @@ class checkout extends Component {
     );
   };
 
-  handleEndAppointment = () => {
+  handleEndAppointment = async () => {
+    console.log(this.props.all);
+    
+    let userAppointment = {};
+    if(this.props.main_user){
+      userAppointment = await API.userAppointment( this.props.payment_method.id, this.props.schedule._id );
+    }else{
+      userAppointment = await API.userRelativeAppointment( this.props.payment_method.id, his.props.schedule._id, this.props.patient._id );
+    }
+    
+    console.log(userAppointment)
     this.props.dispatch(
       NavigationActions.navigate({
         routeName: 'SuccessAppointment',
@@ -262,12 +269,12 @@ const styles = StyleSheet.create({
 
 function mapStateToProps (state) {
   return {
-    all: state,
     patient: state.appointment.patient,
     main_user: state.appointment.main_user,
     selected_dr: state.homeSearch.selected_dr,
     schedule: state.appointment.schedule,
     payment_method: state.appointment.payment_method,
+    all: state,
   };
 }
 export default connect(mapStateToProps)(checkout);
