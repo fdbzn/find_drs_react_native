@@ -49,7 +49,8 @@ class confirmProfile extends Component {
     this.props.dispatch({
       type: 'SET_USER_PATIENT',
       payload: {
-        patient:{}
+        main_user : true,
+        patient:this.state.my_profile
       }
     });
 

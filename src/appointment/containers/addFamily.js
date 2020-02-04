@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import DatePicker from 'react-native-datepicker';
+import moment from 'moment';
 
 import Header from '../../sections/components/header';
 import GenreDropDown from '../../welcome/components/genreDropDown';
@@ -150,7 +151,7 @@ class AddFamily extends Component {
                 }}
                 onChangeText={phone => {
                   this.setState({phone})
-                  this.setState({email:'noemail_'+phone+'@noemail.com'})
+                  this.setState({email: Math.floor((Math.random() * 100) + 1)+'_'+moment().format('MMMM_Do_YYYY_h_mm_ss_a')+'@noemail.com'})
                 }}
               />
             </View>
