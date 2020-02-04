@@ -49,12 +49,14 @@ class doctorCard extends Component {
           </View>
 
           <View style={styles.boxFavLocation}>
+            {/*
             <TouchableOpacity
               onPress={this.handleFav}
               style={styles.drProfileBtn}
             >
               <Image source={require('../../../assets/appointment/love.png')} />
             </TouchableOpacity>
+            */}
             <TouchableOpacity
               onPress={this.handleLocation}
               style={styles.drProfileBtn}

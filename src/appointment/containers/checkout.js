@@ -2,11 +2,17 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import {NavigationActions} from 'react-navigation';
+
+import API from '../../../utils/api';
 import Header from '../../sections/components/header';
 import Close from '../../sections/components/close';
 
 
 class checkout extends Component {
+  state = {
+    my_profile:{}
+  }
+
   static navigationOptions = ({navigation}) => {
     return {
       header: (
@@ -23,7 +29,16 @@ class checkout extends Component {
   };
 
   componentDidMount () {
-    console.log(this.props.all)
+    this.getMyProfile();
+  }
+
+  getMyProfile = async ()=>{
+    const my_profile = await API.getMyProfile(this.props.token)
+    if(my_profile.success == true){
+      this.setState({my_profile:my_profile.data});
+      
+    }
+    
   }
 
   handleEndAppointment = () => {
@@ -39,6 +54,15 @@ class checkout extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.txtTitle}>Confirmar cita</Text>
+        <Text >Cita para:</Text>
+        <View>
+          <Text >{this.state.my_profile.name}</Text>
+          <Text >{this.state.my_profile.lastName}</Text>
+        </View>
+        <View>
+          <Text >{this.props.schedule.date}</Text>
+          <Text >{this.props.schedule.startTime}</Text>
+        </View>
         <TouchableOpacity
           onPress={this.handleEndAppointment}
           style={[styles.button, styles.buttonYellow]}
@@ -104,8 +128,13 @@ const styles = StyleSheet.create({
 
 
 function mapStateToProps (state) {
+  console.log("**",state)
   return {
-    all: state,
+    token: state.user.token,
+    schedule:state.appointment.schedule,
+    selected_address:state.homeSearch.selected_address,
+    selected_dr:state.homeSearch.selected_dr,
+    payment_method:state.payment_method
   };
 }
 export default connect(mapStateToProps)(checkout);

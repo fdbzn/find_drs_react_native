@@ -17,6 +17,14 @@ class ResultDoctors extends Component {
   }
 
   componentDidMount () {
+    // --- fix : solo para MVP 
+    this.props.homeSearchStore.type_search = 1;
+    this.props.homeSearchStore.selected_specialty._id = '';
+    this.props.homeSearchStore.selected_address.location.lat = '19.4003499';
+    this.props.homeSearchStore.selected_address.location.lng = '-99.1731086'
+    // --- fix : solo para MVP 
+
+
     // --- search by address
     if (this.props.homeSearchStore.type_search === 1) {
       const sortBy = 'near';
@@ -42,7 +50,7 @@ class ResultDoctors extends Component {
     
     // --- haciendo la busqueda
     const json_doctors = await API.getDoctorsByLocation (
-      this.props.homeSearchStore.selected_specialty._id,
+      // --- fix: si regresa poner el parametro desde API.GET.. this.props.homeSearchStore.selected_specialty._id,
       this.props.homeSearchStore.selected_address.location.lat,
       this.props.homeSearchStore.selected_address.location.lng,
       limit,
@@ -149,7 +157,9 @@ class ResultDoctors extends Component {
   render () {
     return (
       <View style={styles.container}>
+        {/*
         <Dropdown />
+        */}
         <DoctorsList />
       </View>
     );

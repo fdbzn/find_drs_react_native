@@ -8,7 +8,7 @@ import React from 'react';
 import {Text, Image} from 'react-native';
 import getSlideFromRightTransition from 'react-navigation-slide-from-right-transition';
 
-import Home from './home/containers/home';
+//import Home from './home/containers/home';
 import SearchAddress from './home/containers/searchAddress';
 import ResultDoctors from './home/containers/resultDoctors';
 import Specialties from './home/containers/specialties';
@@ -37,9 +37,9 @@ import Notifications from './notifications/containers/notifications';
 
 const Main = createStackNavigator (
   {
-    Home,
-    SearchAddress,
     ResultDoctors: ResultDoctors,
+    //Home,
+    SearchAddress,
     Specialties,
     DoctorProfile,
     DrHealthCenterMap,
@@ -57,7 +57,7 @@ const Main = createStackNavigator (
     transitionConfig: getSlideFromRightTransition,
     navigationOptions: {
       //header: Header,
-      initialRouteName: 'Home',
+      initialRouteName: 'ResultDoctors',
     },
   }
 );
