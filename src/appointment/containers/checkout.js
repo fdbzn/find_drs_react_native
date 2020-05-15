@@ -37,14 +37,13 @@ class checkout extends Component {
     );
   };
 
-  handleEndAppointment = async () => {
-    console.log(this.props.all);
-    
+  handleEndAppointment = async () => {    
     let userAppointment = {};
     if(this.props.main_user){
-      userAppointment = await API.userAppointment( this.props.payment_method.id, this.props.schedule._id );
+      
+      userAppointment = await API.userAppointment( this.props.token, this.props.payment_method.id, this.props.schedule._id );
     }else{
-      userAppointment = await API.userRelativeAppointment( this.props.payment_method.id, his.props.schedule._id, this.props.patient._id );
+      userAppointment = await API.userRelativeAppointment( this.props.token, this.props.payment_method.id, his.props.schedule._id, this.props.patient._id );
     }
     
     console.log(userAppointment)
@@ -272,13 +271,14 @@ const styles = StyleSheet.create({
 
 
 function mapStateToProps (state) {
-  console.log("**",state)
+
   return {
     patient: state.appointment.patient,
-    main_user: state.appointment.main_user,
+    main_user: true,
     selected_dr: state.homeSearch.selected_dr,
     schedule: state.appointment.schedule,
     payment_method: state.appointment.payment_method,
+    token: state.user.token,
     all: state,
   };
 }

@@ -12,7 +12,7 @@ import API from '../../../utils/api';
 import DoctorCard from '../components/doctorCard';
 import AppointmentIntervals from '../components/appointmentIntervals';
 import AboutDoctor from '../components/aboutDoctor';
-//ºimport DoctorComments from '../components/doctorComments';
+//import DoctorComments from '../components/doctorComments';
 
 class DoctorProfile extends Component {
   state = {
@@ -34,6 +34,7 @@ class DoctorProfile extends Component {
     let appointments = [];
 
     // --- validating if exist a result
+    console.log(intervals.data.length);
     if(intervals.data.length > 0){
       // --- get interval object and concat schedules in one
       appointments = intervals.data.map( interval=>{
@@ -47,7 +48,7 @@ class DoctorProfile extends Component {
     this.props.dispatch({ 
       type: 'SET_INTERVALS',
       payload: {
-        //appointments: appointments,
+        appointments: appointments,
       },
     });
   }

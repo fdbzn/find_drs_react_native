@@ -1,12 +1,12 @@
-import {errorMessage} from './apiMessages';
+// import {errorMessage} from './apiMessages';
 const BASE_API = 'http://api.yiunic.com/';
 
 class Api {
   userAppointment(userToken,sourceId,appointmentId){
-    return this.secure_post( `${BASE_API}users/me/payments`, {sourceId,appointmentId}, userToken);
+    return this.secure_post( `${BASE_API}payments`, {sourceId,appointmentId}, userToken);
   }
   userRelativeAppointment(userToken,sourceId,appointmentId,relativeId){
-    return this.secure_post( `${BASE_API}users/me/payments`, {
+    return this.secure_post( `${BASE_API}payments`, {
       sourceId,appointmentId,relativeId
     }, userToken);
   }
