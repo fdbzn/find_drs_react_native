@@ -135,12 +135,12 @@ class ResultDoctors extends Component {
     return {
       header: (
         <Header>
-          <Close
+          {/* <Close
             onPress={() => {
               navigation.goBack ();
             }}
             icon="<"
-          />
+          /> */}
         </Header>
       ),
     };

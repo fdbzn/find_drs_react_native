@@ -134,7 +134,7 @@ android {
 }
 
 dependencies {
-    implementation project(':react-native-conekta')
+    implementation project(':react-native-openpay')
     implementation(project(':react-native-maps')){
         exclude group: 'com.google.android.gms', module: 'play-services-base'
         exclude group: 'com.google.android.gms', module: 'play-services-maps'

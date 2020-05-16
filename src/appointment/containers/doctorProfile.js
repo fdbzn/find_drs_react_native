@@ -34,7 +34,7 @@ class DoctorProfile extends Component {
     let appointments = [];
 
     // --- validating if exist a result
-    console.log(intervals.data.length);
+    //console.log(intervals.data.length);
     if(intervals.data.length > 0){
       // --- get interval object and concat schedules in one
       appointments = intervals.data.map( interval=>{

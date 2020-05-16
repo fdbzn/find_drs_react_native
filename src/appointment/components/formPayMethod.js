@@ -8,81 +8,91 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {NavigationActions} from 'react-navigation';
-import Conekta from 'react-native-conekta';
-
 import API from '../../../utils/api';
 
+import openpay from 'react-native-openpay';
+openpay.setup('mhvy10357xr23oyrrpjv', 'pk_2d92da2523534ba29dcdf56a2e2654fe');
 
 class formPayMethod extends Component {
-    state = {
-        name:'',
-        card_number:'',
-        expire:'',
-        expMonth:'',
-        expYear:'',
-        cvc:'',
-      }
-      setYearMoth = ( expire )=>{
-        let expire_final = expire;
-        if(expire.length == 3 && expire.slice(2,5)!='/' ){
-          expire_final = expire.slice(0,2) +'/'+ expire.slice(2,5) 
-        }
-    
-        if(expire.length == 5){
-          this.setState({ expMonth: expire.slice(0,2)})
-          this.setState({ expYear: expire.slice(3,5)})
-        }
-        
-        this.setState({ expire: expire_final})
-      }
-    
-      updateListMethods = async ()=>{
-        const credit_cards = await API.getPaymentMethods(this.props.token);
-        
-        this.props.dispatch ({
-          type: 'SET_CREDIT_CARDS',
-          payload: {
-            credit_cards: credit_cards.data,
-          },
-        });
-      }
-      
-    
-      handleRegisterMethod = async () => {
-        var conektaApi = new Conekta();
-        let self = this;
-        conektaApi.setPublicKey('key_BUHxGEyykqKwszKUxUvcbTA');
-    
-        conektaApi.createToken(
-          {
-            cardNumber: this.state.card_number,
-            name: this.state.name,
-            cvc: this.state.cvc,
-            expMonth: this.state.expMonth,
-            expYear: this.state.expYear,
-          },
-    
-          async function(data) {
-            const card = await API.addPaymentMethods(data.id, self.props.token);
-            if(card.success == true){
-              await self.updateListMethods();
-    
-              self.props.dispatch(
-                NavigationActions.navigate({
-                  routeName: 'SelectPayMethod',
-                })
-              );
-    
-            }else{
-              alert('Error de conexion')
-            }
-          },
-          function() {
-            alert('Error de registro');
-          }
-        );
-        
-      };
+  state = {
+    name: '',
+    card_number: '',
+    expire: '',
+    expMonth: '',
+    expYear: '',
+    cvc: '',
+  };
+
+  hola = () => {
+    openpay
+      .createCardToken({
+        holder_name: 'John Doe',
+        card_number: '4111111111111111',
+        expiration_month: '02',
+        expiration_year: '22',
+        cvv2: '110',
+      })
+      .then((token) => console.log(token));
+    openpay
+      .getDeviceSessionId()
+      .then((sessionId) => console.log('sesion::::::', sessionId));
+  };
+  setYearMoth = (expire) => {
+    let expire_final = expire;
+    if (expire.length == 3 && expire.slice(2, 5) != '/') {
+      expire_final = expire.slice(0, 2) + '/' + expire.slice(2, 5);
+    }
+
+    if (expire.length == 5) {
+      this.setState({expMonth: expire.slice(0, 2)});
+      this.setState({expYear: expire.slice(3, 5)});
+    }
+
+    this.setState({expire: expire_final});
+  };
+
+  updateListMethods = async () => {
+    const credit_cards = await API.getPaymentMethods(this.props.token);
+
+    this.props.dispatch({
+      type: 'SET_CREDIT_CARDS',
+      payload: {
+        credit_cards: credit_cards.data,
+      },
+    });
+  };
+
+  handleRegisterMethod = async () => {
+    let self = this;
+    openpay
+      .createCardToken({
+        holder_name: this.state.name,
+        card_number: this.state.card_number,
+        expiration_month: this.state.expMonth,
+        expiration_year: this.state.expYear,
+        cvv2: this.state.cvc,
+      })
+      .then(async function (data) {
+        openpay
+        .getDeviceSessionId()
+        .then((sessionId) => console.log('sesion::::::', sessionId));
+        console.log(data);
+
+        // const card = await API.addPaymentMethods(data.id, self.props.token);
+        // if (card.success == true) {
+        //   await self.updateListMethods();
+
+        //   self.props.dispatch(
+        //     NavigationActions.navigate({
+        //       routeName: 'SelectPayMethod',
+        //     })
+        //   );
+        // } else {
+        //   alert('Error de conexion');
+        // }
+      });
+   
+  };
   render() {
     return (
       <View>

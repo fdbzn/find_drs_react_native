@@ -59,10 +59,10 @@ class appointmentIntervals extends Component {
         schedule: schedule,
       },
     });
+    
     this.props.dispatch(
       NavigationActions.navigate({
-        //routeName: 'WhoAppointment',
-        routeName: 'SelectPayMethod',
+        routeName: 'ConfirmProfile',
       })
     );
   };

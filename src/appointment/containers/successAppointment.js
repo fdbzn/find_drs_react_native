@@ -23,18 +23,10 @@ class SuccessAppointment extends Component {
     };
   };
 
-  handleLocation = () => {
-    this.props.dispatch(
-      NavigationActions.navigate({
-        routeName: 'DrHealthCenterMap',
-      })
-    );
-  };
-
   handleEndAppointment = () => {
     this.props.dispatch(
       NavigationActions.navigate({
-        routeName: 'hola',
+        routeName: 'ResultDoctors',
       })
     );
   };

@@ -4,25 +4,10 @@ import {StyleSheet, View} from 'react-native';
 
 import Header from '../../sections/components/header';
 import Close from '../../sections/components/close';
-//import Openpay, {createDeviceSessionId} from '../components/openpay';
 import FormPayMethod from '../components/formPayMethod';
 
 class newPayMethod extends Component {
-  state = {
-    loading: false,
-  };
-
-  successToken = (response) => {
-    const deviceSessionId = createDeviceSessionId();
-    const token = response.id;
-    this.setState(() => ({loading: false}));
-
-    // Make the call to your server with your charge request
-  };
-
-  failToken = (response) => {
-    console.log('failToken', response);
-  };
+  
 
   static navigationOptions = ({navigation}) => {
     return {
@@ -51,7 +36,7 @@ class newPayMethod extends Component {
     };
     return (
       <View style={styles.mainContainer}>
-        
+        <FormPayMethod/>
       </View>
     );
   }
