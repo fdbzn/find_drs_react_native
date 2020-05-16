@@ -4,7 +4,7 @@ import {StyleSheet, View} from 'react-native';
 
 import Header from '../../sections/components/header';
 import Close from '../../sections/components/close';
-import Openpay, {createDeviceSessionId} from '../components/openpay';
+//import Openpay, {createDeviceSessionId} from '../components/openpay';
 import FormPayMethod from '../components/formPayMethod';
 
 class newPayMethod extends Component {
@@ -51,16 +51,7 @@ class newPayMethod extends Component {
     };
     return (
       <View style={styles.mainContainer}>
-        <Openpay
-          isProductionMode={false}
-          merchantId="YOUR_MERCHANT_ID"
-          publicKey="YOUR_PUBLIC_KEY"
-          address={address}
-          successToken={this.successToken}
-          failToken={this.failToken}
-          loading={this.state.loading}
-        />
-        <FormPayMethod />
+        
       </View>
     );
   }
