@@ -52,19 +52,29 @@ class appointmentIntervals extends Component {
   };
 
   handleInitAppointment = ( schedule ) => {
-    // --- guarda la hora de cita
-    this.props.dispatch({
-      type: 'SET_SCHEDULE',
-      payload: {
-        schedule: schedule,
-      },
-    });
-    
-    this.props.dispatch(
-      NavigationActions.navigate({
-        routeName: 'ConfirmProfile',
-      })
-    );
+    // --- verify if need login 
+    if( this.props.user.is_trial ){
+      this.props.dispatch(
+        NavigationActions.navigate({
+          routeName: 'LoginAppointment',
+        })
+      );
+    }else{
+      // --- guarda la hora de cita
+      this.props.dispatch({
+        type: 'SET_SCHEDULE',
+        payload: {
+          schedule: schedule,
+        },
+      });
+      
+      this.props.dispatch(
+        NavigationActions.navigate({
+          routeName: 'ConfirmProfile',
+        })
+      );
+    }
+
   };
 
   renderEmtpy = () => <Empty text="No se encontraron resultados" />;
@@ -218,6 +228,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
   return {
+    user: state.user,
     appointments: state.appointment.appointments,
     doctor : state.homeSearch.selected_dr,
   };

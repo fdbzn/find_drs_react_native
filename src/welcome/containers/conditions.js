@@ -17,6 +17,7 @@ class Conditions extends Component {
     StatusBar.setBackgroundColor('#a88f07');
   }
 
+
   handleCancel = () => {
     this.props.dispatch (NavigationActions.back ());
   };
@@ -27,6 +28,7 @@ class Conditions extends Component {
         this.props.dispatch ({
           type: 'SET_USER',
           payload: {
+            conditions: true,
             is_trial: true,
             username: 'trial user',
           },
@@ -61,8 +63,8 @@ class Conditions extends Component {
           <TouchableOpacity onPress={this.handleCancel} style={styles.button}>
             <Text style={styles.buttonLabel}>Cancelar</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={this.handleAccept} style={styles.button}>
-            <Text style={styles.buttonLabel}>Aceptar</Text>
+          <TouchableOpacity onPress={this.handleAccept} style={[styles.buttonYellow,styles.button]}>
+            <Text style={styles.buttonLabel}>Acepto Condiciones</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -70,6 +72,7 @@ class Conditions extends Component {
   }
 }
 
+const montserrat_m = 'Montserrat-Medium';
 const styles = StyleSheet.create ({
   container: {
     flex: 1,
@@ -77,18 +80,20 @@ const styles = StyleSheet.create ({
     backgroundColor: 'white',
   },
   headerCond: {
+    height:64,
+    backgroundColor: '#FFE082',
+    //paddingVertical: 10,
+    paddingHorizontal: 10,
+    flexDirection: 'row',
+    justifyContent:"center",
     alignItems: 'center',
-    justifyContent: 'center',
-    height: 50,
-    paddingTop: 10,
-    paddingBottom: 10,
-    backgroundColor: 'white',
-    alignItems: 'center',
-    shadowOffset: {width: 0, height: 13},
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    // android (Android +5.0)
-    elevation: 3,
+
+     // ios
+     shadowOffset: {width: 0, height: 3},
+     shadowOpacity: 0.3,
+     shadowRadius: 2,
+     // android (Android +5.0)
+     elevation: 3,
   },
   mainTitle: {
     color: 'black',
@@ -108,29 +113,33 @@ const styles = StyleSheet.create ({
 
   button: {
     flex: 1,
-    marginLeft: 10,
-    marginRight: 10,
-    marginTop: 10,
-    borderRadius: 5,
-    height: 50,
-    
-    // ios
-    backgroundColor: '#d9bb17',
+    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
-    shadowOffset: {width: 0, height: 13},
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
+    
+    height: 48,
+    marginBottom: 20,
+    borderRadius: 3,
 
+    // ios
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
     // android (Android +5.0)
     elevation: 3,
   },
 
+
+  buttonYellow: {
+    backgroundColor: '#fee082',
+  },
   buttonLabel: {
-    color: 'white',
+    flex: 0.5,
+    color: 'black',
     padding: 10,
-    fontSize: 18,
-    fontWeight: 'bold',
+    fontSize: 14,
     textAlign: 'center',
+    fontFamily: montserrat_m,
   },
 });
 

@@ -16,6 +16,7 @@ import Specialties from './home/containers/specialties';
 import DoctorProfile from './appointment/containers/doctorProfile';
 import DrHealthCenterMap from './appointment/containers/drHealthCenterMap';
 import WhoAppointment from './appointment/containers/whoAppointment';
+import LoginAppointment from './appointment/containers/loginAppointment';
 import ConfirmProfile from './appointment/containers/confirmProfile';
 import SelectFamily from './appointment/containers/selectFamily';
 import AddFamily from './appointment/containers/addFamily';
@@ -45,6 +46,9 @@ const Main = createStackNavigator (
     DoctorProfile,
     DrHealthCenterMap,
     WhoAppointment,
+    LoginAppointment,
+    Register,
+    ForgotPass,
     ConfirmProfile,
     SelectFamily,
     AddFamily,

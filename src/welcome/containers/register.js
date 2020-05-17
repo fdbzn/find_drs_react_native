@@ -16,21 +16,19 @@ import Header from '../../sections/components/header';
 import Close from '../../sections/components/close';
 import GenreDropDown from '../components/genreDropDown';
 import API from '../../../utils/api';
+import Validate from '../../../utils/validate';
 
 class Register extends Component {
   state = {
     name: '',
     last_name: '',
     email: '',
-    birthdate: null,
+    birthdate: '',
     sex: '',
     phone: '',
     password: '',
     password_confirm: '',
-   
   };
-  
-
 
   static navigationOptions = ({navigation}) => {
     return {
@@ -46,44 +44,90 @@ class Register extends Component {
     };
   };
 
-  setSexValue = dropdownVal => {
+  setSexValue = (dropdownVal) => {
     this.setState({sex: dropdownVal});
   };
 
+  validate_register_form = () => {
+    let validation = {
+      success: false,
+      error_desc: true,
+    };
+
+    if (Validate.isEmpty(this.state.name)) {
+      validation.error_desc = 'Ingresa un nombre';
+    } else if (Validate.isEmpty(this.state.last_name)) {
+      validation.error_desc = 'Ingresa apellido ';
+    } else if (Validate.isEmpty(this.state.email)) {
+      validation.error_desc = 'Ingresa un e-mail';
+    } else if (!Validate.isEMailAddr(this.state.email)) {
+      validation.error_desc = 'Ingresa un e-mail válido';
+    } else if (Validate.isEmpty(this.state.birthdate)) {
+      validation.error_desc = 'Ingresa un tu fecha de nacimiento';
+    } else if (Validate.isEmpty(this.state.sex)) {
+      validation.error_desc = 'Ingresa un sexo';
+    } else if (Validate.isEmpty(this.state.phone)) {
+      validation.error_desc = 'Ingresa un teléfono';
+    } else if (Validate.isEmpty(this.state.password)) {
+      validation.error_desc = 'Ingresa un contraseña';
+    } else if (Validate.isEmpty(this.state.password_confirm)) {
+      validation.error_desc = 'Ingresa una contraseña de confirmación';
+    } else if (
+      !Validate.isEqual(this.state.password, this.state.password_confirm)
+    ) {
+      validation.error_desc = 'Las contraseñas no coinciden';
+    } else {
+      validation.success = true;
+    }
+
+    return validation;
+  };
+
   handleRegisterUser = async () => {
-    // --- check login in server
-    const createUser = await API.createUser(
-      this.state.name,
-      this.state.last_name,
-      this.state.email,
-      this.state.birthdate,
-      this.state.sex,
-      this.state.phone,
-      this.state.password
-    );
-    console.log('fin_create', createUser);
+    let validate_register = this.validate_register_form();
+    if (validate_register.success === true) {
+      // --- check login in server
+      const createUser = await API.createUser(
+        this.state.name,
+        this.state.last_name,
+        this.state.email,
+        this.state.birthdate,
+        this.state.sex,
+        this.state.phone,
+        this.state.password
+      );
 
-    // --- hacer login
-    const email = createUser.email;
-    const password = createUser.password;
-    const login = await API.login(email, password);
+      if( createUser.success == true ){
+        // --- hacer login
+        const email = createUser.data.email;
+        const password = this.state.password;
+        const login = await API.login(email, password);
+       
+        if( login.success === true ){
+          this.props.dispatch ({
+            type: 'SET_USER',
+            payload: {
+              is_trial: false,
+              token: login.data.token,
+              username: 'userconlogin',
+            },
+          });
+          this.props.navigation.navigate ('Loading');
+        }else{
+          alert(login.description)
+        }
+      }else{
+        alert( createUser.description );
+      }
 
-    this.props.dispatch({
-      type: 'SET_USER',
-      payload: {
-        token: login.token,
-        username: 'userconlogin',
-      },
-    });
-    // --- redirigir a home
-    this.props.navigation.navigate('Loading');
+    } else {
+      alert(validate_register.error_desc);
+    }
   };
 
   render() {
     return (
-      <View
-        style={styles.mainContainer} 
-      >
+      <View style={styles.mainContainer}>
         <ScrollView style={styles.container}>
           <Text style={styles.mainTitle}>Registro</Text>
           <Text style={styles.label}>Nombre</Text>
@@ -95,21 +139,21 @@ class Register extends Component {
               this.lastName.focus();
             }}
             blurOnSubmit={false}
-            onChangeText={name => this.setState({name})}
+            onChangeText={(name) => this.setState({name})}
           />
           <Text style={styles.label}>Apellido</Text>
           <TextInput
             style={styles.input}
             underlineColorAndroid="transparent"
             returnKeyType={'next'}
-            ref={input => {
+            ref={(input) => {
               this.lastName = input;
             }}
             onSubmitEditing={() => {
               this.email.focus();
             }}
             blurOnSubmit={false}
-            onChangeText={last_name => this.setState({last_name})}
+            onChangeText={(last_name) => this.setState({last_name})}
           />
           <Text style={styles.label}>Correo electrónico</Text>
           <TextInput
@@ -117,14 +161,14 @@ class Register extends Component {
             keyboardType={'email-address'}
             autoCapitalize="none"
             underlineColorAndroid="transparent"
-            ref={input => {
+            ref={(input) => {
               this.email = input;
             }}
-            onChangeText={email => this.setState({email})}
+            onChangeText={(email) => this.setState({email})}
           />
           <Text style={styles.label}>Fecha de nacimiento</Text>
           <DatePicker
-            style={styles.input}
+            style={styles.input_date_picker}
             date={this.state.birthdate}
             mode="date"
             placeholder=" "
@@ -141,7 +185,7 @@ class Register extends Component {
               },
               // ... You can check the source to find the other keys.
             }}
-            onDateChange={date => {
+            onDateChange={(date) => {
               this.setState({birthdate: date});
             }}
           />
@@ -152,20 +196,20 @@ class Register extends Component {
               <GenreDropDown setValueInForm={this.setSexValue} />
             </View>
             <View style={styles.columnRight}>
-              <Text style={styles.label}>Telefono</Text>
+              <Text style={styles.label}>Teléfono</Text>
               <TextInput
                 style={styles.input}
                 keyboardType={'numeric'}
                 underlineColorAndroid="transparent"
                 returnKeyType={'next'}
-                ref={input => {
+                ref={(input) => {
                   this.phone = input;
                 }}
                 onSubmitEditing={() => {
                   this.password.focus();
                 }}
                 blurOnSubmit={false}
-                onChangeText={phone => this.setState({phone})}
+                onChangeText={(phone) => this.setState({phone})}
               />
             </View>
           </View>
@@ -176,14 +220,14 @@ class Register extends Component {
             secureTextEntry={true}
             underlineColorAndroid="transparent"
             returnKeyType={'next'}
-            ref={input => {
+            ref={(input) => {
               this.password = input;
             }}
             onSubmitEditing={() => {
               this.password_confirm.focus();
             }}
             blurOnSubmit={false}
-            onChangeText={password => this.setState({password})}
+            onChangeText={(password) => this.setState({password})}
           />
           <Text style={styles.label}>Confirmar contraseña</Text>
           <TextInput
@@ -191,10 +235,12 @@ class Register extends Component {
             secureTextEntry={true}
             underlineColorAndroid="transparent"
             returnKeyType={'next'}
-            ref={input => {
+            ref={(input) => {
               this.password_confirm = input;
             }}
-            onChangeText={password_confirm => this.setState({password_confirm})}
+            onChangeText={(password_confirm) =>
+              this.setState({password_confirm})
+            }
           />
         </ScrollView>
         <View style={styles.withPadding}>
@@ -205,7 +251,6 @@ class Register extends Component {
             <Text style={styles.buttonLabel}>REGISTRATE</Text>
           </TouchableOpacity>
         </View>
-      
       </View>
     );
   }
@@ -214,10 +259,10 @@ class Register extends Component {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    width:'100%',
+    width: '100%',
     flexDirection: 'column',
-    alignItems:'center',
-    
+    alignItems: 'center',
+
     //minHeight: 700, // --- evita error de minimizar demasiado la pantalla con keyboard
     backgroundColor: 'white',
     paddingTop: 20,
@@ -227,7 +272,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     paddingHorizontal: 10,
     width: '100%',
-    
   },
   mainTitle: {
     fontSize: 21,
@@ -254,6 +298,8 @@ const styles = StyleSheet.create({
     color: '#b1b1b1',
   },
   input: {
+    color: 'black',
+    fontSize: 17,
     paddingTop: 0,
     width: '100%',
     height: 35,
@@ -261,12 +307,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderBottomWidth: 2,
     borderBottomColor: '#666',
-    color: 'black',
-    fontSize: 17,
   },
-  
-  withPadding:{
-    width:'100%',
+  input_date_picker: {
+    paddingTop: 0,
+    width: '100%',
+    height: 35,
+    paddingHorizontal: 15,
+    backgroundColor: 'white',
+    borderBottomWidth: 2,
+    borderBottomColor: '#666',
+  },
+
+  withPadding: {
+    width: '100%',
     paddingHorizontal: 10,
   },
 
