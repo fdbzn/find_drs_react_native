@@ -13,6 +13,7 @@ import {
 import {connect} from 'react-redux';
 import { LoginManager } from 'react-native-fbsdk';
 import API from '../../../utils/api';
+import Validate from '../../../utils/validate';
 
 class Login extends Component {
   state = {
@@ -35,23 +36,46 @@ class Login extends Component {
     this.props.navigation.navigate ('Register');
   };
 
-  handleLogin = async () => {
-    // --- check login in server
+  validate_login_form = ()=>{
+    let validation = {
+      success : false,
+      error_desc : true,
+    } 
     const email = this.state.email;
     const password = this.state.password;
-    const login = await API.login(email, password); 
     
-    if( login.success === true ){
-      this.props.dispatch ({
-        type: 'SET_USER',
-        payload: {
-          token: login.data.token,
-          username: 'userconlogin',
-        },
-      });
-      this.props.navigation.navigate ('Loading');
+    if( !Validate.isEMailAddr( email ) ){
+      validation.error_desc = "Ingresa un email válido";
+    }
+    else if( Validate.isEmpty( password ) ){
+      validation.error_desc = "Ingresa un password";
     }else{
-      alert(login.error_desc)
+      validation.success = true;
+    }
+
+    return validation;
+  }
+
+  handleLogin = async () => {
+    // --- check login in server
+    const login = await API.login(this.state.email, this.state.password); 
+    validation_form = this.validate_login_form();
+
+    if(validation_form.success===true){
+      if( login.success === true ){
+        this.props.dispatch ({
+          type: 'SET_USER',
+          payload: {
+            token: login.data.token,
+            username: 'userconlogin',
+          },
+        });
+        this.props.navigation.navigate ('Loading');
+      }else{
+        alert(login.description)
+      }
+    }else{
+      alert(validation_form.error_desc)
     }
         
   };

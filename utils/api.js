@@ -152,7 +152,7 @@ class Api {
     }else{
       response = await query.json();
       response.success = false;
-      response.error_desc = errorMessage[response.code];
+      //response.error_desc = errorMessage[response.code];
     }
     
     console.log("apilog-response:",response)

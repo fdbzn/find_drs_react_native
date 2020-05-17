@@ -11,7 +11,7 @@ import {NavigationActions} from 'react-navigation';
 import API from '../../../utils/api';
 
 import openpay from 'react-native-openpay';
-openpay.setup('mhvy10357xr23oyrrpjv', 'pk_2d92da2523534ba29dcdf56a2e2654fe');
+openpay.setup('m2jlbaqfthsawos7lwef', 'pk_052ad5194681465191e163e94f4c6ace');
 
 class formPayMethod extends Component {
   state = {
@@ -22,21 +22,7 @@ class formPayMethod extends Component {
     expYear: '',
     cvc: '',
   };
-
-  hola = () => {
-    openpay
-      .createCardToken({
-        holder_name: 'John Doe',
-        card_number: '4111111111111111',
-        expiration_month: '02',
-        expiration_year: '22',
-        cvv2: '110',
-      })
-      .then((token) => console.log(token));
-    openpay
-      .getDeviceSessionId()
-      .then((sessionId) => console.log('sesion::::::', sessionId));
-  };
+ 
   setYearMoth = (expire) => {
     let expire_final = expire;
     if (expire.length == 3 && expire.slice(2, 5) != '/') {
@@ -73,10 +59,12 @@ class formPayMethod extends Component {
         cvv2: this.state.cvc,
       })
       .then(async function (data) {
-        openpay
-        .getDeviceSessionId()
-        .then((sessionId) => console.log('sesion::::::', sessionId));
+        openpay.getDeviceSessionId().then((sessionId) => {
+          console.log('sesion::::::', sessionId)
+          
+        });
         console.log(data);
+        
 
         // const card = await API.addPaymentMethods(data.id, self.props.token);
         // if (card.success == true) {
@@ -98,7 +86,7 @@ class formPayMethod extends Component {
       <View>
         <View>
           <ScrollView style={styles.container}>
-            <Text style={styles.mainTitle}>Nuevo Metodo de Pago</Text>
+            <Text style={styles.mainTitle}>Nuevo Metodo de Pago </Text>
             <Text style={styles.label}>Nombre del tarjetahabiente</Text>
             <TextInput
               style={styles.input}
