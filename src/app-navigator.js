@@ -34,6 +34,7 @@ import ForgotPass from './welcome/containers/forgotPass';
 import Register from './welcome/containers/register';
 import Conditions from './welcome/containers/conditions';
 
+import Doctors from './doctors/containers/doctors';
 import Profile from './profile/containers/profile';
 import Notifications from './notifications/containers/notifications';
 
@@ -133,6 +134,15 @@ const TabNavigator = createMaterialBottomTabNavigator (
         // },
       },
     },
+    Doctors: {
+      screen: Doctors,
+      navigationOptions: {
+        tabBarLabel: <Text style={styleFontTab}> Doctores </Text>,
+        tabBarIcon: <Image
+          source={require ('../assets/sections/medicos_icon.png')}
+        />
+      },
+    },
 
     Profile: {
       screen: Profile,
@@ -142,8 +152,12 @@ const TabNavigator = createMaterialBottomTabNavigator (
           source={require ('../assets/sections/perfil_icon.png')}
         />,
         // tabBarIcon: (obj) => {
-        //   const image = obj.focused ? "hola" : "adios";
-        //   return <Icon icon = {image}/>
+        //   const Imageko = obj.focused ? <Image
+        //      source={require ('../assets/sections/perfil_icon.png')}
+        //    />: <Image
+        //      source={require ('../assets/sections/notificaciones_icon.png')}
+        //    />;
+        //   return Imageko;
 
         // },
       },
@@ -152,8 +166,11 @@ const TabNavigator = createMaterialBottomTabNavigator (
     
   },
   {
+    
+    barStyle: { backgroundColor: '#fff' },
     activeTintColor: '#3D3F42',
-    //activeBackgroundColor: '#808080',
+    activeBackgroundColor: '#808080',
+    showLabel: true,
   }
 );
 

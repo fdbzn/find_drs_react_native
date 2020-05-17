@@ -183,39 +183,6 @@ const montserrat_m = 'Montserrat-Medium';
 const montserrat_r = 'Montserrat-Regular';
 const montserrat_b = 'Montserrat-Bold';
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    minHeight: 700, // --- evita error de minimizar demasiado la pantalla con keyboard
-    flexDirection: 'column',
-    backgroundColor: 'white',
-  },
-  txtBusca: {
-    fontSize: 18,
-    color: 'black',
-    marginBottom: 33,
-    paddingLeft: 16,
-    fontFamily: montserrat_b,
-  },
-  brand_impact: {
-    flex: 0.26,
-    marginBottom: 10,
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fee082',
-
-    // ios
-    shadowOffset: {width: 0, height: 3},
-    shadowOpacity: 0.3,
-    shadowRadius: 2,
-    // android (Android +5.0)
-    elevation: 8,
-  },
-  txtBrand: {
-    color: 'black',
-    fontSize: 50,
-    fontWeight: 'bold',
-  },
   container_login: {
     flex: 1,
     flexDirection: 'column',
