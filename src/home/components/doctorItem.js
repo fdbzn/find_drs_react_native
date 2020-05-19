@@ -6,12 +6,13 @@ function doctorsItem(props) {
   let  first_interval = ""; 
   let  last_interval = "";
     
-  if( props.workplace.intervals.length > 0 ){
-    first_interval = props.workplace.intervals[0].startTime;
+  if( typeof props.workplace.intervals != "undefined"){
+
+    if( props.workplace.intervals.length > 0 ){
+      first_interval = props.workplace.intervals[0].startTime;
+      last_interval = props.workplace.intervals.pop().endTime;
+    }
   }
-  if( props.workplace.intervals.length > 0 ){
-    last_interval = props.workplace.intervals.pop().endTime;
-  }  
   
   return (
     <TouchableOpacity onPress={props.onPress}>

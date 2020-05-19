@@ -25,15 +25,6 @@ class newPayMethod extends Component {
   };
 
   render() {
-    const address = {
-      city: 'Querétaro',
-      country_code: 'MX',
-      postal_code: '76900',
-      line1: 'Av 5 de Febrero',
-      line2: 'Roble 207',
-      line3: 'Col Carrillo',
-      state: 'Queretaro',
-    };
     return (
       <View style={styles.mainContainer}>
         <FormPayMethod/>

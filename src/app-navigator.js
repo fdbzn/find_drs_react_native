@@ -68,6 +68,19 @@ const Main = createStackNavigator (
     },
   }
 );
+
+const navDoctors = createStackNavigator (
+  {
+    Doctors: {
+      screen: Doctors
+    },
+  },
+  {
+    initialRouteName: 'Doctors',
+    transitionConfig: getSlideFromRightTransition,
+  }
+);
+
 const Initial = createStackNavigator (
   {
     Welcome: {
@@ -102,7 +115,7 @@ const Initial = createStackNavigator (
   }
 );
 
-const styleFontTab = { fontSize: 12, fontFamily:'Montserrat-Regular' };
+const styleFontTab = { fontSize: 10, fontFamily:'Montserrat-Regular' };
 const TabNavigator = createMaterialBottomTabNavigator (
   {
     Home: {
@@ -135,7 +148,7 @@ const TabNavigator = createMaterialBottomTabNavigator (
       },
     },
     Doctors: {
-      screen: Doctors,
+      screen: navDoctors,
       navigationOptions: {
         tabBarLabel: <Text style={styleFontTab}> Doctores </Text>,
         tabBarIcon: <Image
