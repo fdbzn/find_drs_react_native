@@ -21,7 +21,7 @@ const styles = {
     flex: 4,
     backgroundColor:'#4DB6AC',
     height:1.5,
-    marginTop:4
+    marginTop:4.5
   },
   circule_separator:{
     width:10,
