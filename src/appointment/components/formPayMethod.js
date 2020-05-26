@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {NavigationActions} from 'react-navigation';
 import API from '../../../utils/api';
+import Validate from '../../../utils/validate';
 
 import openpay from 'react-native-openpay';
 openpay.setup('m2jlbaqfthsawos7lwef', 'pk_052ad5194681465191e163e94f4c6ace');
@@ -36,6 +37,28 @@ class formPayMethod extends Component {
 
     this.setState({expire: expire_final});
   };
+  validate_card_form = () => {
+    let validation = {
+      success: false,
+      error_desc: "",
+    };
+
+    if (Validate.isEmpty(this.state.name)) {
+      validation.error_desc = 'Ingresa un nombre';
+    } else if (Validate.isEmpty(this.state.card_number) || !Validate.isNum(this.state.card_number) ) {
+      validation.error_desc = 'Ingresa el número de tarjeta válido';
+    } else if (Validate.isEmpty(this.state.expMonth) || !Validate.isNum(this.state.expMonth) ) {
+      validation.error_desc = 'Ingresa un mes y año válido';
+    } else if (Validate.isEmpty(this.state.expYear) || !Validate.isNum(this.state.expYear) ) {
+      validation.error_desc = 'Ingresa un mes y año válido';
+    } else if (Validate.isEmpty(this.state.cvc) || !Validate.isNum(this.state.cvc) ) {
+      validation.error_desc = 'Ingresa un código de seguridad (cvc) válido';
+    }else {
+      validation.success = true;
+    }
+
+    return validation;
+  };
 
   updateListMethods = async () => {
     const credit_cards = await API.getPaymentMethods(this.props.token);
@@ -50,37 +73,40 @@ class formPayMethod extends Component {
 
   handleRegisterMethod = async () => {
     let self = this;
-    openpay
-      .createCardToken({
-        holder_name: this.state.name,
-        card_number: this.state.card_number,
-        expiration_month: this.state.expMonth,
-        expiration_year: this.state.expYear,
-        cvv2: this.state.cvc,
-      })
-      .then(async function (data) {
-        openpay.getDeviceSessionId().then((sessionId) => {
-          console.log('sesion::::::', sessionId)
-          
-        });
-        console.log(data);
+    let validate_card = this.validate_card_form();
+    if (validate_card.success === true) {
+      openpay.createCardToken({
+          holder_name: this.state.name,
+          card_number: this.state.card_number,
+          expiration_month: this.state.expMonth,
+          expiration_year: this.state.expYear,
+          cvv2: this.state.cvc,
+      }).then(async function (token_id) {
+        openpay.getDeviceSessionId().then(async (sessionId) => {
+  
+          // --- save in enpoint
+          const card = await API.addPaymentMethods(token_id, sessionId, self.props.token);
+          if (card.success == true) {
+            await self.updateListMethods();
+  
+            self.props.dispatch(
+              NavigationActions.navigate({
+                routeName: 'SelectPayMethod',
+              })
+            );
+          } else {
+            alert(card.description);
+          }
         
-
-        // const card = await API.addPaymentMethods(data.id, self.props.token);
-        // if (card.success == true) {
-        //   await self.updateListMethods();
-
-        //   self.props.dispatch(
-        //     NavigationActions.navigate({
-        //       routeName: 'SelectPayMethod',
-        //     })
-        //   );
-        // } else {
-        //   alert('Error de conexion');
-        // }
+        });
       });
-   
+    } else {
+      alert(validate_card.error_desc);
+    }
+
   };
+
+
   render() {
     return (
       <View>

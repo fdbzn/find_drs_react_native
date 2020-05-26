@@ -8,7 +8,7 @@ import {
   Image,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {LoginManager} from 'react-native-fbsdk';
+import {LoginManager,AccessToken} from 'react-native-fbsdk';
 import {NavigationActions} from 'react-navigation';
 
 import API from '../../../utils/api';
@@ -19,7 +19,18 @@ class FormLogin extends Component {
     email: '',
     password: '',
   };
-
+  initUser=(token) =>{
+    console.log(token);
+    fetch('https://graph.facebook.com/v2.5/me?fields=email&access_token=' + token)
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(json)     
+    })
+    .catch(() => {
+      console.log("fallo")
+    })
+  }
+  
   handleGoForgotPass = () => {
     this.props.dispatch(
       NavigationActions.navigate({
@@ -95,18 +106,24 @@ class FormLogin extends Component {
             'Login success with permissions: ' +
               result.grantedPermissions.toString()
           );
-          self.props.dispatch({
-            type: 'SET_USER',
-            payload: {
-              token: 'MY_SERVER_TOKEN',
-              username: 'userconFBlogin',
-            },
-          });
-          this.props.dispatch(
-            NavigationActions.navigate({
-              routeName: 'Loading',
-            })
-          );
+          console.log(result)
+          AccessToken.getCurrentAccessToken().then((data) => {
+            const { accessToken } = data
+            self.initUser(accessToken)
+          })
+   
+          // self.props.dispatch({
+          //   type: 'SET_USER',
+          //   payload: {
+          //     token: 'MY_SERVER_TOKEN',
+          //     username: 'userconFBlogin',
+          //   },
+          // });
+          // this.props.dispatch(
+          //   NavigationActions.navigate({
+          //     routeName: 'Loading',
+          //   })
+          // );
 
           // --- verificar si existe en la base de datos
           // --- si esta en la base, inicia sesion e ingresa a home
