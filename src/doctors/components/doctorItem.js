@@ -7,8 +7,8 @@ function doctorsItem(props) {
   return (
     <View style={styles.containerDoctorItem}>
       <View style={styles.container_date}>
-        <Text>12</Text>
-        <Text>May</Text>
+        <Text style={styles.numDay}>24</Text>
+        <Text style={styles.nameMonth}>May</Text>
       </View>
       <TouchableOpacity style={styles.cardItem} onPress={props.onPress}>
         <SeparatorGreen/>
@@ -23,11 +23,21 @@ function doctorsItem(props) {
           </View>
 
           <View style={styles.doctorDetail}>
-            <Text style={styles.docName}>{props.name}</Text>
+
             <Text style={styles.docSpecialty}>
               {props.workplace.speciality.name}
             </Text>
+
+            <Text style={styles.docName}>{props.name}</Text>
+            
+            <Text style={styles.appointmentDate}>Fri, May 12 2018  16:00hrs.</Text>
+            
+            <Text style={styles.docAddress}>
+              {props.workplace.healthCenter.address}
+            </Text>
+
             <View style={styles.starsPriceBlock}>
+              <Text style={styles.docPrice}>${props.workplace.price}</Text>
               <Rating
                 type="custom"
                 imageSize={15}
@@ -36,13 +46,17 @@ function doctorsItem(props) {
                 ratingColor="#EFB04B"
                 style={styles.rating}
               />
-
-              <Text style={styles.docPrice}>${props.workplace.price}</Text>
             </View>
-            <Text style={styles.docAddress}>
-              {props.workplace.healthCenter.address}
-            </Text>
+
+            <TouchableOpacity
+              onPress={props.goToCancelAppointment}
+              style={styles.button}
+            >
+              <Text style={styles.buttonLabel}>CANCELAR CITA</Text>
+            </TouchableOpacity>
+
           </View>
+
         </View>
       </TouchableOpacity>
     </View>
@@ -51,8 +65,10 @@ function doctorsItem(props) {
 
 const montserrat_b = 'Montserrat-Bold';
 const montserrat_m = 'Montserrat-Medium';
+const montserrat_r = 'Montserrat-Regular';
 const montserrat_sm = 'Montserrat-SemiBold';
 const styles = StyleSheet.create({
+  
   containerDoctorItem:{
     width:"100%",
     flexDirection: 'row',
@@ -60,6 +76,19 @@ const styles = StyleSheet.create({
   },
   container_date:{
     width:40,
+    flexDirection:'column',
+    alignItems:'flex-start',
+  },
+  numDay : {
+    fontFamily: montserrat_r,
+    fontSize: 26,
+    color: '#00BFA5',
+    marginTop:-7,
+  },
+  nameMonth : {
+    fontFamily: montserrat_r,
+    fontSize: 14,
+    color: '#00BFA5',
   },
   cardItem:{
     flex:1
@@ -67,7 +96,7 @@ const styles = StyleSheet.create({
   doctorItem: {
     flex:1,
     flexDirection: 'row',
-    paddingTop: 35,
+    paddingTop: 20,
     paddingBottom: 10,
     paddingHorizontal: 20,
     alignSelf: 'center',
@@ -87,14 +116,14 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   imgDocBox: {
-    width: 65,
+    width: 35,
     //backgroundColor: 'red',
     flexDirection: 'row',
     //justifyContent: 'center',
   },
   imgDoc: {
-    width: 46,
-    height: 46,
+    width: 26,
+    height: 26,
     borderRadius: 23,
   },
   doctorDetail: {
@@ -102,48 +131,71 @@ const styles = StyleSheet.create({
   },
 
   docName: {
-    fontFamily: montserrat_b,
-    fontSize: 18,
-    marginBottom: 8,
-  },
-
-  docSpecialty: {
     fontFamily: montserrat_m,
     fontSize: 15,
     marginBottom: 5,
   },
+  
+  docPrice: {
+    fontFamily: montserrat_b,
+    fontSize: 16,
+    marginBottom: 8,
+    marginTop: 8,
+    marginRight:5,
+  },
+
+  docSpecialty: {
+    fontFamily: montserrat_b,
+    fontSize: 18,
+    marginBottom: 8
+  },
 
   starsPriceBlock: {
     flexDirection: 'row',
-    marginBottom: 5,
+    marginBottom: 3,
   },
   rating: {
     alignSelf: 'center',
   },
 
-  docPrice: {
+  appointmentDate: {
     fontFamily: montserrat_sm,
     fontSize: 15,
     color: '#00BFA5',
-    marginLeft: 20,
+    marginBottom:5,
+    
   },
 
   docAddress: {
     fontFamily: montserrat_m,
     fontSize: 12,
-    color: '#707070',
-    marginBottom: 5,
+    color: '#B9BABB',
+    marginBottom: 0,
   },
 
-  docSchedule: {
-    fontFamily: montserrat_m,
-    fontSize: 15,
-    marginBottom: 5,
+  button: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: 36,
+    marginTop: 15,
+    marginBottom: 15,
+    borderRadius: 5,
+    // ios
+    shadowOffset: {width: 0, height: 13},
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    // android (Android +5.0)
+    elevation: 3,
+    backgroundColor: '#fee082',
   },
-  docHours: {
-    fontFamily: montserrat_sm,
-    fontSize: 15,
-    color: '#00BFA5',
+  buttonLabel: {
+    flex: 1,
+    color: 'black',
+    padding: 10,
+    fontSize: 13,
+    textAlign: 'center',
   },
 });
 

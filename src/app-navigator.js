@@ -35,6 +35,8 @@ import Register from './welcome/containers/register';
 import Conditions from './welcome/containers/conditions';
 
 import Doctors from './doctors/containers/doctors';
+import CancelAppointment from './doctors/containers/cancelAppointment';
+
 import Profile from './profile/containers/profile';
 import Notifications from './notifications/containers/notifications';
 
@@ -74,9 +76,22 @@ const navDoctors = createStackNavigator (
     Doctors: {
       screen: Doctors
     },
+    CancelAppointment,
+    DoctorProfile,
+    DrHealthCenterMap,
   },
   {
     initialRouteName: 'Doctors',
+    transitionConfig: getSlideFromRightTransition,
+  }
+);
+
+const navProfile = createStackNavigator (
+  {
+    Profile,
+  },
+  {
+    initialRouteName: 'Profile',
     transitionConfig: getSlideFromRightTransition,
   }
 );
@@ -158,7 +173,7 @@ const TabNavigator = createMaterialBottomTabNavigator (
     },
 
     Profile: {
-      screen: Profile,
+      screen: navProfile,
       navigationOptions: {
         tabBarLabel: <Text style={styleFontTab}> Perfil </Text>,
         tabBarIcon: <Image

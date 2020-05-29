@@ -8,50 +8,59 @@ import {
   StatusBar,
 } from 'react-native';
 import { connect } from 'react-redux';
-import Icon from '../../sections/components/icon';
+import Header from '../../sections/components/header';
 
 class Profile extends Component {
-  static navigationOptions = () => {
+  static navigationOptions = ({navigation}) => {
     return {
-      title: 'Perfil',
-      tabBarIcon: <Icon icon="😎" />
-    }
-  }
-  componentDidMount() {
-    this.focus = this.props.navigation.addListener('didFocus', () => {
-      StatusBar.setBarStyle('dark-content');
-      StatusBar.setBackgroundColor('white');
-    });
-  }
-  componentWillUnmount() {
-    this.focus.remove();
-  }
+      header: (
+        <Header></Header>
+      ),
+    };
+  };
+  
   handleLogout = () => {
     this.props.dispatch({
       type: 'REMOVE_USER',
     })
     this.props.navigation.navigate('Loading');
   }
+  
   render() {
     return (
-      <SafeAreaView style={styles.container}>
-        <Text>{this.props.user.username}</Text>
-        <Button
-          title="Cerrar sesión"
-          color="red"
-          onPress={this.handleLogout}
-        />
-      </SafeAreaView>
+      <View style={styles.container}>
+        <Text style={styles.txtTitle}>Perfil</Text>
+
+      </View>
     )
   }
 }
 
+
+const montserrat_b = 'Montserrat-Bold';
+const montserrat_m = 'Montserrat-Medium';
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'column',
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
+    backgroundColor: '#fff',
+    //justifyContent: 'center',
+    //alignItems: 'center',
+    paddingHorizontal:20,
+  },
+  txtTitle: {
+    fontSize: 18,
+    color: 'black',
+    marginTop: 22,
+    marginBottom: 33,
+    paddingLeft: 20,
+    fontFamily: montserrat_b,
+  },
+
+  withPadding: {
+    paddingHorizontal: 20,
+  },
+
 })
 
 function mapStateToProps(state) {

@@ -10,7 +10,6 @@ import {fake_data} from '../../../utils/fake_data';
 class Doctors extends Component {
   async componentDidMount() {
     const history_doctors = fake_data;
-    console.log(history_doctors)
 
     this.props.dispatch({
       type: 'SET_HISTORY_DOCTORS',
@@ -26,24 +25,18 @@ class Doctors extends Component {
     };
   };
 
-  buttonAddNewFamily = () => {
-    this.props.dispatch(
-      NavigationActions.navigate({
-        routeName: 'AddFamily',
-      })
-    );
-  };
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.mainTitle}>Historial</Text>
+        <Text style={styles.txtTitle}>Historial</Text>
         <HistoryList/>
       </View>
     );
   }
 }
 
+const montserrat_b = 'Montserrat-Bold';
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
@@ -51,13 +44,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     //paddingHorizontal: 20,
   },
-  mainTitle: {
-    fontSize: 21,
-    fontWeight: 'bold',
+  txtTitle: {
+    fontSize: 18,
     color: 'black',
-    paddingHorizontal: 15,
-    //marginTop: 15,
+    marginTop: 22,
+    paddingLeft: 20,
+    fontFamily: montserrat_b,
   },
+  
 });
 
 function mapStateToProps(state) {

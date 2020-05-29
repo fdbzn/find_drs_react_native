@@ -82,7 +82,6 @@ class confirmProfile extends Component {
 
 const montserrat_b = 'Montserrat-Bold';
 const montserrat_m = 'Montserrat-Medium';
-const montserrat_sb = 'Montserrat-SemiBold';
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
