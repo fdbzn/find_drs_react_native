@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
+import {connect} from 'react-redux';
 import {NavigationActions} from 'react-navigation';
 import API from '../../../utils/api';
 import Validate from '../../../utils/validate';
@@ -85,14 +86,12 @@ class formPayMethod extends Component {
         openpay.getDeviceSessionId().then(async (sessionId) => {
   
           // --- save in enpoint
-          const card = await API.addPaymentMethods(token_id, sessionId, self.props.token);
+          const card = await API.addPaymentMethods(token_id, sessionId, self.state.cvc, self.props.token);
           if (card.success == true) {
             await self.updateListMethods();
   
             self.props.dispatch(
-              NavigationActions.navigate({
-                routeName: 'SelectPayMethod',
-              })
+              NavigationActions.back()
             );
           } else {
             alert(card.description);
@@ -267,4 +266,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default formPayMethod;
+function mapStateToProps(state) {
+  return {
+    token: state.user.token,
+  };
+}
+
+export default connect(mapStateToProps)(formPayMethod);

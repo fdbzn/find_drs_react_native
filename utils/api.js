@@ -11,8 +11,8 @@ class Api {
     }, userToken);
   }
 
-  addPaymentMethods(token_id, device_session_id, userToken){
-    return this.secure_post( `${BASE_API}users/me/paymentMethods`, {token_id, device_session_id}, userToken);  
+  addPaymentMethods(token_id, device_session_id, cvv, userToken){
+    return this.secure_post( `${BASE_API}users/me/paymentMethods`, {token_id, device_session_id, cvv}, userToken);  
   }
   getPaymentMethods(userToken){
     return this.secure_get( `${BASE_API}users/me/paymentMethods`, userToken );  

@@ -39,6 +39,8 @@ import CancelAppointment from './doctors/containers/cancelAppointment';
 
 import Profile from './profile/containers/profile';
 import EditProfile from './profile/containers/editProfile';
+import PayMethods from './profile/containers/payMethods';
+import ChangePassword from './profile/containers/changePassword';
 
 import Notifications from './notifications/containers/notifications';
 
@@ -92,8 +94,9 @@ const navProfile = createStackNavigator (
   {
     Profile,
     EditProfile,
-    SelectPayMethod,
-
+    PayMethods,
+    ChangePassword,
+    NewPayMethod,
   },
   {
     initialRouteName: 'Profile',

@@ -50,11 +50,18 @@ class Profile extends Component {
     );
   };
 
-  onPressSelectPayMethod = () => {
-    alert();
+  onPressPayMethods = () => {
     this.props.dispatch(
       NavigationActions.navigate({
-        routeName: 'SelectPayMethod',
+        routeName: 'PayMethods',
+      })
+    );
+  };
+
+  onPressChangePassword = () => {
+    this.props.dispatch(
+      NavigationActions.navigate({
+        routeName: 'ChangePassword',
       })
     );
   };
@@ -77,15 +84,10 @@ class Profile extends Component {
           }}
         />
         <ProfileMenu
-          onPressLogout={() => {
-            this.handleLogout();
-          }}
-          onPressAppointments={() => {
-            this.onPressAppointments();
-          }}
-          onPressSelectPayMethod={() => {
-            this.onPressSelectPayMethod();
-          }}
+          onPressLogout={() => {this.handleLogout();}}
+          onPressAppointments={() => {this.onPressAppointments();}}
+          onPressPayMethods={() => {this.onPressPayMethods();}}
+          onPressChangePassword={() => {this.onPressChangePassword();}}
         />
       </View>
     );
