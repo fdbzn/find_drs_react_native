@@ -14,7 +14,7 @@ import DatePicker from 'react-native-datepicker';
 import moment from 'moment';
 
 import Header from '../../sections/components/header';
-import GenreDropDown from '../../welcome/components/genreDropDown';
+import GenreDropDown from '../../sections/components/genreDropDown';
 import Close from '../../sections/components/close';
 import API from '../../../utils/api';
 

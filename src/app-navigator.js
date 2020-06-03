@@ -38,6 +38,8 @@ import Doctors from './doctors/containers/doctors';
 import CancelAppointment from './doctors/containers/cancelAppointment';
 
 import Profile from './profile/containers/profile';
+import EditProfile from './profile/containers/editProfile';
+
 import Notifications from './notifications/containers/notifications';
 
 const Main = createStackNavigator (
@@ -89,6 +91,7 @@ const navDoctors = createStackNavigator (
 const navProfile = createStackNavigator (
   {
     Profile,
+    EditProfile,
   },
   {
     initialRouteName: 'Profile',

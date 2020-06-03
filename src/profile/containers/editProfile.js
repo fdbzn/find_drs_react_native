@@ -18,16 +18,14 @@ import GenreDropDown from '../../sections/components/genreDropDown';
 import API from '../../../utils/api';
 import Validate from '../../../utils/validate';
 
-class Register extends Component {
+class editProfile extends Component {
   state = {
     name: '',
     last_name: '',
     email: '',
     birthdate: '',
     sex: '',
-    phone: '',
-    password: '',
-    password_confirm: '',
+    phone: ''
   };
 
   static navigationOptions = ({navigation}) => {
@@ -48,7 +46,7 @@ class Register extends Component {
     this.setState({sex: dropdownVal});
   };
 
-  validate_register_form = () => {
+  validate_edit_form = () => {
     let validation = {
       success: false,
       error_desc: true,
@@ -68,14 +66,6 @@ class Register extends Component {
       validation.error_desc = 'Ingresa un sexo';
     } else if (Validate.isEmpty(this.state.phone)) {
       validation.error_desc = 'Ingresa un teléfono';
-    } else if (Validate.isEmpty(this.state.password)) {
-      validation.error_desc = 'Ingresa un contraseña';
-    } else if (Validate.isEmpty(this.state.password_confirm)) {
-      validation.error_desc = 'Ingresa una contraseña de confirmación';
-    } else if (
-      !Validate.isEqual(this.state.password, this.state.password_confirm)
-    ) {
-      validation.error_desc = 'Las contraseñas no coinciden';
     } else {
       validation.success = true;
     }
@@ -83,45 +73,13 @@ class Register extends Component {
     return validation;
   };
 
-  handleRegisterUser = async () => {
-    let validate_register = this.validate_register_form();
-    if (validate_register.success === true) {
-      // --- check login in server
-      const createUser = await API.createUser(
-        this.state.name,
-        this.state.last_name,
-        this.state.email,
-        this.state.birthdate,
-        this.state.sex,
-        this.state.phone,
-        this.state.password
-      );
-
-      if( createUser.success == true ){
-        // --- hacer login
-        const email = createUser.data.email;
-        const password = this.state.password;
-        const login = await API.login(email, password);
-       
-        if( login.success === true ){
-          this.props.dispatch ({
-            type: 'SET_USER',
-            payload: {
-              is_trial: false,
-              token: login.data.token,
-              username: 'userconlogin',
-            },
-          });
-          this.props.navigation.navigate ('Loading');
-        }else{
-          alert(login.description)
-        }
-      }else{
-        alert( createUser.description );
-      }
-
+  handleEditUser = async () => {
+    let validate_edit = this.validate_edit_form();
+    if (validate_edit.success === true) {
+        this.props.navigation.navigate ('Profile');
+     
     } else {
-      alert(validate_register.error_desc);
+      alert(validate_edit.error_desc);
     }
   };
 
@@ -129,7 +87,7 @@ class Register extends Component {
     return (
       <View style={styles.mainContainer}>
         <ScrollView style={styles.container}>
-          <Text style={styles.mainTitle}>Registro</Text>
+          <Text style={styles.mainTitle}>Editar perfil</Text>
           <Text style={styles.label}>Nombre</Text>
           <TextInput
             style={styles.input}
@@ -205,50 +163,21 @@ class Register extends Component {
                 ref={(input) => {
                   this.phone = input;
                 }}
-                onSubmitEditing={() => {
-                  this.password.focus();
-                }}
+                
                 blurOnSubmit={false}
                 onChangeText={(phone) => this.setState({phone})}
               />
             </View>
           </View>
 
-          <Text style={styles.label}>Contraseña</Text>
-          <TextInput
-            style={styles.input}
-            secureTextEntry={true}
-            underlineColorAndroid="transparent"
-            returnKeyType={'next'}
-            ref={(input) => {
-              this.password = input;
-            }}
-            onSubmitEditing={() => {
-              this.password_confirm.focus();
-            }}
-            blurOnSubmit={false}
-            onChangeText={(password) => this.setState({password})}
-          />
-          <Text style={styles.label}>Confirmar contraseña</Text>
-          <TextInput
-            style={styles.input}
-            secureTextEntry={true}
-            underlineColorAndroid="transparent"
-            returnKeyType={'next'}
-            ref={(input) => {
-              this.password_confirm = input;
-            }}
-            onChangeText={(password_confirm) =>
-              this.setState({password_confirm})
-            }
-          />
+          
         </ScrollView>
         <View style={styles.withPadding}>
           <TouchableOpacity
-            onPress={this.handleRegisterUser}
+            onPress={this.handleEditUser}
             style={styles.button}
           >
-            <Text style={styles.buttonLabel}>REGISTRATE</Text>
+            <Text style={styles.buttonLabel}>GUARDAR</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -350,4 +279,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(null)(Register);
+export default connect(null)(editProfile);
