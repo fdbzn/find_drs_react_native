@@ -21,12 +21,13 @@ function cardProfile(props) {
         </View>
 
         <View style={styles.cardDetail}>
-          <Text style={styles.name}>
-            Dan1.0 {props.name} {props.lastName} 
+          <Text ellipsizeMode="tail"
+              numberOfLines={1} style={styles.name}>
+            {props.name} {props.lastName} 
           </Text>
           <View style={styles.oneDetailBox}>
             <Text style={styles.labelBlack}>Cel. </Text>
-            <Text style={styles.labelGreen}>777 {props.phone}</Text>
+            <Text style={styles.labelGreen}>{props.phone}</Text>
           </View>
           
 

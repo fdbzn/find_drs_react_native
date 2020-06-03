@@ -92,6 +92,8 @@ const navProfile = createStackNavigator (
   {
     Profile,
     EditProfile,
+    SelectPayMethod,
+
   },
   {
     initialRouteName: 'Profile',

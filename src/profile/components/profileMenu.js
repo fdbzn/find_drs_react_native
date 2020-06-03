@@ -29,7 +29,7 @@ function profileMenu(props) {
         </View>
       </TouchableOpacity>
 
-      <TouchableOpacity  onPress={props.onPressPayMethods}style={styles.cardDetail}>
+      <TouchableOpacity  onPress={props.onPressSelectPayMethod}style={styles.cardDetail}>
         <View style={styles.oneDetailBox}>
           <View style={styles.imgBox}>
             <Image

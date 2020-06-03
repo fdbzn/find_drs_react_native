@@ -22,24 +22,23 @@ class Profile extends Component {
   componentDidMount() {
     this.getMyProfile();
   }
-  onPressEdit = ()=>{
+  onPressEdit = () => {
     this.props.dispatch(
       NavigationActions.navigate({
         routeName: 'EditProfile',
       })
     );
-  }
+  };
   getMyProfile = async () => {
-    try{
+    try {
       const my_profile = await API.getMyProfile(this.props.token);
       if (my_profile.success == true) {
         this.setState({my_profile: my_profile.data});
-      }else{
+      } else {
         alert(my_profile.description);
       }
-
-    }catch(e){
-      alert("Error de conexión")
+    } catch (e) {
+      alert('Error de conexión');
     }
   };
 
@@ -47,6 +46,15 @@ class Profile extends Component {
     this.props.dispatch(
       NavigationActions.navigate({
         routeName: 'Doctors',
+      })
+    );
+  };
+
+  onPressSelectPayMethod = () => {
+    alert();
+    this.props.dispatch(
+      NavigationActions.navigate({
+        routeName: 'SelectPayMethod',
       })
     );
   };
@@ -62,9 +70,11 @@ class Profile extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.txtTitle}>Mi perfil</Text>
-        <CardItemProfile 
-          {...this.state.my_profile} 
-          onPressEdit={()=>{this.onPressEdit()}}
+        <CardItemProfile
+          {...this.state.my_profile}
+          onPressEdit={() => {
+            this.onPressEdit();
+          }}
         />
         <ProfileMenu
           onPressLogout={() => {
@@ -72,6 +82,9 @@ class Profile extends Component {
           }}
           onPressAppointments={() => {
             this.onPressAppointments();
+          }}
+          onPressSelectPayMethod={() => {
+            this.onPressSelectPayMethod();
           }}
         />
       </View>
