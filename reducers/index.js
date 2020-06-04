@@ -7,6 +7,7 @@ import user from './user';
 import homeSearch from './homeSearch';
 import appointment from './appointment';
 import doctors from './doctors';
+import notifications from './notifications';
 
 const reducer = combineReducers({  
   navigation,
@@ -14,6 +15,7 @@ const reducer = combineReducers({
   homeSearch,
   appointment,
   doctors,
+  notifications,
 })
 
 export default reducer;

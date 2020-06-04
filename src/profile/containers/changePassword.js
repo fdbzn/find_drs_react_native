@@ -20,12 +20,8 @@ import Validate from '../../../utils/validate';
 
 class changePassword extends Component {
   state = {
-    name: '',
-    last_name: '',
-    email: '',
-    birthdate: '',
-    sex: '',
-    phone: ''
+    password : '',
+    new_password : ''
   };
 
   static navigationOptions = ({navigation}) => {
@@ -52,20 +48,10 @@ class changePassword extends Component {
       error_desc: true,
     };
 
-    if (Validate.isEmpty(this.state.name)) {
-      validation.error_desc = 'Ingresa un nombre';
-    } else if (Validate.isEmpty(this.state.last_name)) {
-      validation.error_desc = 'Ingresa apellido ';
-    } else if (Validate.isEmpty(this.state.email)) {
-      validation.error_desc = 'Ingresa un e-mail';
-    } else if (!Validate.isEMailAddr(this.state.email)) {
-      validation.error_desc = 'Ingresa un e-mail válido';
-    } else if (Validate.isEmpty(this.state.birthdate)) {
-      validation.error_desc = 'Ingresa un tu fecha de nacimiento';
-    } else if (Validate.isEmpty(this.state.sex)) {
-      validation.error_desc = 'Ingresa un sexo';
-    } else if (Validate.isEmpty(this.state.phone)) {
-      validation.error_desc = 'Ingresa un teléfono';
+    if (Validate.isEmpty(this.state.password)) {
+      validation.error_desc = 'Ingresa la contraseña anterior';
+    } else if (Validate.isEmpty(this.state.new_password)) {
+      validation.error_desc = 'Ingresa la nueva contraseña';
     } else {
       validation.success = true;
     }
@@ -88,7 +74,7 @@ class changePassword extends Component {
       <View style={styles.mainContainer}>
         <ScrollView style={styles.container}>
           <Text style={styles.mainTitle}>Cambiar contraseña</Text>
-          <Text style={styles.label}>Contraseña</Text>
+          <Text style={styles.label}>Contraseña antigua</Text>
           <TextInput
             style={styles.input}
             secureTextEntry={true}
@@ -98,22 +84,22 @@ class changePassword extends Component {
               this.password = input;
             }}
             onSubmitEditing={() => {
-              this.password_confirm.focus();
+              this.new_password.focus();
             }}
             blurOnSubmit={false}
             onChangeText={(password) => this.setState({password})}
           />
-          <Text style={styles.label}>Confirmar contraseña</Text>
+          <Text style={styles.label}>Contraseña nueva</Text>
           <TextInput
             style={styles.input}
             secureTextEntry={true}
             underlineColorAndroid="transparent"
             returnKeyType={'next'}
             ref={(input) => {
-              this.password_confirm = input;
+              this.new_password = input;
             }}
-            onChangeText={(password_confirm) =>
-              this.setState({password_confirm})
+            onChangeText={(new_password) =>
+              this.setState({new_password})
             }
           />
 

@@ -75,6 +75,16 @@ const Main = createStackNavigator (
   }
 );
 
+const navNotifications = createStackNavigator (
+  {
+    Notifications
+  },
+  {
+    initialRouteName: 'Notifications',
+    transitionConfig: getSlideFromRightTransition,
+  }
+);
+
 const navDoctors = createStackNavigator (
   {
     Doctors: {
@@ -157,7 +167,7 @@ const TabNavigator = createMaterialBottomTabNavigator (
     },
 
     Notifications: {
-      screen: Notifications,
+      screen: navNotifications,
       navigationOptions: {
         tabBarLabel: <Text style={styleFontTab}> Notificaciones </Text>,
         tabBarIcon: <Image

@@ -7,7 +7,8 @@ import moment from 'moment';
 import API from '../../../utils/api';
 import Header from '../../sections/components/header';
 import Close from '../../sections/components/close';
-
+import openpay from 'react-native-openpay';
+openpay.setup('m2jlbaqfthsawos7lwef', 'pk_052ad5194681465191e163e94f4c6ace');
 
 class checkout extends Component {
   state = {
@@ -37,29 +38,38 @@ class checkout extends Component {
     );
   };
 
-  handleEndAppointment = async () => {    
-    let userAppointment = {};
-    if(this.props.main_user){
+  handleEndAppointment = async () => {
+    openpay.getDeviceSessionId().then(async (device_session_id) => {
+      let userAppointment = {};
+      if(this.props.main_user){ 
+        userAppointment = await API.userAppointment( this.props.token, this.props.payment_method.id, device_session_id, this.props.schedule._id );
+      }else{
+        //fix: openpay method
+        //userAppointment = await API.userRelativeAppointment( this.props.token, this.props.payment_method.id, his.props.schedule._id, this.props.patient._id );
+      }
       
-      userAppointment = await API.userAppointment( this.props.token, this.props.payment_method.id, this.props.schedule._id );
-    }else{
-      userAppointment = await API.userRelativeAppointment( this.props.token, this.props.payment_method.id, his.props.schedule._id, this.props.patient._id );
-    }
+      console.log(userAppointment)
+      this.props.dispatch(
+        NavigationActions.navigate({
+          routeName: 'SuccessAppointment',
+        })
+      );
+    });
     
-    console.log(userAppointment)
-    this.props.dispatch(
-      NavigationActions.navigate({
-        routeName: 'SuccessAppointment',
-      })
-    );
   };
 
   
   render() {
+    console.log("check", this.props);
+
     const appointment_date = this.props.schedule.date;
-    const icon_type_card = this.props.payment_method.brand == 'VISA'
-      ? require('../../../assets/appointment/visa_debit.png')
-      : require('../../../assets/appointment/master_card.png');
+    let icon_type_card; 
+    if( this.props.payment_method.brand == 'visa' ){
+      icon_type_card = require('../../../assets/appointment/visa_debit.png');
+    }else if( this.props.payment_method.brand == 'mastercard'){
+      icon_type_card = require('../../../assets/appointment/master_card.png');
+    }
+   
 
     return (
       <View style={styles.container}>
@@ -112,7 +122,7 @@ class checkout extends Component {
                 style={styles.imgTypeCard} 
                 source={icon_type_card} 
                 />
-            <Text style={styles.labelLast4}>************{this.props.payment_method.last4}</Text>
+            <Text style={styles.labelLast4}>************{this.props.payment_method.card_number.substring( 12,16 )}</Text>
           </View>
         
         </View>
@@ -271,7 +281,6 @@ const styles = StyleSheet.create({
 
 
 function mapStateToProps (state) {
-
   return {
     patient: state.appointment.patient,
     main_user: true,
@@ -279,7 +288,6 @@ function mapStateToProps (state) {
     schedule: state.appointment.schedule,
     payment_method: state.appointment.payment_method,
     token: state.user.token,
-    all: state,
   };
 }
 export default connect(mapStateToProps)(checkout);

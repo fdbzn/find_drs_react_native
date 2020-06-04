@@ -2,8 +2,9 @@
 const BASE_API = 'http://api.yiunic.com/';
 
 class Api {
-  userAppointment(userToken,sourceId,appointmentId){
-    return this.secure_post( `${BASE_API}payments`, {sourceId,appointmentId}, userToken);
+  userAppointment(userToken, paymentMethodId, device_session_id, appointmentId){
+    //console.log({userToken, paymentMethodId, device_session_id, appointmentId});
+    return this.secure_post( `${BASE_API}payments`, {userToken, paymentMethodId, device_session_id, appointmentId}, userToken);
   }
   userRelativeAppointment(userToken,sourceId,appointmentId,relativeId){
     return this.secure_post( `${BASE_API}payments`, {

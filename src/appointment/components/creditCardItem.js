@@ -3,6 +3,8 @@ import {StyleSheet, View, Text, TouchableOpacity, Image} from 'react-native';
 
 function creditCardItem (props) {
     let item_selected = {};
+    let icon_type_card;
+
     if(props.id_selected === props.id ){
         item_selected = {
             backgroundColor:'#91ecde',
@@ -11,9 +13,11 @@ function creditCardItem (props) {
         }
     }
 
-    var icon_type_card = props.brand == 'VISA'
-      ? require('../../../assets/appointment/visa_debit.png')
-      : require('../../../assets/appointment/master_card.png');
+    if( props.brand == 'visa' ){
+      icon_type_card = require('../../../assets/appointment/visa_debit.png');
+    }else if(props.brand == 'mastercard'){
+      icon_type_card = require('../../../assets/appointment/master_card.png');
+    }
  
     return (
       <TouchableOpacity
@@ -35,7 +39,7 @@ function creditCardItem (props) {
             <Text style={styles.secondaryLabel}>{props.name}</Text>
             <View style={styles.oneDetailBox}>
               <Text style={styles.labelBlack}>Tarjeta: </Text>
-              <Text style={styles.labelGreen}>************{props.last4}</Text>
+              <Text style={styles.labelGreen}>************{props.card_number.substring( 12,16 )}</Text>
             </View>
             
             <Image
