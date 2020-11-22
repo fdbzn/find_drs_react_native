@@ -59,6 +59,7 @@ const Main = createStackNavigator (
     ConfirmProfile,
     SelectFamily,
     AddFamily,
+    EditProfile,
     EditRelative,
     RemoveRelative,
     SelectPayMethod,
@@ -154,7 +155,7 @@ const TabNavigator = createMaterialBottomTabNavigator (
     Home: {
       screen: Main,
       navigationOptions: {
-        tabBarLabel: <Text style={styleFontTab}> Citas </Text>,
+        tabBarLabel: <Text style={styleFontTab}> Agendar </Text>,
         tabBarIcon: <Image
           source={require ('../assets/sections/citas_icon.png')}
         />,

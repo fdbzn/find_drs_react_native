@@ -38,7 +38,7 @@ function cardProfile(props) {
               ellipsizeMode="tail"
               numberOfLines={1}
             >
-              daniel.bazan@gmail.com
+              {props.email}
             </Text>
           </View>
          

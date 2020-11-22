@@ -7,6 +7,9 @@ function doctors(state = {}, action) {
       case 'SET_SELECTED_APPOINTMENT': {
         return {...state, ...action.payload}
       }
+      case 'SET_OPEN_DR': {
+        return {...state, ...action.payload}
+      }
       default:
         return state
     }
